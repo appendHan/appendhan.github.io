@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <title>浅谈匿名函数及Lambda | 橙风沐雨&#39;s</title>
-  <meta name="keywords" content=" 学习笔记 , 匿名函数 , Lambda ">
+  <meta name="keywords" content=" 匿名函数 , Lambda , 学习笔记 ">
   <meta name="description" content="浅谈匿名函数及Lambda | 橙风沐雨&#39;s">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="前言之前在网上找到的一个逻辑游戏NandGame 它官方介绍是这样的  The Nand Game takes you though building a working computer, starting from the most basic components. It does not require any prerequisites, in particular it does no">
@@ -50,7 +50,7 @@
 
 <link href="/css/style.css?v=1.1.0" rel="stylesheet">
 
-<link href="/css/hl_theme/sublime.css?v=1.1.0" rel="stylesheet">
+<link href="/css/hl_theme/darcula.css?v=1.1.0" rel="stylesheet">
 
 <link href="//cdn.jsdelivr.net/npm/animate.css@4.1.0/animate.min.css" rel="stylesheet">
 
@@ -293,14 +293,6 @@
             </li>
         
             <li class="article-tag-list-item">
-                <i class="iconfont icon-tag"></i><a>吐槽</a>
-            </li>
-        
-            <li class="article-tag-list-item">
-                <i class="iconfont icon-tag"></i><a>微信跳一跳</a>
-            </li>
-        
-            <li class="article-tag-list-item">
                 <i class="iconfont icon-tag"></i><a>学习笔记</a>
             </li>
         
@@ -395,7 +387,7 @@
         
         <a  class="All 学习笔记 "
            href="/2016/07/11/%E6%B5%85%E8%B0%88%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0%E5%8F%8ALambda/"
-           data-tag="学习笔记,匿名函数,Lambda"
+           data-tag="匿名函数,Lambda,学习笔记"
            data-author="" >
             <span class="post-title" title="浅谈匿名函数及Lambda">浅谈匿名函数及Lambda</span>
             <span class="post-date" title="2016-07-11 22:22:03">2016/07/11</span>
@@ -502,11 +494,11 @@
         <span class="tag">
             <i class="iconfont icon-tag"></i>
             
-            <a class="color5">学习笔记</a>
-            
             <a class="color5">匿名函数</a>
             
             <a class="color2">Lambda</a>
+            
+            <a class="color5">学习笔记</a>
             
         </span>
         
@@ -553,7 +545,19 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="匿名对象"><a href="#匿名对象" class="headerlink" title="匿名对象"></a>匿名对象</h2><h3 id="初始化方法"><a href="#初始化方法" class="headerlink" title="初始化方法"></a>初始化方法</h3><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = <span class="keyword">new</span> &#123; Name = <span class="string">&quot;cfmy&quot;</span>,Sex = <span class="string">&quot;M&quot;</span>&#125; ;<span class="comment">//单个匿名对象  </span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> objs = <span class="keyword">new</span>[]</span><br><span class="line">   &#123;</span><br><span class="line">       <span class="keyword">new</span> &#123; Name = <span class="string">&quot;cfmy1&quot;</span>, Sex = <span class="string">&quot;M&quot;</span> &#125;,</span><br><span class="line">       <span class="keyword">new</span> &#123; Name = <span class="string">&quot;cfmy2&quot;</span>, Sex = <span class="string">&quot;M&quot;</span> &#125;,</span><br><span class="line">       <span class="keyword">new</span> &#123; Name = <span class="string">&quot;cfmy3&quot;</span>, Sex = <span class="string">&quot;M&quot;</span> &#125;,</span><br><span class="line">       <span class="keyword">new</span> &#123; Name = <span class="string">&quot;cfmy4&quot;</span>, Sex = <span class="string">&quot;M&quot;</span> &#125;,</span><br><span class="line">       <span class="keyword">new</span> &#123; Name = <span class="string">&quot;cfmy5&quot;</span>, Sex = <span class="string">&quot;M&quot;</span> &#125;</span><br><span class="line">   &#125;;<span class="comment">//匿名对象数组；注意 属性顺序，数量，类型都必须一致，否则提示找不到隐式数组的最佳类型</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> objCobj = <span class="keyword">new</span> &#123; Name = <span class="string">&quot;cfmy&quot;</span>, self = <span class="keyword">new</span> &#123; Name = <span class="string">&quot;cfmy&quot;</span> &#125; &#125;; <span class="comment">//嵌套匿名对象</span></span><br></pre></td></tr></table></figure>
+        <h2 id="匿名对象"><a href="#匿名对象" class="headerlink" title="匿名对象"></a>匿名对象</h2><h3 id="初始化方法"><a href="#初始化方法" class="headerlink" title="初始化方法"></a>初始化方法</h3><pre><code class="csharp">    var obj = new &#123; Name = &quot;cfmy&quot;,Sex = &quot;M&quot;&#125; ;//单个匿名对象  
+    
+    var objs = new[]
+       &#123;
+           new &#123; Name = &quot;cfmy1&quot;, Sex = &quot;M&quot; &#125;,
+           new &#123; Name = &quot;cfmy2&quot;, Sex = &quot;M&quot; &#125;,
+           new &#123; Name = &quot;cfmy3&quot;, Sex = &quot;M&quot; &#125;,
+           new &#123; Name = &quot;cfmy4&quot;, Sex = &quot;M&quot; &#125;,
+           new &#123; Name = &quot;cfmy5&quot;, Sex = &quot;M&quot; &#125;
+       &#125;;//匿名对象数组；注意 属性顺序，数量，类型都必须一致，否则提示找不到隐式数组的最佳类型
+
+    var objCobj = new &#123; Name = &quot;cfmy&quot;, self = new &#123; Name = &quot;cfmy&quot; &#125; &#125;; //嵌套匿名对象
+</code></pre>
 <p>初始化一个匿名对象之后，编译器会生成一个运行时类型(System.RunTimeType)，它是受保护的，它会根据初始化时的属性顺序，数量，类型构造出一个看不到的类型，它的所有属性都是只读的，只能在实例化时赋值</p>
 <span id="more"></span>
 <h3 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h3><ol>
@@ -567,14 +571,62 @@
 <h2 id="匿名函数和Lambda表达式"><a href="#匿名函数和Lambda表达式" class="headerlink" title="匿名函数和Lambda表达式"></a>匿名函数和Lambda表达式</h2><p>了解匿名函数和Lambda表达式前首先需要按顺序了解如下概念</p>
 <p>方法&#x3D;》委托&#x3D;》匿名委托&#x3D;》匿名函数&#x3D;》Lambda表达式</p>
 <h3 id="委托"><a href="#委托" class="headerlink" title="委托"></a>委托</h3><p>根据匿名对象例子简单改进成利用委托ConvertList，具体代码如下</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">Person</span></span><br><span class="line">   &#123;</span><br><span class="line">       <span class="keyword">public</span> <span class="built_in">int</span> Age &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">       <span class="keyword">public</span> <span class="built_in">string</span> Name &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">   &#125;</span><br><span class="line">       </span><br><span class="line">   <span class="keyword">class</span> <span class="title">PersonConverted</span></span><br><span class="line">   &#123;</span><br><span class="line">       <span class="keyword">public</span> <span class="built_in">string</span> Name &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">       <span class="keyword">public</span> <span class="built_in">bool</span> IsAdult &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">class</span> <span class="title">Test</span></span><br><span class="line">   &#123;</span><br><span class="line">       <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">DoSomething</span>()</span></span><br><span class="line">       &#123;</span><br><span class="line">           <span class="keyword">var</span> person = <span class="keyword">new</span> Person &#123; Name = <span class="string">&quot;cfmy&quot;</span>, Age = <span class="number">10</span> &#125;;</span><br><span class="line">           <span class="keyword">var</span> list = <span class="keyword">new</span> List&lt;Person&gt;() &#123; person &#125;;</span><br><span class="line"></span><br><span class="line">           <span class="keyword">var</span> convertedList1 = list.ConvertAll(Converter);<span class="comment">//直接传递方法</span></span><br><span class="line"></span><br><span class="line">           Converter&lt;Person, PersonConverted&gt; converter = Converter;<span class="comment">//Converter是System自带委托类型</span></span><br><span class="line">           <span class="keyword">var</span> convertedList2 = list.ConvertAll(converter);<span class="comment">//传递委托实例</span></span><br><span class="line">       &#125;</span><br><span class="line">       <span class="function">PersonConverted <span class="title">Converter</span>(<span class="params">Person person</span>)</span></span><br><span class="line">       &#123;</span><br><span class="line">           <span class="keyword">return</span> <span class="keyword">new</span> PersonConverted &#123; Name = person.Name, IsAdult = person.Age &gt; <span class="number">18</span> &#125;;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="csharp">    class Person
+    &#123;
+        public int Age &#123; get; set; &#125;
+        public string Name &#123; get; set; &#125;
+
+    &#125;
+           
+    class PersonConverted
+    &#123;
+        public string Name &#123; get; set; &#125;
+        public bool IsAdult &#123; get; set; &#125;
+    &#125;
+
+    class Test
+    &#123;
+        public void DoSomething()
+        &#123;
+            var person = new Person &#123; Name = &quot;cfmy&quot;, Age = 10 &#125;;
+            var list = new List&lt;Person&gt;() &#123; person &#125;;
+
+            var convertedList1 = list.ConvertAll(Converter);//直接传递方法
+
+            Converter&lt;Person, PersonConverted&gt; converter = Converter;//Converter是System自带委托类型
+            var convertedList2 = list.ConvertAll(converter);//传递委托实例
+        &#125;
+        PersonConverted Converter(Person person)
+        &#123;
+            return new PersonConverted &#123; Name = person.Name, IsAdult = person.Age &gt; 18 &#125;;
+        &#125;
+    &#125;
+</code></pre>
 <p>其中ConvertAll反编译代码如下</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">List</span>&lt;<span class="title">TOutput</span>&gt; <span class="title">ConvertAll</span>&lt;<span class="title">TOutput</span>&gt;(<span class="params">Converter&lt;T,TOutput&gt; converter</span>)</span> &#123;</span><br><span class="line">       <span class="keyword">if</span>( converter == <span class="literal">null</span>) &#123;</span><br><span class="line">           ThrowHelper.ThrowArgumentNullException(ExceptionArgument.converter);</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="comment">// @</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">       Contract.EndContractBlock();</span><br><span class="line"></span><br><span class="line">       List&lt;TOutput&gt; list = <span class="keyword">new</span> List&lt;TOutput&gt;(_size);</span><br><span class="line">       <span class="keyword">for</span>( <span class="built_in">int</span> i = <span class="number">0</span>; i&lt; _size; i++) &#123;</span><br><span class="line">           list._items[i] = converter(_items[i]);</span><br><span class="line">       &#125;</span><br><span class="line">       list._size = _size;</span><br><span class="line">       <span class="keyword">return</span> list;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="csharp">    public List&lt;TOutput&gt; ConvertAll&lt;TOutput&gt;(Converter&lt;T,TOutput&gt; converter) &#123;
+        if( converter == null) &#123;
+            ThrowHelper.ThrowArgumentNullException(ExceptionArgument.converter);
+        &#125;
+        // @
+
+
+        Contract.EndContractBlock();
+
+        List&lt;TOutput&gt; list = new List&lt;TOutput&gt;(_size);
+        for( int i = 0; i&lt; _size; i++) &#123;
+            list._items[i] = converter(_items[i]);
+        &#125;
+        list._size = _size;
+        return list;
+    &#125;
+</code></pre>
 <h3 id="匿名委托"><a href="#匿名委托" class="headerlink" title="匿名委托"></a>匿名委托</h3><p>可以看出ConvertAll接收一个委托类型Converter&lt;T,TOutput&gt;。这意味着你可以传递该委托类型的函数或函数组，如果在传递委托函数的基础上简化一步代码，可以使用匿名委托，代码如下：</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> convertedList3 = list.ConvertAll(<span class="keyword">new</span> Converter&lt;Person, PersonConverted&gt;(Converter));<span class="comment">//匿名委托 + 显式函数</span></span><br></pre></td></tr></table></figure>
+<pre><code class="csharp">    var convertedList3 = list.ConvertAll(new Converter&lt;Person, PersonConverted&gt;(Converter));//匿名委托 + 显式函数
+</code></pre>
 <p>如果用了匿名委托，就只能接收一个函数作为参数，这点需要注意，如果你想使用函数组，好像只能自己实例化一个委托，然后添加多个函数进去(笔者自己还无法确定这点)</p>
 <h3 id="匿名函数"><a href="#匿名函数" class="headerlink" title="匿名函数"></a>匿名函数</h3><p>上个例子是匿名委托 + 显式函数，意味着我们还是要实现一个函数，使用匿名函数的话代码可以进一步精简代码如下：</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> convertedList4 = list.ConvertAll(<span class="keyword">new</span> Converter&lt;Person, PersonConverted&gt;(<span class="built_in">delegate</span> (Person p) &#123; <span class="keyword">return</span> <span class="keyword">new</span> PersonConverted &#123; Name = p.Name, IsAdult = p.Age &gt; <span class="number">18</span> &#125;; &#125;));<span class="comment">//匿名委托 + 匿名函数</span></span><br></pre></td></tr></table></figure>
+<pre><code class="csharp">    var convertedList4 = list.ConvertAll(new Converter&lt;Person, PersonConverted&gt;(delegate (Person p) &#123; return new PersonConverted &#123; Name = p.Name, IsAdult = p.Age &gt; 18 &#125;; &#125;));//匿名委托 + 匿名函数
+</code></pre>
 <h4 id="匿名函数模型"><a href="#匿名函数模型" class="headerlink" title="匿名函数模型"></a>匿名函数模型</h4><p><em>匿名函数</em>大致模型如下</p>
 <pre><code>delegate ([入参类型] [入参形参])//可以没有入参
 &#123;
@@ -583,12 +635,14 @@
 &#125;
 </code></pre>
 <p>了解模型后还是可以比较容易理解，但是我们了解到，传递委托的地方往往可以直接传递满足委托类型的函数，匿名也是同理，所以在需要传递委托的地方直接传递匿名函数的代码如下：</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> convertedList5 = list.ConvertAll(<span class="built_in">delegate</span> (Person p) &#123; <span class="keyword">return</span> <span class="keyword">new</span> PersonConverted &#123; Name = p.Name, IsAdult = p.Age &gt; <span class="number">18</span> &#125;; &#125;);<span class="comment">//匿名函数</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="csharp">    var convertedList5 = list.ConvertAll(delegate (Person p) &#123; return new PersonConverted &#123; Name = p.Name, IsAdult = p.Age &gt; 18 &#125;; &#125;);//匿名函数
+</code></pre>
 <p>但是在上个例子中还是用到了PersonConverted对象，如果再利用之前的匿名对象进行优化，可以得到如下代码：</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> convertedList6 = list.ConvertAll(<span class="built_in">delegate</span> (Person p) &#123; <span class="keyword">return</span> <span class="keyword">new</span>  &#123; Name = p.Name, IsAdult = p.Age &gt; <span class="number">18</span> &#125;; &#125;);<span class="comment">//匿名函数 + 匿名对象</span></span><br></pre></td></tr></table></figure>
+<pre><code class="csharp">    var convertedList6 = list.ConvertAll(delegate (Person p) &#123; return new  &#123; Name = p.Name, IsAdult = p.Age &gt; 18 &#125;; &#125;);//匿名函数 + 匿名对象
+</code></pre>
 <h3 id="Lambda表达式"><a href="#Lambda表达式" class="headerlink" title="Lambda表达式"></a>Lambda表达式</h3><p>如果仅仅利用匿名的话，这已经是代码精进的极限了，这里我们既不需要建立委托类型，也不要建立返回类型Class，<strong>但是</strong>，Lambda表达式竟然还可以精简一步，先看下最终代码如下：</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> convertedList7 = list.ConvertAll(p =&gt; <span class="keyword">new</span> &#123;Name = p.Name, IsAdult = p.Age &gt; <span class="number">18</span>&#125;);<span class="comment">//Lambda表达式</span></span><br></pre></td></tr></table></figure>
+<pre><code class="csharp">    var convertedList7 = list.ConvertAll(p =&gt; new &#123;Name = p.Name, IsAdult = p.Age &gt; 18&#125;);//Lambda表达式
+</code></pre>
 <p>Lambda表达式实质是匿名函数的一个语法糖，它的完整模型如下</p>
 <pre><code>([入参a],[入参b])=&gt; 
 &#123;
@@ -602,7 +656,57 @@
 () =&gt; 1;
 </code></pre>
 <h3 id="整个例子流程"><a href="#整个例子流程" class="headerlink" title="整个例子流程"></a>整个例子流程</h3><p>代码如下：</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">Person</span></span><br><span class="line">   &#123;</span><br><span class="line">       <span class="keyword">public</span> <span class="built_in">int</span> Age &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">       <span class="keyword">public</span> <span class="built_in">string</span> Name &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">class</span> <span class="title">PersonConverted</span></span><br><span class="line">   &#123;</span><br><span class="line">       <span class="keyword">public</span> <span class="built_in">string</span> Name &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">       <span class="keyword">public</span> <span class="built_in">bool</span> IsAdult &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">class</span> <span class="title">Test</span></span><br><span class="line">   &#123;</span><br><span class="line">       <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">DoSomething</span>()</span></span><br><span class="line">       &#123;</span><br><span class="line">           <span class="keyword">var</span> person = <span class="keyword">new</span> Person &#123; Name = <span class="string">&quot;cfmy&quot;</span>, Age = <span class="number">10</span> &#125;;</span><br><span class="line">           <span class="keyword">var</span> list = <span class="keyword">new</span> List&lt;Person&gt;() &#123; person &#125;;</span><br><span class="line"></span><br><span class="line">           <span class="keyword">var</span> convertedList1 = list.ConvertAll(Converter); <span class="comment">//直接传递函数</span></span><br><span class="line"></span><br><span class="line">           Converter&lt;Person, PersonConverted&gt; converter = Converter; <span class="comment">//Converter是System自带委托类型</span></span><br><span class="line">           <span class="keyword">var</span> convertedList2 = list.ConvertAll(converter); <span class="comment">//传递委托实例</span></span><br><span class="line"></span><br><span class="line">           <span class="keyword">var</span> convertedList3 = list.ConvertAll(<span class="keyword">new</span> Converter&lt;Person, PersonConverted&gt;(Converter)); <span class="comment">//匿名委托 + 显式函数</span></span><br><span class="line"></span><br><span class="line">           <span class="keyword">var</span> convertedList4 =</span><br><span class="line">               list.ConvertAll(</span><br><span class="line">                   <span class="keyword">new</span> Converter&lt;Person, PersonConverted&gt;(</span><br><span class="line">                       <span class="built_in">delegate</span> (Person p) &#123; <span class="keyword">return</span> <span class="keyword">new</span> PersonConverted &#123; Name = p.Name, IsAdult = p.Age &gt; <span class="number">18</span> &#125;; &#125;));</span><br><span class="line">           <span class="comment">//匿名委托 + 匿名函数</span></span><br><span class="line"></span><br><span class="line">           <span class="keyword">var</span> convertedList5 =</span><br><span class="line">               list.ConvertAll(</span><br><span class="line">                   <span class="built_in">delegate</span> (Person p) &#123; <span class="keyword">return</span> <span class="keyword">new</span> PersonConverted &#123; Name = p.Name, IsAdult = p.Age &gt; <span class="number">18</span> &#125;; &#125;);</span><br><span class="line">           <span class="comment">//匿名函数</span></span><br><span class="line"></span><br><span class="line">           <span class="keyword">var</span> convertedList6 =</span><br><span class="line">               list.ConvertAll(<span class="built_in">delegate</span> (Person p) &#123; <span class="keyword">return</span> <span class="keyword">new</span> &#123; Name = p.Name, IsAdult = p.Age &gt; <span class="number">18</span> &#125;; &#125;);</span><br><span class="line">           <span class="comment">//匿名函数 + 匿名对象</span></span><br><span class="line"></span><br><span class="line">           <span class="keyword">var</span> convertedList7 = list.ConvertAll(p =&gt; <span class="keyword">new</span> &#123; Name = p.Name, IsAdult = p.Age &gt; <span class="number">18</span> &#125;); <span class="comment">//Lambda表达式</span></span><br><span class="line"></span><br><span class="line">       &#125;</span><br><span class="line">       <span class="function">PersonConverted <span class="title">Converter</span>(<span class="params">Person person</span>)</span></span><br><span class="line">       &#123;</span><br><span class="line">           <span class="keyword">return</span> <span class="keyword">new</span> PersonConverted &#123; Name = person.Name, IsAdult = person.Age &gt; <span class="number">18</span> &#125;;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="csharp">        class Person
+        &#123;
+            public int Age &#123; get; set; &#125;
+            public string Name &#123; get; set; &#125;
+
+        &#125;
+
+        class PersonConverted
+        &#123;
+            public string Name &#123; get; set; &#125;
+            public bool IsAdult &#123; get; set; &#125;
+        &#125;
+
+        class Test
+        &#123;
+            public void DoSomething()
+            &#123;
+                var person = new Person &#123; Name = &quot;cfmy&quot;, Age = 10 &#125;;
+                var list = new List&lt;Person&gt;() &#123; person &#125;;
+
+                var convertedList1 = list.ConvertAll(Converter); //直接传递函数
+
+                Converter&lt;Person, PersonConverted&gt; converter = Converter; //Converter是System自带委托类型
+                var convertedList2 = list.ConvertAll(converter); //传递委托实例
+
+                var convertedList3 = list.ConvertAll(new Converter&lt;Person, PersonConverted&gt;(Converter)); //匿名委托 + 显式函数
+
+                var convertedList4 =
+                    list.ConvertAll(
+                        new Converter&lt;Person, PersonConverted&gt;(
+                            delegate (Person p) &#123; return new PersonConverted &#123; Name = p.Name, IsAdult = p.Age &gt; 18 &#125;; &#125;));
+                //匿名委托 + 匿名函数
+
+                var convertedList5 =
+                    list.ConvertAll(
+                        delegate (Person p) &#123; return new PersonConverted &#123; Name = p.Name, IsAdult = p.Age &gt; 18 &#125;; &#125;);
+                //匿名函数
+
+                var convertedList6 =
+                    list.ConvertAll(delegate (Person p) &#123; return new &#123; Name = p.Name, IsAdult = p.Age &gt; 18 &#125;; &#125;);
+                //匿名函数 + 匿名对象
+
+                var convertedList7 = list.ConvertAll(p =&gt; new &#123; Name = p.Name, IsAdult = p.Age &gt; 18 &#125;); //Lambda表达式
+
+            &#125;
+            PersonConverted Converter(Person person)
+            &#123;
+                return new PersonConverted &#123; Name = person.Name, IsAdult = person.Age &gt; 18 &#125;;
+            &#125;
+        &#125;
+</code></pre>
 <h3 id="适用场景-1"><a href="#适用场景-1" class="headerlink" title="适用场景"></a>适用场景</h3><ol>
 <li>匿名方法 &#x3D;&gt; 所有需要传递委托的地方</li>
 <li>Lambda表达式&#x3D;&gt;从某个集合中过滤符合特定条件的集合</li>

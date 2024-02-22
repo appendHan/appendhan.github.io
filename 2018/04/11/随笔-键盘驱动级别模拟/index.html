@@ -50,7 +50,7 @@
 
 <link href="/css/style.css?v=1.1.0" rel="stylesheet">
 
-<link href="/css/hl_theme/sublime.css?v=1.1.0" rel="stylesheet">
+<link href="/css/hl_theme/darcula.css?v=1.1.0" rel="stylesheet">
 
 <link href="//cdn.jsdelivr.net/npm/animate.css@4.1.0/animate.min.css" rel="stylesheet">
 
@@ -293,14 +293,6 @@
             </li>
         
             <li class="article-tag-list-item">
-                <i class="iconfont icon-tag"></i><a>吐槽</a>
-            </li>
-        
-            <li class="article-tag-list-item">
-                <i class="iconfont icon-tag"></i><a>微信跳一跳</a>
-            </li>
-        
-            <li class="article-tag-list-item">
                 <i class="iconfont icon-tag"></i><a>学习笔记</a>
             </li>
         
@@ -395,7 +387,7 @@
         
         <a  class="All 学习笔记 "
            href="/2016/07/11/%E6%B5%85%E8%B0%88%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0%E5%8F%8ALambda/"
-           data-tag="学习笔记,匿名函数,Lambda"
+           data-tag="匿名函数,Lambda,学习笔记"
            data-author="" >
             <span class="post-title" title="浅谈匿名函数及Lambda">浅谈匿名函数及Lambda</span>
             <span class="post-date" title="2016-07-11 22:22:03">2016/07/11</span>
@@ -560,8 +552,69 @@
 <p>然而时代日新月异，面对新的浏览器甚至新的操作系统以及移动端的兴起，更重要的是Web的性质变化-Web必须承载更多的使命。ActiveX控件的弊端慢慢变得越来越尖锐，尖锐的无法接受，我觉得最大的弊端有两点：1无法跨平台<br>2必须安装后才可以使用</p>
 <p>ActiveX技术已经变成了时代的眼泪，现在很多控件也就只有IE浏览器还可以支持使用。央行征信这次改为控件输入密码也是够狠的，意味着以后查征信报告必须要在windows平台使用IE浏览器才可以</p>
 <h2 id="JS分析"><a href="#JS分析" class="headerlink" title="JS分析"></a>JS分析</h2><p>以下是央行登陆页面部分JS代码</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><br><span class="line">		   	<span class="keyword">var</span> pgeditor = <span class="keyword">new</span> $.<span class="title function_">pge</span>(&#123;</span><br><span class="line">				pgePath : <span class="string">&quot;http://file.zhongdengwang.com/ocx/&quot;</span>,<span class="comment">//控件下载目录，可以指定绝对路径，如&quot;http://www.baidu.com/download/&quot;</span></span><br><span class="line">				pgeId : <span class="string">&quot;pass&quot;</span>,<span class="comment">//控件id</span></span><br><span class="line">				pgeEdittype : <span class="number">0</span>,<span class="comment">//控件显示类型,0(星号),1(明文)</span></span><br><span class="line">				pgeEreg1 : <span class="string">&quot;[\\s\\S]*&quot;</span>,<span class="comment">//输入过程中字符类型限制，如&quot;[0-9]*&quot;表示只能输入数字</span></span><br><span class="line">				pgeEreg2 : <span class="string">&quot;[\\s\\S]&#123;6,12&#125;&quot;</span>,<span class="comment">//输入完毕后字符类型判断条件，与pgeditor.pwdValid()方法对应</span></span><br><span class="line">				pgeMaxlength : <span class="number">20</span>,<span class="comment">//允许最大输入长度</span></span><br><span class="line">				pgeTabindex : <span class="number">2</span>,<span class="comment">//tab键顺序</span></span><br><span class="line">				<span class="comment">//pgeCert : &quot;3081890281810092D9D8D04FB5F8EF9B8374F21690FD46FDBF49B40EECCDF416B4E2AC2044B0CFE3BD67EB4416B26FD18C9D3833770A526FD1AB66A83ED969AF74238D6C900403FC498154EC74EAF420E7338675CAD7F19332B4A56BE4FF946B662A3C2D217EFBE4DC646FB742B8C62BFE8E25FD5DC59E7540695FA8B9CD5BFD9F92DFAD009D230203010001&quot;,</span></span><br><span class="line">				<span class="attr">pgeCert</span>:<span class="string">&quot;3082010A0282010100A5875466E166609505D3BB4C51B03F8722F59FA317A2CDC94D83F85335F01EF986DA43C0FC02FDB056DE0DCD24D70F7755CF4D130D92B0AC347CD3AE69434E74212B57819867BC3AF6CFB5D343544082AA72A4751843305EF83417635D93CDE2B5DF8572FADB1CB56491D41368020AE787B2F6DE1D42193BF57B041198AF54A3878941F68ACE018634663D6E211D587BC373954A8C00425838493CB828E2493DF3DB2653C8E46399F88AB453D217A7FFD628A3F12BD0C4BAB9555C095C1013C60F2ADF1DCEF1845D764EFD2A25084A27B3FEC5B8121B08F8F94F4F14146F43BC2AF93C406EDE8F1DAE717FC512FF4B08E0D05A7223A5F8548FC14A6D9CF6E4030203010001&quot;</span>,</span><br><span class="line">				pgeClass : <span class="string">&quot;ocx_style&quot;</span>,<span class="comment">//控件css样式</span></span><br><span class="line">				pgeInstallClass : <span class="string">&quot;ocx_style&quot;</span>,<span class="comment">//针对安装或升级的css样式</span></span><br><span class="line">				pgeOnkeydown :<span class="string">&quot;FormSubmit()&quot;</span>,<span class="comment">//回车键响应函数，需焦点在控件中才能响应</span></span><br><span class="line">			   <span class="comment">//tabCallback : &quot;input2&quot;,//火狐tab键回调函数,设置要跳转到的对象ID</span></span><br><span class="line">			    <span class="attr">pgeOnfocus</span>:<span class="string">&quot;pgeFocus()&quot;</span>,<span class="comment">//监控光标切入密码控件框</span></span><br><span class="line">			    <span class="attr">pgeOnblur</span>:<span class="string">&quot;pgeBlur()&quot;</span>,<span class="comment">//监控光标切出密码控件框</span></span><br><span class="line">			   	<span class="comment">//windows10 edge&amp;Chrome42+相关</span></span><br><span class="line">			    <span class="attr">pgeWindowID</span>:<span class="string">&quot;password&quot;</span>+<span class="keyword">new</span> <span class="title class_">Date</span>().<span class="title function_">getTime</span>()+<span class="number">1</span>,</span><br><span class="line">			    <span class="attr">pgeRZRandNum</span>:<span class="string">&quot;24116953564831466890207747235682&quot;</span>,</span><br><span class="line">			    <span class="attr">pgeRZDataB</span>:<span class="string">&quot;zQhsRAHO06GuBFEIdZVOZw7Ro3biBdTHnARJruWMYi4=&quot;</span></span><br><span class="line">			&#125;);</span><br><span class="line">			<span class="variable language_">window</span>.<span class="property">pgeCtrl</span> = pgeditor;</span><br><span class="line">			<span class="keyword">var</span> i = <span class="number">0</span>;</span><br><span class="line">			<span class="comment">//密码控件获得焦点时，提示一下</span></span><br><span class="line">			<span class="keyword">function</span> <span class="title function_">pgeFocus</span>(<span class="params"></span>)&#123;</span><br><span class="line">				$(<span class="string">&quot;#tishi&quot;</span>).<span class="title function_">css</span>(<span class="string">&#x27;display&#x27;</span>,<span class="string">&#x27;block&#x27;</span>);</span><br><span class="line">				$(<span class="string">&quot;#passwordInfo&quot;</span>).<span class="title function_">css</span>(<span class="string">&#x27;display&#x27;</span>,<span class="string">&#x27;none&#x27;</span>);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="comment">//密码控件失去焦点时获得密码强度，并展示出来</span></span><br><span class="line">			<span class="keyword">function</span> <span class="title function_">pgeBlur</span>(<span class="params"></span>)&#123;</span><br><span class="line">			$(<span class="string">&quot;#tishi&quot;</span>).<span class="title function_">css</span>(<span class="string">&#x27;display&#x27;</span>,<span class="string">&#x27;none&#x27;</span>);</span><br><span class="line">			$(<span class="string">&quot;#passwordInfo&quot;</span>).<span class="title function_">css</span>(<span class="string">&#x27;display&#x27;</span>,<span class="string">&#x27;block&#x27;</span>);</span><br><span class="line">			<span class="title function_">checkPassword</span>();</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="variable language_">window</span>.<span class="property">onload</span> = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">			   $(<span class="string">&quot;#login&quot;</span>).<span class="title function_">focus</span>();</span><br><span class="line">			   pgeditor.<span class="title function_">pgInitialize</span>();</span><br><span class="line">			   $(<span class="string">&quot;lic&quot;</span>).<span class="title function_">html</span>(pgeditor.<span class="title function_">setLicense</span>());</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">			<span class="comment">//登录集成演示页面提交表单的方法</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">FormSubmit</span>(<span class="params"></span>) &#123;</span><br><span class="line">			$.<span class="title function_">ajax</span>(&#123;</span><br><span class="line">			   		<span class="attr">cache</span>:<span class="literal">false</span>,</span><br><span class="line">			        <span class="attr">type</span>:<span class="string">&quot;post&quot;</span>,</span><br><span class="line">			        <span class="attr">async</span>:<span class="literal">false</span>,</span><br><span class="line">					<span class="attr">url</span>:basepath+<span class="string">&quot;userReg.do?method=getSrandNum&amp;num=&quot;</span>+<span class="title class_">Math</span>.<span class="title function_">random</span>(),</span><br><span class="line">					<span class="attr">dataType</span>:<span class="string">&quot;text&quot;</span>,</span><br><span class="line">					<span class="attr">success</span>:<span class="keyword">function</span>(<span class="params">result</span>)&#123;</span><br><span class="line">						<span class="comment">//alert(&quot;*****&quot;+result);</span></span><br><span class="line">						pgeditor.<span class="title function_">pwdSetSk</span>(result);<span class="comment">//给控件设置随机因子</span></span><br><span class="line">					&#125;</span><br><span class="line">			  	&#125;);</span><br><span class="line">	<span class="keyword">var</span> pwdResult = pgeditor.<span class="title function_">pwdResultRSA</span>();<span class="comment">//获取密码AES+RSA密文</span></span><br><span class="line">	<span class="keyword">var</span> machineNetwork = pgeditor.<span class="title function_">machineNetwork</span>();<span class="comment">//获取网卡信息密文</span></span><br><span class="line">	<span class="keyword">var</span> machineDisk = pgeditor.<span class="title function_">machineDisk</span>();<span class="comment">//获取硬盘信息密文</span></span><br><span class="line">	<span class="keyword">var</span> machineCPU = pgeditor.<span class="title function_">machineCPU</span>();<span class="comment">//获取CPU信息密文</span></span><br><span class="line">	$(<span class="string">&quot;#password&quot;</span>).<span class="title function_">val</span>(pwdResult);<span class="comment">//将密码密文赋值给表单</span></span><br><span class="line">	$(<span class="string">&quot;#pass&quot;</span>).<span class="title function_">val</span>(pwdResult);</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
+<pre><code class="javascript">&lt;script type=&quot;text/javascript&quot;&gt;
+           	var pgeditor = new $.pge(&#123;
+                pgePath : &quot;http://file.zhongdengwang.com/ocx/&quot;,//控件下载目录，可以指定绝对路径，如&quot;http://www.baidu.com/download/&quot;
+                pgeId : &quot;pass&quot;,//控件id
+                pgeEdittype : 0,//控件显示类型,0(星号),1(明文)
+                pgeEreg1 : &quot;[\\s\\S]*&quot;,//输入过程中字符类型限制，如&quot;[0-9]*&quot;表示只能输入数字
+                pgeEreg2 : &quot;[\\s\\S]&#123;6,12&#125;&quot;,//输入完毕后字符类型判断条件，与pgeditor.pwdValid()方法对应
+                pgeMaxlength : 20,//允许最大输入长度
+                pgeTabindex : 2,//tab键顺序
+                //pgeCert : &quot;3081890281810092D9D8D04FB5F8EF9B8374F21690FD46FDBF49B40EECCDF416B4E2AC2044B0CFE3BD67EB4416B26FD18C9D3833770A526FD1AB66A83ED969AF74238D6C900403FC498154EC74EAF420E7338675CAD7F19332B4A56BE4FF946B662A3C2D217EFBE4DC646FB742B8C62BFE8E25FD5DC59E7540695FA8B9CD5BFD9F92DFAD009D230203010001&quot;,
+                pgeCert:&quot;3082010A0282010100A5875466E166609505D3BB4C51B03F8722F59FA317A2CDC94D83F85335F01EF986DA43C0FC02FDB056DE0DCD24D70F7755CF4D130D92B0AC347CD3AE69434E74212B57819867BC3AF6CFB5D343544082AA72A4751843305EF83417635D93CDE2B5DF8572FADB1CB56491D41368020AE787B2F6DE1D42193BF57B041198AF54A3878941F68ACE018634663D6E211D587BC373954A8C00425838493CB828E2493DF3DB2653C8E46399F88AB453D217A7FFD628A3F12BD0C4BAB9555C095C1013C60F2ADF1DCEF1845D764EFD2A25084A27B3FEC5B8121B08F8F94F4F14146F43BC2AF93C406EDE8F1DAE717FC512FF4B08E0D05A7223A5F8548FC14A6D9CF6E4030203010001&quot;,
+                pgeClass : &quot;ocx_style&quot;,//控件css样式
+                pgeInstallClass : &quot;ocx_style&quot;,//针对安装或升级的css样式
+                pgeOnkeydown :&quot;FormSubmit()&quot;,//回车键响应函数，需焦点在控件中才能响应
+               //tabCallback : &quot;input2&quot;,//火狐tab键回调函数,设置要跳转到的对象ID
+                pgeOnfocus:&quot;pgeFocus()&quot;,//监控光标切入密码控件框
+                pgeOnblur:&quot;pgeBlur()&quot;,//监控光标切出密码控件框
+               	//windows10 edge&amp;Chrome42+相关
+                pgeWindowID:&quot;password&quot;+new Date().getTime()+1,
+                pgeRZRandNum:&quot;24116953564831466890207747235682&quot;,
+                pgeRZDataB:&quot;zQhsRAHO06GuBFEIdZVOZw7Ro3biBdTHnARJruWMYi4=&quot;
+            &#125;);
+            window.pgeCtrl = pgeditor;
+            var i = 0;
+            //密码控件获得焦点时，提示一下
+            function pgeFocus()&#123;
+                $(&quot;#tishi&quot;).css(&#39;display&#39;,&#39;block&#39;);
+                $(&quot;#passwordInfo&quot;).css(&#39;display&#39;,&#39;none&#39;);
+            &#125;
+            //密码控件失去焦点时获得密码强度，并展示出来
+            function pgeBlur()&#123;
+            $(&quot;#tishi&quot;).css(&#39;display&#39;,&#39;none&#39;);
+            $(&quot;#passwordInfo&quot;).css(&#39;display&#39;,&#39;block&#39;);
+            checkPassword();
+            &#125;
+            window.onload = function()&#123;
+               $(&quot;#login&quot;).focus();
+               pgeditor.pgInitialize();
+               $(&quot;lic&quot;).html(pgeditor.setLicense());
+            &#125;
+            
+            //登录集成演示页面提交表单的方法
+function FormSubmit() &#123;
+            $.ajax(&#123;
+               		cache:false,
+                    type:&quot;post&quot;,
+                    async:false,
+                    url:basepath+&quot;userReg.do?method=getSrandNum&amp;num=&quot;+Math.random(),
+                    dataType:&quot;text&quot;,
+                    success:function(result)&#123;
+                        //alert(&quot;*****&quot;+result);
+                        pgeditor.pwdSetSk(result);//给控件设置随机因子
+                    &#125;
+              	&#125;);
+    var pwdResult = pgeditor.pwdResultRSA();//获取密码AES+RSA密文
+    var machineNetwork = pgeditor.machineNetwork();//获取网卡信息密文
+    var machineDisk = pgeditor.machineDisk();//获取硬盘信息密文
+    var machineCPU = pgeditor.machineCPU();//获取CPU信息密文
+    $(&quot;#password&quot;).val(pwdResult);//将密码密文赋值给表单
+    $(&quot;#pass&quot;).val(pwdResult);
+&#125;
+&lt;/script&gt;
+</code></pre>
 <p>从它页面JS可以看出来应该是通过先填充几个ID之类的字段获取一个随机因子，给控件初始化用掉随机因子，然后几个字段和密码组合在调用控件的加密方法，赋值给密码input标签，最后提交表单</p>
 <h2 id="键盘驱动级别模拟"><a href="#键盘驱动级别模拟" class="headerlink" title="键盘驱动级别模拟"></a>键盘驱动级别模拟</h2><p>在ActiveX控件中使用C# 的SendInput或者是调win32.dll的 keybd_event 都是无法输入的，因为ActiveX控件本质就是windows小程序，他的权限其实是非常大的，这里推测是他在底层挂了键盘钩子，然后把消息中断了，使按键无法被上层其他程序捕获，猜测依据就是他在web的JS文件中的密码窗体获取焦点和失去焦点事件中操作了一个Interval调用了一个控件的intervlOut方法</p>
 <p>关于windows键盘消息队列相关内容请看引用，这里不在赘述，也不打算继续深入</p>

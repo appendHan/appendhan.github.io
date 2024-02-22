@@ -50,7 +50,7 @@
 
 <link href="/css/style.css?v=1.1.0" rel="stylesheet">
 
-<link href="/css/hl_theme/sublime.css?v=1.1.0" rel="stylesheet">
+<link href="/css/hl_theme/darcula.css?v=1.1.0" rel="stylesheet">
 
 <link href="//cdn.jsdelivr.net/npm/animate.css@4.1.0/animate.min.css" rel="stylesheet">
 
@@ -293,14 +293,6 @@
             </li>
         
             <li class="article-tag-list-item">
-                <i class="iconfont icon-tag"></i><a>吐槽</a>
-            </li>
-        
-            <li class="article-tag-list-item">
-                <i class="iconfont icon-tag"></i><a>微信跳一跳</a>
-            </li>
-        
-            <li class="article-tag-list-item">
                 <i class="iconfont icon-tag"></i><a>学习笔记</a>
             </li>
         
@@ -395,7 +387,7 @@
         
         <a  class="All 学习笔记 "
            href="/2016/07/11/%E6%B5%85%E8%B0%88%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0%E5%8F%8ALambda/"
-           data-tag="学习笔记,匿名函数,Lambda"
+           data-tag="匿名函数,Lambda,学习笔记"
            data-author="" >
             <span class="post-title" title="浅谈匿名函数及Lambda">浅谈匿名函数及Lambda</span>
             <span class="post-date" title="2016-07-11 22:22:03">2016/07/11</span>
@@ -550,8 +542,24 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近遇到这样一段代码</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> reg= <span class="regexp">/&lt;td class=&quot;bold&quot;&gt;(\d+)&lt;\/td&gt;&lt;td class=&quot;xxxx&quot;&gt;([\d\,]+?)&lt;\/td&gt;/</span>；</span><br><span class="line">match=str.<span class="title function_">match</span>(reg);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(!match) <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">Error</span>(<span class="string">&#x27;数据不正确&#x27;</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">	<span class="keyword">var</span> data=&#123;</span><br><span class="line">		<span class="attr">type</span>:type,</span><br><span class="line">		<span class="attr">time</span>:match[<span class="number">1</span>].<span class="title function_">replace</span>(<span class="regexp">/^(\d&#123;4&#125;)(\d&#123;2&#125;)(\d&#123;2&#125;)\d&#123;2&#125;/</span>, <span class="string">&#x27;$1-$2-$3 &#x27;</span>)<span class="string">&quot;,</span></span><br><span class="line"><span class="string">		number:match[1].replace(/^(\d&#123;8&#125;)(\d&#123;2&#125;)$/, &#x27;$1-$2&#x27;),</span></span><br><span class="line"><span class="string">		data:match[2]</span></span><br><span class="line"><span class="string">	&#125;;</span></span><br><span class="line"><span class="string">	return data;</span></span><br><span class="line"><span class="string">&#125;catch(err)&#123;</span></span><br><span class="line"><span class="string">	throw(&#x27;解析数据失败&#x27;);</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+<pre><code class="javascript">var reg= /&lt;td class=&quot;bold&quot;&gt;(\d+)&lt;\/td&gt;&lt;td class=&quot;xxxx&quot;&gt;([\d\,]+?)&lt;\/td&gt;/；
+match=str.match(reg);
 
+if(!match) throw new Error(&#39;数据不正确&#39;);
+
+
+try&#123;
+    var data=&#123;
+        type:type,
+        time:match[1].replace(/^(\d&#123;4&#125;)(\d&#123;2&#125;)(\d&#123;2&#125;)\d&#123;2&#125;/, &#39;$1-$2-$3 &#39;)&quot;,
+        number:match[1].replace(/^(\d&#123;8&#125;)(\d&#123;2&#125;)$/, &#39;$1-$2&#39;),
+        data:match[2]
+    &#125;;
+    return data;
+&#125;catch(err)&#123;
+    throw(&#39;解析数据失败&#39;);
+&#125;
+</code></pre>
 <p>正则匹配的过程很好看懂，但是后面<code>match[1]</code>和<code>match[2]</code>是什么鬼啊，还有<code>replace(/^(\d&#123;8&#125;)(\d&#123;2&#125;)$/, &#39;$1-$2&#39;)</code>中第二个参数是什么含义也搞不懂，平时总用不到正则，导致我前前后后重新看了好几遍，第一遍大致了解了所有<em>元字符</em>含义（但是时间久就忘记了）；第二次好像是发现了<em>贪婪模式和懒惰模式</em>；这次又学会了<em>反向引用</em>，之后没准又发现漏掉什么重点，所以赶紧整理一下</p>
 <span id="more"></span>
 <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>首先正则表达式的出现是为了描述或者匹配一系列匹配某个句法规则的字符串，一个正则表达式通常被称为一个<em>模式（pattern）</em>，目前大部分语言都支持正则匹配，所以也算是一种通用技术</p>

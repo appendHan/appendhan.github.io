@@ -50,7 +50,7 @@
 
 <link href="/css/style.css?v=1.1.0" rel="stylesheet">
 
-<link href="/css/hl_theme/sublime.css?v=1.1.0" rel="stylesheet">
+<link href="/css/hl_theme/darcula.css?v=1.1.0" rel="stylesheet">
 
 <link href="//cdn.jsdelivr.net/npm/animate.css@4.1.0/animate.min.css" rel="stylesheet">
 
@@ -293,14 +293,6 @@
             </li>
         
             <li class="article-tag-list-item">
-                <i class="iconfont icon-tag"></i><a>吐槽</a>
-            </li>
-        
-            <li class="article-tag-list-item">
-                <i class="iconfont icon-tag"></i><a>微信跳一跳</a>
-            </li>
-        
-            <li class="article-tag-list-item">
                 <i class="iconfont icon-tag"></i><a>学习笔记</a>
             </li>
         
@@ -395,7 +387,7 @@
         
         <a  class="All 学习笔记 "
            href="/2016/07/11/%E6%B5%85%E8%B0%88%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0%E5%8F%8ALambda/"
-           data-tag="学习笔记,匿名函数,Lambda"
+           data-tag="匿名函数,Lambda,学习笔记"
            data-author="" >
             <span class="post-title" title="浅谈匿名函数及Lambda">浅谈匿名函数及Lambda</span>
             <span class="post-date" title="2016-07-11 22:22:03">2016/07/11</span>
@@ -535,7 +527,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90"><span class="toc-text">需求分析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%AF%E8%A1%8C%E6%80%A7"><span class="toc-text">可行性</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%80%E7%BB%88%E6%95%88%E6%9E%9C"><span class="toc-text">最终效果</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0"><span class="toc-text">具体实现</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%BE%E5%83%8F%E5%8C%B9%E9%85%8D"><span class="toc-text">图像匹配</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%BC%A0%E6%A0%87%E9%92%A9%E5%AD%90"><span class="toc-text">鼠标钩子</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%95%8C%E9%9D%A2%E4%BB%A5%E5%8F%8A%E4%B8%BB%E9%80%BB%E8%BE%91"><span class="toc-text">界面以及主逻辑</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%90%8E%E8%AE%B0"><span class="toc-text">后记</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90"><span class="toc-text">需求分析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%AF%E8%A1%8C%E6%80%A7"><span class="toc-text">可行性</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%80%E7%BB%88%E6%95%88%E6%9E%9C"><span class="toc-text">最终效果</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0"><span class="toc-text">具体实现</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%BE%E5%83%8F%E5%8C%B9%E9%85%8D"><span class="toc-text">图像匹配</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%95%8C%E9%9D%A2%E4%BB%A5%E5%8F%8A%E4%B8%BB%E9%80%BB%E8%BE%91"><span class="toc-text">界面以及主逻辑</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%90%8E%E8%AE%B0"><span class="toc-text">后记</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -569,20 +561,727 @@
 <p><img src="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/QQ%E6%88%AA%E5%9B%BE20180223141053.png?imageView2/2/w/400/h/600"></p>
 <p><img src="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/20180223_143630.gif"></p>
 <h1 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h1><h2 id="图像匹配"><a href="#图像匹配" class="headerlink" title="图像匹配"></a>图像匹配</h2><p>这里图像匹配指的是在一个大图A中找到小图B的位置，可能是多个或一个坐标，我之前并没有处理过图像相关，所以只能在网上看人家怎么实现的，在网上找了一个比较靠谱的例子，但他只找了单个匹配结果，我改成了找多个匹配结果，具体代码如下</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span>  </span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 判断图形里是否存在另外一个图形 所在行的索引  </span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span>  </span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;p_Source&quot;&gt;</span>原始图形数据<span class="doctag">&lt;/param&gt;</span>  </span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;p_Part&quot;&gt;</span>小图形数据<span class="doctag">&lt;/param&gt;</span>  </span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;p_SourceIndex&quot;&gt;</span>开始位置<span class="doctag">&lt;/param&gt;</span>  </span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;p_SourceWidth&quot;&gt;</span>原始图形宽<span class="doctag">&lt;/param&gt;</span>  </span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;p_PartWidth&quot;&gt;</span>小图宽<span class="doctag">&lt;/param&gt;</span>  </span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;p_Float&quot;&gt;</span>溶差<span class="doctag">&lt;/param&gt;</span>  </span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;returns&gt;</span>所在行的索引 如果找不到返回-1<span class="doctag">&lt;/returns&gt;</span>  </span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="built_in">int</span> <span class="title">GetImageContains</span>(<span class="params"><span class="built_in">byte</span>[] p_Source, <span class="built_in">byte</span>[] p_Part, <span class="built_in">int</span> p_SourceIndex, <span class="built_in">int</span> p_SourceWidth, <span class="built_in">int</span> p_PartWidth, <span class="built_in">int</span> p_Float</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">int</span> _PartIndex = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">int</span> _SourceIndex = p_SourceIndex;</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; p_SourceWidth; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (p_SourceWidth - i &lt; p_PartWidth) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        <span class="comment">//这里放弃构造Color类，因为太耗时了，为了效率连自建color结构都不搞了，直接比较RGB三色的字节</span></span><br><span class="line">        <span class="comment">//Color _CurrentlyColor = Color.FromArgb(p_Source[_SourceIndex + 3], p_Source[_SourceIndex + 2], p_Source[_SourceIndex + 1], p_Source[_SourceIndex]);</span></span><br><span class="line">        <span class="comment">//Color _CompareColoe = Color.FromArgb(p_Part[3], p_Part[2], p_Part[1], p_Part[0]);</span></span><br><span class="line">        _SourceIndex += <span class="number">4</span>;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">bool</span> _ScanColor = ScanColor(p_Source[_SourceIndex + <span class="number">2</span>], p_Source[_SourceIndex + <span class="number">1</span>], p_Source[_SourceIndex], p_Part[<span class="number">2</span>], p_Part[<span class="number">1</span>], p_Part[<span class="number">0</span>], p_Float);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (_ScanColor)</span><br><span class="line">        &#123;</span><br><span class="line">            _PartIndex += <span class="number">4</span>;</span><br><span class="line">            <span class="built_in">int</span> _SourceRVA = _SourceIndex;</span><br><span class="line">            <span class="built_in">bool</span> _Equals = <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="built_in">int</span> z = <span class="number">0</span>; z != p_PartWidth - <span class="number">1</span>; z++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">//_CurrentlyColor = Color.FromArgb(p_Source[_SourceRVA + 3], p_Source[_SourceRVA + 2], p_Source[_SourceRVA + 1], p_Source[_SourceRVA]);</span></span><br><span class="line">                <span class="comment">//_CompareColoe = Color.FromArgb(p_Part[_PartIndex + 3], p_Part[_PartIndex + 2], p_Part[_PartIndex + 1], p_Part[_PartIndex]);</span></span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (!ScanColor(p_Source[_SourceRVA + <span class="number">2</span>], p_Source[_SourceRVA + <span class="number">1</span>], p_Source[_SourceRVA], p_Part[_PartIndex + <span class="number">2</span>], p_Part[_PartIndex + <span class="number">1</span>], p_Part[_PartIndex], p_Float))</span><br><span class="line">                &#123;</span><br><span class="line">                    _PartIndex = <span class="number">0</span>;</span><br><span class="line">                    _Equals = <span class="literal">false</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                _PartIndex += <span class="number">4</span>;</span><br><span class="line">                _SourceRVA += <span class="number">4</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (_Equals) <span class="keyword">return</span> i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            _PartIndex = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span>  </span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 检查色彩(可以根据这个更改比较方式  </span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span>  </span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;p_CurrentlyColor&quot;&gt;</span>当前色彩<span class="doctag">&lt;/param&gt;</span>  </span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;p_CompareColor&quot;&gt;</span>比较色彩<span class="doctag">&lt;/param&gt;</span>  </span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;p_Float&quot;&gt;</span>溶差<span class="doctag">&lt;/param&gt;</span>  </span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;returns&gt;</span><span class="doctag">&lt;/returns&gt;</span>  </span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="built_in">bool</span> <span class="title">ScanColor</span>(<span class="params"><span class="built_in">byte</span> source_R, <span class="built_in">byte</span> source_G, <span class="built_in">byte</span> source_B, <span class="built_in">byte</span> part_R, <span class="built_in">byte</span> part_G, <span class="built_in">byte</span> part_B, <span class="built_in">int</span> p_Float</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//int _R = p_CurrentlyColor.R;</span></span><br><span class="line">    <span class="comment">//int _G = p_CurrentlyColor.G;</span></span><br><span class="line">    <span class="comment">//int _B = p_CurrentlyColor.B;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> (source_R &lt;= part_R + p_Float &amp;&amp; source_R &gt;= part_R - p_Float)</span><br><span class="line">        &amp;&amp; (source_G &lt;= part_G + p_Float &amp;&amp; source_G &gt;= part_G - p_Float)</span><br><span class="line">        &amp;&amp; (source_B &lt;= part_B + p_Float &amp;&amp; source_B &gt;= part_B - p_Float);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span>  </span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 判断图形里是否存在另外一个图形 并返回所在位置  </span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span>  </span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;p_SourceBitmap&quot;&gt;</span>原始图形<span class="doctag">&lt;/param&gt;</span>  </span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;p_PartBitmap&quot;&gt;</span>小图形<span class="doctag">&lt;/param&gt;</span>  </span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;p_Float&quot;&gt;</span>溶差<span class="doctag">&lt;/param&gt;</span>  </span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;returns&gt;</span>坐标<span class="doctag">&lt;/returns&gt;</span>  </span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> List&lt;Point&gt; <span class="title">GetAllPoints</span>(<span class="params">Bitmap p_SourceBitmap, Bitmap p_PartBitmap, <span class="built_in">int</span> p_Float</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">var</span> pointList = <span class="keyword">new</span> List&lt;Point&gt;();</span><br><span class="line">    <span class="built_in">int</span> _SourceWidth = p_SourceBitmap.Width;</span><br><span class="line">    <span class="built_in">int</span> _SourceHeight = p_SourceBitmap.Height;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">int</span> _PartWidth = p_PartBitmap.Width;</span><br><span class="line">    <span class="built_in">int</span> _PartHeight = p_PartBitmap.Height;</span><br><span class="line"></span><br><span class="line">    Bitmap _SourceBitmap = <span class="keyword">new</span> Bitmap(_SourceWidth, _SourceHeight);</span><br><span class="line">    Graphics _Graphics = Graphics.FromImage(_SourceBitmap);</span><br><span class="line">    _Graphics.DrawImage(p_SourceBitmap, <span class="keyword">new</span> System.Drawing.Rectangle(<span class="number">0</span>, <span class="number">0</span>, _SourceWidth, _SourceHeight));</span><br><span class="line">    _Graphics.Dispose();</span><br><span class="line"></span><br><span class="line">    BitmapData _SourceData = _SourceBitmap.LockBits(<span class="keyword">new</span> System.Drawing.Rectangle(<span class="number">0</span>, <span class="number">0</span>, _SourceWidth, _SourceHeight), ImageLockMode.ReadWrite, System.Drawing.Imaging.PixelFormat.Format32bppArgb);</span><br><span class="line">    <span class="built_in">byte</span>[] _SourceByte = <span class="keyword">new</span> <span class="built_in">byte</span>[_SourceData.Stride * _SourceHeight];</span><br><span class="line">    Marshal.Copy(_SourceData.Scan0, _SourceByte, <span class="number">0</span>, _SourceByte.Length);  <span class="comment">//复制出p_SourceBitmap的相素信息   </span></span><br><span class="line">    _SourceBitmap.UnlockBits(_SourceData);</span><br><span class="line"></span><br><span class="line">    Bitmap _PartBitmap = <span class="keyword">new</span> Bitmap(_PartWidth, _PartHeight);</span><br><span class="line">    _Graphics = Graphics.FromImage(_PartBitmap);</span><br><span class="line">    _Graphics.DrawImage(p_PartBitmap, <span class="keyword">new</span> System.Drawing.Rectangle(<span class="number">0</span>, <span class="number">0</span>, _PartWidth, _PartHeight));</span><br><span class="line">    _Graphics.Dispose();</span><br><span class="line">    BitmapData _PartData = _PartBitmap.LockBits(<span class="keyword">new</span> System.Drawing.Rectangle(<span class="number">0</span>, <span class="number">0</span>, _PartWidth, _PartHeight), ImageLockMode.ReadWrite, System.Drawing.Imaging.PixelFormat.Format32bppArgb);</span><br><span class="line">    <span class="built_in">byte</span>[] _PartByte = <span class="keyword">new</span> <span class="built_in">byte</span>[_PartData.Stride * _PartHeight];</span><br><span class="line">    Marshal.Copy(_PartData.Scan0, _PartByte, <span class="number">0</span>, _PartByte.Length);   <span class="comment">//复制出p_PartBitmap的相素信息   </span></span><br><span class="line">    _PartBitmap.UnlockBits(_PartData);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//匹配基本思路如下</span></span><br><span class="line">    <span class="comment">//1. 先遍历原图Y坐标</span></span><br><span class="line">    <span class="comment">//2.    遍历匹配图Y坐标AS目标坐标</span></span><br><span class="line">    <span class="comment">//3.        找出该行完全匹配的X坐标，如果没有，原图Y+1，重复步骤1</span></span><br><span class="line">    <span class="comment">//          如果成功找到X，目标坐标Y+1，再次匹配，但是X值必须一致，直至目标Y最大，匹配结束</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">int</span> _PointY = <span class="number">0</span>; _PointY != _SourceHeight; _PointY++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (_SourceHeight - _PointY &lt; _PartHeight) <span class="keyword">break</span>;  <span class="comment">//如果 剩余的高 比需要比较的高 还要小 就直接返回               </span></span><br><span class="line">        <span class="built_in">int</span> _PointX = <span class="number">-1</span>;    <span class="comment">//临时存放坐标 需要保证找到的是在一个X点上  </span></span><br><span class="line">        <span class="built_in">bool</span> _SacnOver = <span class="literal">true</span>;   <span class="comment">//是否都比配的上  </span></span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> z = <span class="number">0</span>; z != _PartHeight - <span class="number">1</span>; z++)       <span class="comment">//循环目标进行比较  </span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">int</span> _TrueX = GetImageContains(_SourceByte, _PartByte, _PointY * _SourceData.Stride, _SourceWidth, _PartWidth, p_Float);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (_TrueX == <span class="number">-1</span>)   <span class="comment">//如果没找到   </span></span><br><span class="line">            &#123;</span><br><span class="line">                _PointX = <span class="number">-1</span>;    <span class="comment">//设置坐标为没找到  </span></span><br><span class="line">                _SacnOver = <span class="literal">false</span>;   <span class="comment">//设置不进行返回  </span></span><br><span class="line">                <span class="comment">//_SourceByte = _SourceByte.Skip(_SourceData.Stride).ToArray();</span></span><br><span class="line">                <span class="comment">//_SourceHeight = _SourceHeight - 1;</span></span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (z == <span class="number">0</span>) _PointX = _TrueX;</span><br><span class="line">                <span class="keyword">if</span> (_PointX != _TrueX)   <span class="comment">//如果找到了 也的保证坐标和上一行的坐标一样 否则也返回  </span></span><br><span class="line">                &#123;</span><br><span class="line">                    _PointX = <span class="number">-1</span>;<span class="comment">//设置坐标为没找到  </span></span><br><span class="line">                    _SacnOver = <span class="literal">false</span>;  <span class="comment">//设置不进行返回  </span></span><br><span class="line">                    <span class="comment">//_SourceByte = _SourceByte.Skip(_SourceData.Stride).ToArray();</span></span><br><span class="line">                    <span class="comment">//_SourceHeight = _SourceHeight - 1;</span></span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (_SacnOver)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//加入集合</span></span><br><span class="line">            pointList.Add(<span class="keyword">new</span> Point(_PointX, _PointY));</span><br><span class="line">            <span class="comment">//矩形涂黑</span></span><br><span class="line">            <span class="keyword">var</span> tmpX = _PointX + _PartWidth;</span><br><span class="line">            <span class="keyword">var</span> tmpY = _PointY + _PartHeight;</span><br><span class="line">            <span class="keyword">for</span> (<span class="built_in">int</span> y = <span class="number">0</span>; y &lt; tmpY; y++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">for</span> (<span class="built_in">int</span> x = <span class="number">0</span>; x &lt; tmpX; x++)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">var</span> index = y * _SourceData.Stride + x * <span class="number">4</span>;</span><br><span class="line">                    _SourceByte[index] = <span class="number">255</span>;</span><br><span class="line">                    _SourceByte[index + <span class="number">1</span>] = <span class="number">255</span>;</span><br><span class="line">                    _SourceByte[index + <span class="number">2</span>] = <span class="number">255</span>;</span><br><span class="line">                    _SourceByte[index + <span class="number">3</span>] = <span class="number">255</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//重置Y坐标</span></span><br><span class="line">            _PointY = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">            <span class="comment">//Bitmap tmpBitmap = new Bitmap(_SourceWidth, _SourceHeight);</span></span><br><span class="line">            <span class="comment">//BitmapData tmBitmapData = tmpBitmap.LockBits(new System.Drawing.Rectangle(0, 0, _SourceWidth, _SourceHeight), ImageLockMode.ReadWrite, System.Drawing.Imaging.PixelFormat.Format32bppArgb);</span></span><br><span class="line">            <span class="comment">//Marshal.Copy(_SourceByte, 0, tmBitmapData.Scan0, _SourceByte.Length);   //复制出p_PartBitmap的相素信息   </span></span><br><span class="line">            <span class="comment"><span class="doctag">///</span>/byte[] source, int startIndex, IntPtr destination, int length</span></span><br><span class="line">            <span class="comment">//tmpBitmap.UnlockBits(_PartData);</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            <span class="comment">//Graphics tmpGraphics = Graphics.FromImage(tmpBitmap);</span></span><br><span class="line">            <span class="comment">//tmpGraphics.DrawImage(tmpBitmap, new System.Drawing.Rectangle(0, 0, _SourceWidth, _SourceHeight));</span></span><br><span class="line">            <span class="comment">//tmpGraphics.Dispose();</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">//tmpBitmap.Save(&quot;test.bmp&quot;);</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> pointList;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>我改成匹配多个结果的时候用的方法是把匹配到结果图形右下角到坐标0,0的区域涂黑，然后重新匹配，直到没有结果为止。但是这个跳一跳不用匹配多个结果，他只要这个方法确定象棋位置就可以</p>
-<h2 id="鼠标钩子"><a href="#鼠标钩子" class="headerlink" title="鼠标钩子"></a>鼠标钩子</h2><p>这部分其实比较简单，就是调用 user32.dll 外部方法，搞几个委托处理下回调函数，有一个需要注意点就是钩子的回调函数必须搞成静态变量，不然会被GC回收掉，导致回调报错，我自己整理的钩子类如下</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 全局钩子</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Hook</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">const</span> <span class="built_in">int</span> WM_MOUSEMOVE = <span class="number">0x200</span>;<span class="comment">//鼠标移动</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">const</span> <span class="built_in">int</span> WM_LBUTTONDOWN = <span class="number">0x201</span>;<span class="comment">//左键按下</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">const</span> <span class="built_in">int</span> WM_RBUTTONDOWN = <span class="number">0x204</span>;<span class="comment">//右键按下</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">const</span> <span class="built_in">int</span> WM_MBUTTONDOWN = <span class="number">0x207</span>;<span class="comment">//滚轮按下</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">const</span> <span class="built_in">int</span> WM_LBUTTONUP = <span class="number">0x202</span>;<span class="comment">//左键松开</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">const</span> <span class="built_in">int</span> WM_RBUTTONUP = <span class="number">0x205</span>;<span class="comment">//右键松开</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">const</span> <span class="built_in">int</span> WM_MBUTTONUP = <span class="number">0x208</span>;<span class="comment">//滚轮松开</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">const</span> <span class="built_in">int</span> WM_LBUTTONDBLCLK = <span class="number">0x203</span>;<span class="comment">//左键双击</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">const</span> <span class="built_in">int</span> WM_RBUTTONDBLCLK = <span class="number">0x206</span>;<span class="comment">//右键双击</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">const</span> <span class="built_in">int</span> WM_MBUTTONDBLCLK = <span class="number">0x209</span>;<span class="comment">//滚轮双击</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">const</span> <span class="built_in">int</span> WH_KEYBOARD_LL = <span class="number">13</span>; <span class="comment">//键盘</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">const</span> <span class="built_in">int</span> WH_MOUSE_LL = <span class="number">14</span>; <span class="comment">// mouse hook constant</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">const</span> <span class="built_in">int</span> WM_KEYDOWN = <span class="number">0x0100</span>; <span class="comment">//按下一个键</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">const</span> <span class="built_in">int</span> WM_KEYUP = <span class="number">0x0101</span>; <span class="comment">//释放一个键</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">const</span> <span class="built_in">int</span> WM_CHAR = <span class="number">0x0102</span>; <span class="comment">//按下某键，并已发出WM_KEYDOWN，WM_KEYUP消息</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">const</span> <span class="built_in">int</span> WM_SYSKEYDOWN = <span class="number">0x0104</span>; <span class="comment">//当用户按住ALT键同时按下其它键时提交此消息给拥有焦点的窗口</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">const</span> <span class="built_in">int</span> WM_SYSKEYUP = <span class="number">0x0105</span>; <span class="comment">//当用户释放一个键同时ALT 键还按着时提交此消息给拥有焦点的窗口</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">const</span> <span class="built_in">int</span> WM_SYSCHAR = <span class="number">0x0106</span>; <span class="comment">//当WM_SYSKEYDOWN消息被TRANSLATEMESSAGE函数翻译后提交此消息给拥有焦点的窗口</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> 点</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">    [<span class="meta">StructLayout(LayoutKind.Sequential)</span>]</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">POINT</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">int</span> x;</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">int</span> y;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> 鼠标钩子结构体</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">    [<span class="meta">StructLayout(LayoutKind.Sequential)</span>]</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">MouseHookStruct</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">public</span> POINT pt;</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">int</span> hWnd;</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">int</span> wHitTestCode;</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">int</span> dwExtraInfo;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> 键盘钩子结构体</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">    [<span class="meta">StructLayout(LayoutKind.Sequential)</span>]</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">KeyBoardHookStruct</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">int</span> vkCode;</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">int</span> scanCode;</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">int</span> flags;</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">int</span> time;</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">int</span> dwExtraInfo;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 装置钩子的函数</span></span><br><span class="line">    [<span class="meta">DllImport(<span class="string">&quot;user32.dll&quot;</span>, CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)</span>]</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">extern</span> <span class="built_in">int</span> <span class="title">SetWindowsHookEx</span>(<span class="params"><span class="built_in">int</span> idHook, HookProc lpfn, IntPtr hInstance, <span class="built_in">int</span> threadId</span>)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 卸下钩子的函数</span></span><br><span class="line">    [<span class="meta">DllImport(<span class="string">&quot;user32.dll&quot;</span>, CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)</span>]</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">extern</span> <span class="built_in">bool</span> <span class="title">UnhookWindowsHookEx</span>(<span class="params"><span class="built_in">int</span> idHook</span>)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 下一个钩挂的函数</span></span><br><span class="line">    [<span class="meta">DllImport(<span class="string">&quot;user32.dll&quot;</span>, CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)</span>]</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">extern</span> <span class="built_in">int</span> <span class="title">CallNextHookEx</span>(<span class="params"><span class="built_in">int</span> idHook, <span class="built_in">int</span> nCode, Int32 wParam, IntPtr lParam</span>)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 全局的鼠标事件</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">event</span> MouseEventHandler OnMouseActivity;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 全局的键盘事件</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">event</span> System.Windows.Forms.KeyEventHandler OnKeyBoardActivity;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 钩子回调函数</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="built_in">delegate</span> <span class="built_in">int</span> <span class="title">HookProc</span>(<span class="params"><span class="built_in">int</span> nCode, Int32 wParam, IntPtr lParam</span>)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 声明鼠标钩子事件类型</span></span><br><span class="line">    <span class="comment">//private HookProc _mouseHookProcedure;</span></span><br><span class="line">    <span class="comment">//private HookProc _keyBoacrdHookProcedure;</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="built_in">int</span> _hMouseHook = <span class="number">0</span>; <span class="comment">// 鼠标钩子句柄 卸载钩子需要使用</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="built_in">int</span> _hKeyBoardHook = <span class="number">0</span>; <span class="comment">// 键盘钩子句柄 卸载钩子需要使用</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> 构造函数</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Hook</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> 析构函数</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">    ~Hook()</span><br><span class="line">    &#123;</span><br><span class="line">        StopMouseHook();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> HookProc _mouseHookProcedure;</span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> 启动鼠标钩子</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">StartMouseHook</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 安装鼠标钩子</span></span><br><span class="line">        <span class="keyword">if</span> (_hMouseHook == <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// 生成一个HookProc的实例.</span></span><br><span class="line"></span><br><span class="line">            _mouseHookProcedure = MouseHookProc;</span><br><span class="line">            _hMouseHook = SetWindowsHookEx(WH_MOUSE_LL, _mouseHookProcedure, IntPtr.Zero, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//假设装置失败停止钩子</span></span><br><span class="line">            <span class="keyword">if</span> (_hMouseHook == <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                StopMouseHook();</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> Exception(<span class="string">&quot;SetWindowsHookEx failed.&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> 停止鼠标钩子</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">StopMouseHook</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">bool</span> retMouse = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (_hMouseHook != <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            retMouse = UnhookWindowsHookEx(_hMouseHook);</span><br><span class="line">            _hMouseHook = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 假设卸下钩子失败</span></span><br><span class="line">        <span class="keyword">if</span> (!(retMouse))</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> Exception(<span class="string">&quot;UnhookWindowsHookEx failed.&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> 鼠标钩子回调函数</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="built_in">int</span> <span class="title">MouseHookProc</span>(<span class="params"><span class="built_in">int</span> nCode, Int32 wParam, IntPtr lParam</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 假设正常执行而且用户要监听鼠标的消息</span></span><br><span class="line">        <span class="keyword">if</span> ((nCode &gt;= <span class="number">0</span>) &amp;&amp; (OnMouseActivity != <span class="literal">null</span>))</span><br><span class="line">        &#123;</span><br><span class="line">            MouseButtons button = MouseButtons.None;</span><br><span class="line">            <span class="built_in">int</span> clickCount = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">switch</span> (wParam)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">case</span> WM_LBUTTONDOWN:</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> WM_LBUTTONUP:</span><br><span class="line">                    button = MouseButtons.Left;</span><br><span class="line">                    clickCount = <span class="number">1</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> WM_LBUTTONDBLCLK:</span><br><span class="line">                    button = MouseButtons.Left;</span><br><span class="line">                    clickCount = <span class="number">2</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> WM_RBUTTONDOWN:</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> WM_RBUTTONUP:</span><br><span class="line">                    button = MouseButtons.Right;</span><br><span class="line">                    clickCount = <span class="number">1</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> WM_RBUTTONDBLCLK:</span><br><span class="line">                    button = MouseButtons.Right;</span><br><span class="line">                    clickCount = <span class="number">2</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 从回调函数中得到鼠标的信息</span></span><br><span class="line">            MouseHookStruct myMouseHookStruct = (MouseHookStruct)Marshal.PtrToStructure(lParam, <span class="keyword">typeof</span>(MouseHookStruct));</span><br><span class="line">            MouseEventArgs e = <span class="keyword">new</span> MouseEventArgs(button, clickCount, myMouseHookStruct.pt.x, myMouseHookStruct.pt.y, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 假设想要限制鼠标在屏幕中的移动区域能够在此处设置</span></span><br><span class="line">            <span class="comment">// 后期须要考虑实际的x、y的容差</span></span><br><span class="line">            <span class="comment">//if (!Screen.PrimaryScreen.Bounds.Contains(e.X, e.Y))</span></span><br><span class="line">            <span class="comment">//&#123;</span></span><br><span class="line">            <span class="comment">//    //return 1;</span></span><br><span class="line">            <span class="comment">//&#125;</span></span><br><span class="line"></span><br><span class="line">            OnMouseActivity(<span class="keyword">this</span>, e);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 启动下一次钩子</span></span><br><span class="line">        <span class="keyword">return</span> CallNextHookEx(_hMouseHook, nCode, wParam, lParam);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> HookProc _keyBoacrdHookProcedure;</span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> 启动键盘钩子</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">StartKeyBoardHook</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 安装鼠标钩子</span></span><br><span class="line">        <span class="keyword">if</span> (_hKeyBoardHook == <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// 生成一个HookProc的实例.</span></span><br><span class="line">            _keyBoacrdHookProcedure = KeyBoardHookProc;</span><br><span class="line"></span><br><span class="line">            _hKeyBoardHook = SetWindowsHookEx(WH_KEYBOARD_LL, _keyBoacrdHookProcedure, IntPtr.Zero, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//假设装置失败停止钩子</span></span><br><span class="line">            <span class="keyword">if</span> (_hKeyBoardHook == <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                StopKeyBoardHook();</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> Exception(<span class="string">&quot;SetWindowsHookEx failed.&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> 停止键盘钩子</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">StopKeyBoardHook</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">bool</span> retMouse = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (_hKeyBoardHook != <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            retMouse = UnhookWindowsHookEx(_hKeyBoardHook);</span><br><span class="line">            _hKeyBoardHook = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 假设卸下钩子失败</span></span><br><span class="line">        <span class="keyword">if</span> (!(retMouse))</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> Exception(<span class="string">&quot;UnhookWindowsHookEx failed.&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> 键盘钩子回调函数</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="built_in">int</span> <span class="title">KeyBoardHookProc</span>(<span class="params"><span class="built_in">int</span> nCode, Int32 wParam, IntPtr lParam</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 假设正常执行而且用户要监听鼠标的消息</span></span><br><span class="line">        <span class="keyword">if</span> ((nCode &gt;= <span class="number">0</span>) &amp;&amp; (OnKeyBoardActivity != <span class="literal">null</span>))</span><br><span class="line">        &#123;</span><br><span class="line">            KeyBoardHookStruct kbh = (KeyBoardHookStruct)Marshal.PtrToStructure(lParam, <span class="keyword">typeof</span>(KeyBoardHookStruct));</span><br><span class="line">            <span class="keyword">var</span> k = (Keys)Enum.Parse(<span class="keyword">typeof</span>(Keys), kbh.vkCode.ToString());</span><br><span class="line"></span><br><span class="line">            <span class="keyword">switch</span> (k)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">case</span> Keys.F10:</span><br><span class="line">                    <span class="keyword">if</span> (wParam == WM_KEYDOWN)</span><br><span class="line">                    &#123;</span><br><span class="line">                        Keys keyData = (Keys)kbh.vkCode;</span><br><span class="line">                        System.Windows.Forms.KeyEventArgs e = <span class="keyword">new</span> System.Windows.Forms.KeyEventArgs(keyData);</span><br><span class="line">                        OnKeyBoardActivity(<span class="keyword">this</span>, e);</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">else</span></span><br><span class="line">                    &#123;</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                <span class="literal">default</span>:</span><br><span class="line">                    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 启动下一次钩子</span></span><br><span class="line">        <span class="keyword">return</span> CallNextHookEx(_hKeyBoardHook, nCode, wParam, lParam);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="csharp">    /// &lt;summary&gt;  
+    /// 判断图形里是否存在另外一个图形 所在行的索引  
+    /// &lt;/summary&gt;  
+    /// &lt;param name=&quot;p_Source&quot;&gt;原始图形数据&lt;/param&gt;  
+    /// &lt;param name=&quot;p_Part&quot;&gt;小图形数据&lt;/param&gt;  
+    /// &lt;param name=&quot;p_SourceIndex&quot;&gt;开始位置&lt;/param&gt;  
+    /// &lt;param name=&quot;p_SourceWidth&quot;&gt;原始图形宽&lt;/param&gt;  
+    /// &lt;param name=&quot;p_PartWidth&quot;&gt;小图宽&lt;/param&gt;  
+    /// &lt;param name=&quot;p_Float&quot;&gt;溶差&lt;/param&gt;  
+    /// &lt;returns&gt;所在行的索引 如果找不到返回-1&lt;/returns&gt;  
+    private static int GetImageContains(byte[] p_Source, byte[] p_Part, int p_SourceIndex, int p_SourceWidth, int p_PartWidth, int p_Float)
+    &#123;
+        int _PartIndex = 0;
+        int _SourceIndex = p_SourceIndex;
+        for (int i = 0; i &lt; p_SourceWidth; i++)
+        &#123;
+            if (p_SourceWidth - i &lt; p_PartWidth) return -1;
+            //这里放弃构造Color类，因为太耗时了，为了效率连自建color结构都不搞了，直接比较RGB三色的字节
+            //Color _CurrentlyColor = Color.FromArgb(p_Source[_SourceIndex + 3], p_Source[_SourceIndex + 2], p_Source[_SourceIndex + 1], p_Source[_SourceIndex]);
+            //Color _CompareColoe = Color.FromArgb(p_Part[3], p_Part[2], p_Part[1], p_Part[0]);
+            _SourceIndex += 4;
+    
+            bool _ScanColor = ScanColor(p_Source[_SourceIndex + 2], p_Source[_SourceIndex + 1], p_Source[_SourceIndex], p_Part[2], p_Part[1], p_Part[0], p_Float);
+    
+            if (_ScanColor)
+            &#123;
+                _PartIndex += 4;
+                int _SourceRVA = _SourceIndex;
+                bool _Equals = true;
+                for (int z = 0; z != p_PartWidth - 1; z++)
+                &#123;
+                    //_CurrentlyColor = Color.FromArgb(p_Source[_SourceRVA + 3], p_Source[_SourceRVA + 2], p_Source[_SourceRVA + 1], p_Source[_SourceRVA]);
+                    //_CompareColoe = Color.FromArgb(p_Part[_PartIndex + 3], p_Part[_PartIndex + 2], p_Part[_PartIndex + 1], p_Part[_PartIndex]);
+    
+                    if (!ScanColor(p_Source[_SourceRVA + 2], p_Source[_SourceRVA + 1], p_Source[_SourceRVA], p_Part[_PartIndex + 2], p_Part[_PartIndex + 1], p_Part[_PartIndex], p_Float))
+                    &#123;
+                        _PartIndex = 0;
+                        _Equals = false;
+                        break;
+                    &#125;
+                    _PartIndex += 4;
+                    _SourceRVA += 4;
+                &#125;
+                if (_Equals) return i;
+            &#125;
+            else
+            &#123;
+                _PartIndex = 0;
+            &#125;
+        &#125;
+        return -1;
+    &#125;
+    
+    /// &lt;summary&gt;  
+    /// 检查色彩(可以根据这个更改比较方式  
+    /// &lt;/summary&gt;  
+    /// &lt;param name=&quot;p_CurrentlyColor&quot;&gt;当前色彩&lt;/param&gt;  
+    /// &lt;param name=&quot;p_CompareColor&quot;&gt;比较色彩&lt;/param&gt;  
+    /// &lt;param name=&quot;p_Float&quot;&gt;溶差&lt;/param&gt;  
+    /// &lt;returns&gt;&lt;/returns&gt;  
+    private static bool ScanColor(byte source_R, byte source_G, byte source_B, byte part_R, byte part_G, byte part_B, int p_Float)
+    &#123;
+        //int _R = p_CurrentlyColor.R;
+        //int _G = p_CurrentlyColor.G;
+        //int _B = p_CurrentlyColor.B;
+    
+        return (source_R &lt;= part_R + p_Float &amp;&amp; source_R &gt;= part_R - p_Float)
+            &amp;&amp; (source_G &lt;= part_G + p_Float &amp;&amp; source_G &gt;= part_G - p_Float)
+            &amp;&amp; (source_B &lt;= part_B + p_Float &amp;&amp; source_B &gt;= part_B - p_Float);
+    
+    &#125;
+    
+    /// &lt;summary&gt;  
+    /// 判断图形里是否存在另外一个图形 并返回所在位置  
+    /// &lt;/summary&gt;  
+    /// &lt;param name=&quot;p_SourceBitmap&quot;&gt;原始图形&lt;/param&gt;  
+    /// &lt;param name=&quot;p_PartBitmap&quot;&gt;小图形&lt;/param&gt;  
+    /// &lt;param name=&quot;p_Float&quot;&gt;溶差&lt;/param&gt;  
+    /// &lt;returns&gt;坐标&lt;/returns&gt;  
+    public static List&lt;Point&gt; GetAllPoints(Bitmap p_SourceBitmap, Bitmap p_PartBitmap, int p_Float)
+    &#123;
+        var pointList = new List&lt;Point&gt;();
+        int _SourceWidth = p_SourceBitmap.Width;
+        int _SourceHeight = p_SourceBitmap.Height;
+    
+        int _PartWidth = p_PartBitmap.Width;
+        int _PartHeight = p_PartBitmap.Height;
+    
+        Bitmap _SourceBitmap = new Bitmap(_SourceWidth, _SourceHeight);
+        Graphics _Graphics = Graphics.FromImage(_SourceBitmap);
+        _Graphics.DrawImage(p_SourceBitmap, new System.Drawing.Rectangle(0, 0, _SourceWidth, _SourceHeight));
+        _Graphics.Dispose();
+    
+        BitmapData _SourceData = _SourceBitmap.LockBits(new System.Drawing.Rectangle(0, 0, _SourceWidth, _SourceHeight), ImageLockMode.ReadWrite, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+        byte[] _SourceByte = new byte[_SourceData.Stride * _SourceHeight];
+        Marshal.Copy(_SourceData.Scan0, _SourceByte, 0, _SourceByte.Length);  //复制出p_SourceBitmap的相素信息   
+        _SourceBitmap.UnlockBits(_SourceData);
+    
+        Bitmap _PartBitmap = new Bitmap(_PartWidth, _PartHeight);
+        _Graphics = Graphics.FromImage(_PartBitmap);
+        _Graphics.DrawImage(p_PartBitmap, new System.Drawing.Rectangle(0, 0, _PartWidth, _PartHeight));
+        _Graphics.Dispose();
+        BitmapData _PartData = _PartBitmap.LockBits(new System.Drawing.Rectangle(0, 0, _PartWidth, _PartHeight), ImageLockMode.ReadWrite, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+        byte[] _PartByte = new byte[_PartData.Stride * _PartHeight];
+        Marshal.Copy(_PartData.Scan0, _PartByte, 0, _PartByte.Length);   //复制出p_PartBitmap的相素信息   
+        _PartBitmap.UnlockBits(_PartData);
+    
+        //匹配基本思路如下
+        //1. 先遍历原图Y坐标
+        //2.    遍历匹配图Y坐标AS目标坐标
+        //3.        找出该行完全匹配的X坐标，如果没有，原图Y+1，重复步骤1
+        //          如果成功找到X，目标坐标Y+1，再次匹配，但是X值必须一致，直至目标Y最大，匹配结束
+        for (int _PointY = 0; _PointY != _SourceHeight; _PointY++)
+        &#123;
+            if (_SourceHeight - _PointY &lt; _PartHeight) break;  //如果 剩余的高 比需要比较的高 还要小 就直接返回               
+            int _PointX = -1;    //临时存放坐标 需要保证找到的是在一个X点上  
+            bool _SacnOver = true;   //是否都比配的上  
+            for (int z = 0; z != _PartHeight - 1; z++)       //循环目标进行比较  
+            &#123;
+                int _TrueX = GetImageContains(_SourceByte, _PartByte, _PointY * _SourceData.Stride, _SourceWidth, _PartWidth, p_Float);
+    
+                if (_TrueX == -1)   //如果没找到   
+                &#123;
+                    _PointX = -1;    //设置坐标为没找到  
+                    _SacnOver = false;   //设置不进行返回  
+                    //_SourceByte = _SourceByte.Skip(_SourceData.Stride).ToArray();
+                    //_SourceHeight = _SourceHeight - 1;
+                    break;
+                &#125;
+                else
+                &#123;
+                    if (z == 0) _PointX = _TrueX;
+                    if (_PointX != _TrueX)   //如果找到了 也的保证坐标和上一行的坐标一样 否则也返回  
+                    &#123;
+                        _PointX = -1;//设置坐标为没找到  
+                        _SacnOver = false;  //设置不进行返回  
+                        //_SourceByte = _SourceByte.Skip(_SourceData.Stride).ToArray();
+                        //_SourceHeight = _SourceHeight - 1;
+                        break;
+                    &#125;
+                &#125;
+            &#125;
+            if (_SacnOver)
+            &#123;
+                //加入集合
+                pointList.Add(new Point(_PointX, _PointY));
+                //矩形涂黑
+                var tmpX = _PointX + _PartWidth;
+                var tmpY = _PointY + _PartHeight;
+                for (int y = 0; y &lt; tmpY; y++)
+                &#123;
+                    for (int x = 0; x &lt; tmpX; x++)
+                    &#123;
+                        var index = y * _SourceData.Stride + x * 4;
+                        _SourceByte[index] = 255;
+                        _SourceByte[index + 1] = 255;
+                        _SourceByte[index + 2] = 255;
+                        _SourceByte[index + 3] = 255;
+                    &#125;
+                &#125;
+                //重置Y坐标
+                _PointY = 0;
+    
+                //Bitmap tmpBitmap = new Bitmap(_SourceWidth, _SourceHeight);
+                //BitmapData tmBitmapData = tmpBitmap.LockBits(new System.Drawing.Rectangle(0, 0, _SourceWidth, _SourceHeight), ImageLockMode.ReadWrite, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+                //Marshal.Copy(_SourceByte, 0, tmBitmapData.Scan0, _SourceByte.Length);   //复制出p_PartBitmap的相素信息   
+                ////byte[] source, int startIndex, IntPtr destination, int length
+                //tmpBitmap.UnlockBits(_PartData);
+    
+    
+                //Graphics tmpGraphics = Graphics.FromImage(tmpBitmap);
+                //tmpGraphics.DrawImage(tmpBitmap, new System.Drawing.Rectangle(0, 0, _SourceWidth, _SourceHeight));
+                //tmpGraphics.Dispose();
+    
+                //tmpBitmap.Save(&quot;test.bmp&quot;);
+            &#125;
+    
+        &#125;
+        return pointList;
+    &#125;
+    ```
+    
 
+我改成匹配多个结果的时候用的方法是把匹配到结果图形右下角到坐标0,0的区域涂黑，然后重新匹配，直到没有结果为止。但是这个跳一跳不用匹配多个结果，他只要这个方法确定象棋位置就可以
+    
+    
+## 鼠标钩子
+
+这部分其实比较简单，就是调用 user32.dll 外部方法，搞几个委托处理下回调函数，有一个需要注意点就是钩子的回调函数必须搞成静态变量，不然会被GC回收掉，导致回调报错，我自己整理的钩子类如下
+    
+``` csharp
+    /// &lt;summary&gt;
+    /// 全局钩子
+    /// &lt;/summary&gt;
+    public class Hook
+    &#123;
+        private const int WM_MOUSEMOVE = 0x200;//鼠标移动
+        private const int WM_LBUTTONDOWN = 0x201;//左键按下
+        private const int WM_RBUTTONDOWN = 0x204;//右键按下
+        private const int WM_MBUTTONDOWN = 0x207;//滚轮按下
+        private const int WM_LBUTTONUP = 0x202;//左键松开
+        private const int WM_RBUTTONUP = 0x205;//右键松开
+        private const int WM_MBUTTONUP = 0x208;//滚轮松开
+        private const int WM_LBUTTONDBLCLK = 0x203;//左键双击
+        private const int WM_RBUTTONDBLCLK = 0x206;//右键双击
+        private const int WM_MBUTTONDBLCLK = 0x209;//滚轮双击
+        private const int WH_KEYBOARD_LL = 13; //键盘
+        private const int WH_MOUSE_LL = 14; // mouse hook constant
+        private const int WM_KEYDOWN = 0x0100; //按下一个键
+        private const int WM_KEYUP = 0x0101; //释放一个键
+        private const int WM_CHAR = 0x0102; //按下某键，并已发出WM_KEYDOWN，WM_KEYUP消息
+        private const int WM_SYSKEYDOWN = 0x0104; //当用户按住ALT键同时按下其它键时提交此消息给拥有焦点的窗口
+        private const int WM_SYSKEYUP = 0x0105; //当用户释放一个键同时ALT 键还按着时提交此消息给拥有焦点的窗口
+        private const int WM_SYSCHAR = 0x0106; //当WM_SYSKEYDOWN消息被TRANSLATEMESSAGE函数翻译后提交此消息给拥有焦点的窗口
+    
+        /// &lt;summary&gt;
+        /// 点
+        /// &lt;/summary&gt;
+        [StructLayout(LayoutKind.Sequential)]
+        public class POINT
+        &#123;
+            public int x;
+            public int y;
+        &#125;
+    
+        /// &lt;summary&gt;
+        /// 鼠标钩子结构体
+        /// &lt;/summary&gt;
+        [StructLayout(LayoutKind.Sequential)]
+        public class MouseHookStruct
+        &#123;
+            public POINT pt;
+            public int hWnd;
+            public int wHitTestCode;
+            public int dwExtraInfo;
+        &#125;
+        /// &lt;summary&gt;
+        /// 键盘钩子结构体
+        /// &lt;/summary&gt;
+        [StructLayout(LayoutKind.Sequential)]
+        public class KeyBoardHookStruct
+        &#123;
+            public int vkCode;
+            public int scanCode;
+            public int flags;
+            public int time;
+            public int dwExtraInfo;
+        &#125;
+    
+    
+        // 装置钩子的函数
+        [DllImport(&quot;user32.dll&quot;, CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
+        public static extern int SetWindowsHookEx(int idHook, HookProc lpfn, IntPtr hInstance, int threadId);
+    
+        // 卸下钩子的函数
+        [DllImport(&quot;user32.dll&quot;, CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
+        public static extern bool UnhookWindowsHookEx(int idHook);
+    
+        // 下一个钩挂的函数
+        [DllImport(&quot;user32.dll&quot;, CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
+        public static extern int CallNextHookEx(int idHook, int nCode, Int32 wParam, IntPtr lParam);
+    
+        // 全局的鼠标事件
+        public event MouseEventHandler OnMouseActivity;
+    
+        // 全局的键盘事件
+        public event System.Windows.Forms.KeyEventHandler OnKeyBoardActivity;
+    
+        // 钩子回调函数
+        public delegate int HookProc(int nCode, Int32 wParam, IntPtr lParam);
+    
+        // 声明鼠标钩子事件类型
+        //private HookProc _mouseHookProcedure;
+        //private HookProc _keyBoacrdHookProcedure;
+        private static int _hMouseHook = 0; // 鼠标钩子句柄 卸载钩子需要使用
+        private static int _hKeyBoardHook = 0; // 键盘钩子句柄 卸载钩子需要使用
+    
+        /// &lt;summary&gt;
+        /// 构造函数
+        /// &lt;/summary&gt;
+        public Hook()
+        &#123;
+    
+        &#125;
+    
+        /// &lt;summary&gt;
+        /// 析构函数
+        /// &lt;/summary&gt;
+        ~Hook()
+        &#123;
+            StopMouseHook();
+        &#125;
+        private static HookProc _mouseHookProcedure;
+        /// &lt;summary&gt;
+        /// 启动鼠标钩子
+        /// &lt;/summary&gt;
+        public void StartMouseHook()
+        &#123;
+            // 安装鼠标钩子
+            if (_hMouseHook == 0)
+            &#123;
+                // 生成一个HookProc的实例.
+    
+                _mouseHookProcedure = MouseHookProc;
+                _hMouseHook = SetWindowsHookEx(WH_MOUSE_LL, _mouseHookProcedure, IntPtr.Zero, 0);
+    
+                //假设装置失败停止钩子
+                if (_hMouseHook == 0)
+                &#123;
+                    StopMouseHook();
+                    throw new Exception(&quot;SetWindowsHookEx failed.&quot;);
+                &#125;
+            &#125;
+        &#125;
+    
+        /// &lt;summary&gt;
+        /// 停止鼠标钩子
+        /// &lt;/summary&gt;
+        public void StopMouseHook()
+        &#123;
+            bool retMouse = true;
+    
+            if (_hMouseHook != 0)
+            &#123;
+                retMouse = UnhookWindowsHookEx(_hMouseHook);
+                _hMouseHook = 0;
+            &#125;
+    
+            // 假设卸下钩子失败
+            if (!(retMouse))
+                throw new Exception(&quot;UnhookWindowsHookEx failed.&quot;);
+        &#125;
+    
+        /// &lt;summary&gt;
+        /// 鼠标钩子回调函数
+        /// &lt;/summary&gt;
+        private int MouseHookProc(int nCode, Int32 wParam, IntPtr lParam)
+        &#123;
+            // 假设正常执行而且用户要监听鼠标的消息
+            if ((nCode &gt;= 0) &amp;&amp; (OnMouseActivity != null))
+            &#123;
+                MouseButtons button = MouseButtons.None;
+                int clickCount = 0;
+    
+                switch (wParam)
+                &#123;
+                    case WM_LBUTTONDOWN:
+                        break;
+                    case WM_LBUTTONUP:
+                        button = MouseButtons.Left;
+                        clickCount = 1;
+                        break;
+                    case WM_LBUTTONDBLCLK:
+                        button = MouseButtons.Left;
+                        clickCount = 2;
+                        break;
+                    case WM_RBUTTONDOWN:
+                        break;
+                    case WM_RBUTTONUP:
+                        button = MouseButtons.Right;
+                        clickCount = 1;
+                        break;
+                    case WM_RBUTTONDBLCLK:
+                        button = MouseButtons.Right;
+                        clickCount = 2;
+                        break;
+                &#125;
+    
+                // 从回调函数中得到鼠标的信息
+                MouseHookStruct myMouseHookStruct = (MouseHookStruct)Marshal.PtrToStructure(lParam, typeof(MouseHookStruct));
+                MouseEventArgs e = new MouseEventArgs(button, clickCount, myMouseHookStruct.pt.x, myMouseHookStruct.pt.y, 0);
+    
+                // 假设想要限制鼠标在屏幕中的移动区域能够在此处设置
+                // 后期须要考虑实际的x、y的容差
+                //if (!Screen.PrimaryScreen.Bounds.Contains(e.X, e.Y))
+                //&#123;
+                //    //return 1;
+                //&#125;
+    
+                OnMouseActivity(this, e);
+            &#125;
+    
+            // 启动下一次钩子
+            return CallNextHookEx(_hMouseHook, nCode, wParam, lParam);
+        &#125;
+        private static HookProc _keyBoacrdHookProcedure;
+        /// &lt;summary&gt;
+        /// 启动键盘钩子
+        /// &lt;/summary&gt;
+        public void StartKeyBoardHook()
+        &#123;
+            // 安装鼠标钩子
+            if (_hKeyBoardHook == 0)
+            &#123;
+                // 生成一个HookProc的实例.
+                _keyBoacrdHookProcedure = KeyBoardHookProc;
+    
+                _hKeyBoardHook = SetWindowsHookEx(WH_KEYBOARD_LL, _keyBoacrdHookProcedure, IntPtr.Zero, 0);
+    
+                //假设装置失败停止钩子
+                if (_hKeyBoardHook == 0)
+                &#123;
+                    StopKeyBoardHook();
+                    throw new Exception(&quot;SetWindowsHookEx failed.&quot;);
+                &#125;
+            &#125;
+        &#125;
+    
+        /// &lt;summary&gt;
+        /// 停止键盘钩子
+        /// &lt;/summary&gt;
+        public void StopKeyBoardHook()
+        &#123;
+            bool retMouse = true;
+    
+            if (_hKeyBoardHook != 0)
+            &#123;
+                retMouse = UnhookWindowsHookEx(_hKeyBoardHook);
+                _hKeyBoardHook = 0;
+            &#125;
+    
+            // 假设卸下钩子失败
+            if (!(retMouse))
+                throw new Exception(&quot;UnhookWindowsHookEx failed.&quot;);
+        &#125;
+    
+        /// &lt;summary&gt;
+        /// 键盘钩子回调函数
+        /// &lt;/summary&gt;
+        private int KeyBoardHookProc(int nCode, Int32 wParam, IntPtr lParam)
+        &#123;
+            // 假设正常执行而且用户要监听鼠标的消息
+            if ((nCode &gt;= 0) &amp;&amp; (OnKeyBoardActivity != null))
+            &#123;
+                KeyBoardHookStruct kbh = (KeyBoardHookStruct)Marshal.PtrToStructure(lParam, typeof(KeyBoardHookStruct));
+                var k = (Keys)Enum.Parse(typeof(Keys), kbh.vkCode.ToString());
+    
+                switch (k)
+                &#123;
+                    case Keys.F10:
+                        if (wParam == WM_KEYDOWN)
+                        &#123;
+                            Keys keyData = (Keys)kbh.vkCode;
+                            System.Windows.Forms.KeyEventArgs e = new System.Windows.Forms.KeyEventArgs(keyData);
+                            OnKeyBoardActivity(this, e);
+                            break;
+                        &#125;
+                        else
+                        &#123;
+                            break;
+                        &#125;
+                    default:
+                        return -1;
+                &#125;
+    
+            &#125;
+    
+            // 启动下一次钩子
+            return CallNextHookEx(_hKeyBoardHook, nCode, wParam, lParam);
+        &#125;
+    &#125;
+</code></pre>
 <h2 id="界面以及主逻辑"><a href="#界面以及主逻辑" class="headerlink" title="界面以及主逻辑"></a>界面以及主逻辑</h2><p>因为每次跳动都要确定模拟器的区域，所以第一步我先获取句柄，然后根据窗体句柄获取模拟器界面边界，屏幕截图在截取出模拟器的界面，得到匹配用的原图</p>
 <p>素材图片，就是旗子身体的一部分，因为根据模拟器窗体大小会变化，所以采用读取本件的方法，这意味着你要事先截取好素材图片，需要注意的是之前自己写的图片匹配方法比较死板，所以素材图片不能把背景搞进去，不然肯定匹配不出来</p>
 <p>然后就是 user32一些外部方法，用来移动鼠标，模拟鼠标操作</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">region</span> 跳一跳相关</span></span><br><span class="line"></span><br><span class="line">RECT _jumpRect = <span class="keyword">new</span> RECT();<span class="comment">//模拟器坐标</span></span><br><span class="line"><span class="built_in">string</span> _pieceImgPath = String.Empty;<span class="comment">//棋子图片路径</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 鼠标取句柄按钮点击</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;sender&quot;&gt;</span><span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;e&quot;&gt;</span><span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">button3_Click_1</span>(<span class="params"><span class="built_in">object</span> sender, RoutedEventArgs e</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//开启钩子监听鼠标点击事件</span></span><br><span class="line">    hook.OnMouseActivity += Jump1HookActivity;</span><br><span class="line">    hook.StartMouseHook();</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 鼠标钩子左键回调</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;sender&quot;&gt;</span><span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;mouseEventArgs&quot;&gt;</span><span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Jump1HookActivity</span>(<span class="params"><span class="built_in">object</span> sender, System.Windows.Forms.MouseEventArgs mouseEventArgs</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (mouseEventArgs.Button == MouseButtons.Left &amp;&amp; mouseEventArgs.Clicks == <span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//当前鼠标坐标</span></span><br><span class="line">        <span class="keyword">var</span> point = <span class="keyword">new</span> POINT();</span><br><span class="line">        GetCursorPos(<span class="keyword">out</span> point);</span><br><span class="line">        <span class="comment">//句柄</span></span><br><span class="line">        formHandle = WindowFromPoint(point);</span><br><span class="line">        <span class="comment">//标题</span></span><br><span class="line">        <span class="keyword">var</span> title = <span class="keyword">new</span> StringBuilder(<span class="number">256</span>);</span><br><span class="line">        GetWindowText(formHandle, title, title.Capacity);</span><br><span class="line">        <span class="comment">//类名</span></span><br><span class="line">        <span class="keyword">var</span> className = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">        GetClassName(formHandle, className, className.Capacity);</span><br><span class="line">        <span class="comment">//Size</span></span><br><span class="line">        _jumpRect = <span class="keyword">new</span> RECT();</span><br><span class="line">        GetWindowRect(formHandle, <span class="keyword">ref</span> _jumpRect);</span><br><span class="line">        AddLog(<span class="string">$&quot;句柄采集成功！窗体坐标范围为 <span class="subst">&#123;_jumpRect.Left&#125;</span>,<span class="subst">&#123;_jumpRect.Top&#125;</span>-<span class="subst">&#123;_jumpRect.Right&#125;</span>,<span class="subst">&#123;_jumpRect.Bottom&#125;</span>&quot;</span>);</span><br><span class="line">        AddLog(<span class="string">$&quot;窗体大小 Width:<span class="subst">&#123;_jumpRect.Right - _jumpRect.Left&#125;</span>,Height:<span class="subst">&#123;_jumpRect.Bottom - _jumpRect.Top&#125;</span>&quot;</span>);</span><br><span class="line">        hook.StopMouseHook();</span><br><span class="line">        hook.OnMouseActivity -= Jump1HookActivity;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">AddLog</span>(<span class="params"><span class="built_in">string</span> str</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">string</span>.IsNullOrWhiteSpace(textBox3.Text))</span><br><span class="line">    &#123;</span><br><span class="line">        textBox3.Text += Environment.NewLine;</span><br><span class="line">    &#125;</span><br><span class="line">    textBox3.Text += <span class="string">$&quot;<span class="subst">&#123;DateTime.Now:yyyy-MM-dd HH:mm:ss&#125;</span>：<span class="subst">&#123;str&#125;</span>&quot;</span>;</span><br><span class="line">    textBox3.ScrollToEnd();</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 取象棋图片素材</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;sender&quot;&gt;</span><span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;e&quot;&gt;</span><span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">button4_Click</span>(<span class="params"><span class="built_in">object</span> sender, RoutedEventArgs e</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//初始化一个OpenFileDialog类</span></span><br><span class="line">    OpenFileDialog fileDialog = <span class="keyword">new</span> OpenFileDialog();</span><br><span class="line">    fileDialog.Multiselect = <span class="literal">false</span>;</span><br><span class="line">    fileDialog.Filter = <span class="string">&quot;(*.bmp)|*.bmp&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//判断用户是否正确的选择了文件</span></span><br><span class="line">    <span class="keyword">if</span> (fileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//获取用户选择文件的后缀名</span></span><br><span class="line">        <span class="built_in">string</span> extension = Path.GetExtension(fileDialog.FileName);</span><br><span class="line">        <span class="comment">//声明允许的后缀名</span></span><br><span class="line">        <span class="built_in">string</span>[] str = <span class="keyword">new</span> <span class="built_in">string</span>[] &#123; <span class="string">&quot;.bmp&quot;</span>, <span class="string">&quot;.BMP&quot;</span> &#125;;</span><br><span class="line">        <span class="keyword">if</span> (!((IList)str).Contains(extension))</span><br><span class="line">        &#123;</span><br><span class="line">            MessageBox.Show(<span class="string">&quot;只能处理BMP格式图片&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            _pieceImgPath = fileDialog.FileName;</span><br><span class="line">            AddLog(<span class="string">$&quot;棋子素材路径读取成功 <span class="subst">&#123;_pieceImgPath&#125;</span>&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 开始</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;sender&quot;&gt;</span><span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;e&quot;&gt;</span><span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">button5_Click</span>(<span class="params"><span class="built_in">object</span> sender, RoutedEventArgs e</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//开启钩子监听鼠标右键</span></span><br><span class="line">    hook.OnMouseActivity += Jump2HookActivity;</span><br><span class="line">    hook.StartMouseHook();</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 鼠标钩子右键回调</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;sender&quot;&gt;</span><span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;mouseEventArgs&quot;&gt;</span><span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Jump2HookActivity</span>(<span class="params"><span class="built_in">object</span> sender, System.Windows.Forms.MouseEventArgs mouseEventArgs</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (mouseEventArgs.Button == MouseButtons.Right &amp;&amp; mouseEventArgs.Clicks == <span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        Bitmap image1 = <span class="keyword">new</span> Bitmap(_jumpRect.Right - _jumpRect.Left, _jumpRect.Bottom - _jumpRect.Top);<span class="comment">//截取屏幕</span></span><br><span class="line">        Graphics imgGraphics = Graphics.FromImage(image1);</span><br><span class="line">        imgGraphics.CopyFromScreen(<span class="keyword">new</span> System.Drawing.Point(_jumpRect.Left, _jumpRect.Top), <span class="keyword">new</span> System.Drawing.Point(<span class="number">0</span>, <span class="number">0</span>),</span><br><span class="line">            <span class="keyword">new</span> System.Drawing.Size(_jumpRect.Right - _jumpRect.Left, _jumpRect.Bottom - _jumpRect.Top));</span><br><span class="line">        <span class="comment">//image1.Save(&quot;test.bmp&quot;);</span></span><br><span class="line"></span><br><span class="line">        Bitmap image2 = (Bitmap)System.Drawing.Image.FromFile(_pieceImgPath);</span><br><span class="line">        _points = ToFindPic.GetAllPoints(image1, image2, <span class="number">10</span>);</span><br><span class="line">        <span class="keyword">if</span> (_points == <span class="literal">null</span> || _points.Count == <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            AddLog(<span class="string">&quot;没有匹配到棋子坐标&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> pointPeople = <span class="keyword">new</span> System.Windows.Point(_jumpRect.Left + _points[<span class="number">0</span>].X, _jumpRect.Top + _points[<span class="number">0</span>].Y);</span><br><span class="line">        <span class="comment">//偏移坐标</span></span><br><span class="line">        pointPeople.X += image2.Width / <span class="number">2</span>;</span><br><span class="line">        pointPeople.Y += image2.Height / <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//SetCursorPos(Convert.ToInt32(pointPeople.X), Convert.ToInt32(pointPeople.Y));//test</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> pointTarget = <span class="keyword">new</span> Point(mouseEventArgs.X, mouseEventArgs.Y);</span><br><span class="line">        <span class="keyword">var</span> distance = Math.Sqrt(Math.Pow(pointTarget.X - pointPeople.X, <span class="number">2</span>) + Math.Pow(pointTarget.Y - pointPeople.Y, <span class="number">2</span>));</span><br><span class="line">        <span class="keyword">var</span> coefficient = <span class="number">3.6</span>;</span><br><span class="line">        <span class="keyword">if</span> (pointTarget.X &lt; pointPeople.X)</span><br><span class="line">        &#123;</span><br><span class="line">            coefficient = Convert.ToDouble(<span class="keyword">this</span>.textBox_jumpX.Text);<span class="comment">//系数</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            coefficient = Convert.ToDouble(<span class="keyword">this</span>.textBox_jumpY.Text);<span class="comment">//系数</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> pressTime = <span class="keyword">new</span> TimeSpan(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, Convert.ToInt32(coefficient * distance));<span class="comment">//毫秒</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> random = <span class="keyword">new</span> Random();</span><br><span class="line">        SetCursorPos(_jumpRect.Right - random.Next(<span class="number">150</span>, <span class="number">250</span>), _jumpRect.Top + random.Next(<span class="number">150</span>, <span class="number">250</span>));<span class="comment">//移动鼠标位置</span></span><br><span class="line">        mouse_event(MouseEventFlag.LeftDown, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, UIntPtr.Zero);</span><br><span class="line">        <span class="keyword">var</span> now = DateTime.Now;</span><br><span class="line">        Thread.Sleep(pressTime);</span><br><span class="line">        <span class="keyword">var</span> ts = DateTime.Now - now;</span><br><span class="line">        AddLog(<span class="string">$&quot;预计耗时<span class="subst">&#123;pressTime.Milliseconds&#125;</span>,实际耗时<span class="subst">&#123;ts.TotalMilliseconds&#125;</span>&quot;</span>);</span><br><span class="line">        mouse_event(MouseEventFlag.LeftUp, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, UIntPtr.Zero);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> stop</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;sender&quot;&gt;</span><span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;e&quot;&gt;</span><span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">button6_Click</span>(<span class="params"><span class="built_in">object</span> sender, RoutedEventArgs e</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    hook.StopMouseHook();</span><br><span class="line">    hook = <span class="keyword">new</span> Hook();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">endregion</span></span></span><br></pre></td></tr></table></figure>
-
-
+<pre><code class="csharp">    #region 跳一跳相关
+    
+    RECT _jumpRect = new RECT();//模拟器坐标
+    string _pieceImgPath = String.Empty;//棋子图片路径
+    /// &lt;summary&gt;
+    /// 鼠标取句柄按钮点击
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;sender&quot;&gt;&lt;/param&gt;
+    /// &lt;param name=&quot;e&quot;&gt;&lt;/param&gt;
+    private void button3_Click_1(object sender, RoutedEventArgs e)
+    &#123;
+        //开启钩子监听鼠标点击事件
+        hook.OnMouseActivity += Jump1HookActivity;
+        hook.StartMouseHook();
+    &#125;
+    /// &lt;summary&gt;
+    /// 鼠标钩子左键回调
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;sender&quot;&gt;&lt;/param&gt;
+    /// &lt;param name=&quot;mouseEventArgs&quot;&gt;&lt;/param&gt;
+    private void Jump1HookActivity(object sender, System.Windows.Forms.MouseEventArgs mouseEventArgs)
+    &#123;
+        if (mouseEventArgs.Button == MouseButtons.Left &amp;&amp; mouseEventArgs.Clicks == 1)
+        &#123;
+            //当前鼠标坐标
+            var point = new POINT();
+            GetCursorPos(out point);
+            //句柄
+            formHandle = WindowFromPoint(point);
+            //标题
+            var title = new StringBuilder(256);
+            GetWindowText(formHandle, title, title.Capacity);
+            //类名
+            var className = new StringBuilder();
+            GetClassName(formHandle, className, className.Capacity);
+            //Size
+            _jumpRect = new RECT();
+            GetWindowRect(formHandle, ref _jumpRect);
+            AddLog($&quot;句柄采集成功！窗体坐标范围为 &#123;_jumpRect.Left&#125;,&#123;_jumpRect.Top&#125;-&#123;_jumpRect.Right&#125;,&#123;_jumpRect.Bottom&#125;&quot;);
+            AddLog($&quot;窗体大小 Width:&#123;_jumpRect.Right - _jumpRect.Left&#125;,Height:&#123;_jumpRect.Bottom - _jumpRect.Top&#125;&quot;);
+            hook.StopMouseHook();
+            hook.OnMouseActivity -= Jump1HookActivity;
+        &#125;
+    &#125;
+    
+    private void AddLog(string str)
+    &#123;
+        if (!string.IsNullOrWhiteSpace(textBox3.Text))
+        &#123;
+            textBox3.Text += Environment.NewLine;
+        &#125;
+        textBox3.Text += $&quot;&#123;DateTime.Now:yyyy-MM-dd HH:mm:ss&#125;：&#123;str&#125;&quot;;
+        textBox3.ScrollToEnd();
+    &#125;
+    /// &lt;summary&gt;
+    /// 取象棋图片素材
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;sender&quot;&gt;&lt;/param&gt;
+    /// &lt;param name=&quot;e&quot;&gt;&lt;/param&gt;
+    private void button4_Click(object sender, RoutedEventArgs e)
+    &#123;
+        //初始化一个OpenFileDialog类
+        OpenFileDialog fileDialog = new OpenFileDialog();
+        fileDialog.Multiselect = false;
+        fileDialog.Filter = &quot;(*.bmp)|*.bmp&quot;;
+    
+        //判断用户是否正确的选择了文件
+        if (fileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+        &#123;
+            //获取用户选择文件的后缀名
+            string extension = Path.GetExtension(fileDialog.FileName);
+            //声明允许的后缀名
+            string[] str = new string[] &#123; &quot;.bmp&quot;, &quot;.BMP&quot; &#125;;
+            if (!((IList)str).Contains(extension))
+            &#123;
+                MessageBox.Show(&quot;只能处理BMP格式图片&quot;);
+            &#125;
+            else
+            &#123;
+                _pieceImgPath = fileDialog.FileName;
+                AddLog($&quot;棋子素材路径读取成功 &#123;_pieceImgPath&#125;&quot;);
+            &#125;
+        &#125;
+    &#125;
+    /// &lt;summary&gt;
+    /// 开始
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;sender&quot;&gt;&lt;/param&gt;
+    /// &lt;param name=&quot;e&quot;&gt;&lt;/param&gt;
+    private void button5_Click(object sender, RoutedEventArgs e)
+    &#123;
+        //开启钩子监听鼠标右键
+        hook.OnMouseActivity += Jump2HookActivity;
+        hook.StartMouseHook();
+    &#125;
+    /// &lt;summary&gt;
+    /// 鼠标钩子右键回调
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;sender&quot;&gt;&lt;/param&gt;
+    /// &lt;param name=&quot;mouseEventArgs&quot;&gt;&lt;/param&gt;
+    private void Jump2HookActivity(object sender, System.Windows.Forms.MouseEventArgs mouseEventArgs)
+    &#123;
+        if (mouseEventArgs.Button == MouseButtons.Right &amp;&amp; mouseEventArgs.Clicks == 1)
+        &#123;
+            Bitmap image1 = new Bitmap(_jumpRect.Right - _jumpRect.Left, _jumpRect.Bottom - _jumpRect.Top);//截取屏幕
+            Graphics imgGraphics = Graphics.FromImage(image1);
+            imgGraphics.CopyFromScreen(new System.Drawing.Point(_jumpRect.Left, _jumpRect.Top), new System.Drawing.Point(0, 0),
+                new System.Drawing.Size(_jumpRect.Right - _jumpRect.Left, _jumpRect.Bottom - _jumpRect.Top));
+            //image1.Save(&quot;test.bmp&quot;);
+    
+            Bitmap image2 = (Bitmap)System.Drawing.Image.FromFile(_pieceImgPath);
+            _points = ToFindPic.GetAllPoints(image1, image2, 10);
+            if (_points == null || _points.Count == 0)
+            &#123;
+                AddLog(&quot;没有匹配到棋子坐标&quot;);
+                return;
+            &#125;
+    
+            var pointPeople = new System.Windows.Point(_jumpRect.Left + _points[0].X, _jumpRect.Top + _points[0].Y);
+            //偏移坐标
+            pointPeople.X += image2.Width / 2;
+            pointPeople.Y += image2.Height / 2;
+    
+            //SetCursorPos(Convert.ToInt32(pointPeople.X), Convert.ToInt32(pointPeople.Y));//test
+    
+            var pointTarget = new Point(mouseEventArgs.X, mouseEventArgs.Y);
+            var distance = Math.Sqrt(Math.Pow(pointTarget.X - pointPeople.X, 2) + Math.Pow(pointTarget.Y - pointPeople.Y, 2));
+            var coefficient = 3.6;
+            if (pointTarget.X &lt; pointPeople.X)
+            &#123;
+                coefficient = Convert.ToDouble(this.textBox_jumpX.Text);//系数
+            &#125;
+            else
+            &#123;
+                coefficient = Convert.ToDouble(this.textBox_jumpY.Text);//系数
+            &#125;
+    
+            var pressTime = new TimeSpan(0, 0, 0, 0, Convert.ToInt32(coefficient * distance));//毫秒
+    
+    
+            var random = new Random();
+            SetCursorPos(_jumpRect.Right - random.Next(150, 250), _jumpRect.Top + random.Next(150, 250));//移动鼠标位置
+            mouse_event(MouseEventFlag.LeftDown, 0, 0, 0, UIntPtr.Zero);
+            var now = DateTime.Now;
+            Thread.Sleep(pressTime);
+            var ts = DateTime.Now - now;
+            AddLog($&quot;预计耗时&#123;pressTime.Milliseconds&#125;,实际耗时&#123;ts.TotalMilliseconds&#125;&quot;);
+            mouse_event(MouseEventFlag.LeftUp, 0, 0, 0, UIntPtr.Zero);
+        &#125;
+    &#125;
+    /// &lt;summary&gt;
+    /// stop
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;sender&quot;&gt;&lt;/param&gt;
+    /// &lt;param name=&quot;e&quot;&gt;&lt;/param&gt;
+    private void button6_Click(object sender, RoutedEventArgs e)
+    &#123;
+        hook.StopMouseHook();
+        hook = new Hook();
+    &#125;
+    
+    #endregion
+</code></pre>
 <p>user32部分</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">region</span> user32</span></span><br><span class="line"><span class="comment">//句柄窗体相关</span></span><br><span class="line">[<span class="meta">DllImport(<span class="string">&quot;user32.dll&quot;</span>)</span>]</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">extern</span> <span class="built_in">int</span> <span class="title">GetWindowText</span>(<span class="params">IntPtr hWnd, StringBuilder lpString, <span class="built_in">int</span> nMaxCount</span>)</span>;</span><br><span class="line">[<span class="meta">DllImport(<span class="string">&quot;user32.dll&quot;</span>)</span>]</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">extern</span> <span class="built_in">int</span> <span class="title">GetClassName</span>(<span class="params">IntPtr hWnd, StringBuilder lpString, <span class="built_in">int</span> nMaxCount</span>)</span>;</span><br><span class="line">[<span class="meta">DllImport(<span class="string">&quot;user32.dll&quot;</span>)</span>]</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">extern</span> IntPtr <span class="title">WindowFromPoint</span>(<span class="params">POINT point</span>)</span>;</span><br><span class="line">[<span class="meta">DllImport(<span class="string">&quot;user32.dll&quot;</span>, CharSet = CharSet.Auto)</span>]</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">extern</span> <span class="built_in">bool</span> <span class="title">GetCursorPos</span>(<span class="params"><span class="keyword">out</span> POINT point</span>)</span>;</span><br><span class="line">[<span class="meta">DllImport(<span class="string">&quot;user32.dll&quot;</span>)</span>]</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">extern</span> <span class="built_in">int</span> <span class="title">SetCursorPos</span>(<span class="params"><span class="built_in">int</span> x, <span class="built_in">int</span> y</span>)</span>;</span><br><span class="line">[<span class="meta">DllImport(<span class="string">&quot;user32.dll&quot;</span>, EntryPoint = <span class="string">&quot;GetParent&quot;</span>, SetLastError = true)</span>]</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">extern</span> IntPtr <span class="title">GetParent</span>(<span class="params">IntPtr hWnd</span>)</span>;</span><br><span class="line">[<span class="meta">DllImport(<span class="string">&quot;user32.dll&quot;</span>, EntryPoint = <span class="string">&quot;GetWindowThreadProcessId&quot;</span>)</span>]</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">extern</span> <span class="built_in">uint</span> <span class="title">GetWindowThreadProcessId</span>(<span class="params">IntPtr hWnd, <span class="keyword">ref</span> <span class="built_in">uint</span> lpdwProcessId</span>)</span>;</span><br><span class="line"><span class="comment">//设置鼠标按键和动作</span></span><br><span class="line">[<span class="meta">Flags</span>]</span><br><span class="line"><span class="built_in">enum</span> MouseEventFlag : <span class="built_in">uint</span> <span class="comment">//设置鼠标动作的键值</span></span><br><span class="line">&#123;</span><br><span class="line">    Move = <span class="number">0x0001</span>,               <span class="comment">//发生移动</span></span><br><span class="line">    LeftDown = <span class="number">0x0002</span>,           <span class="comment">//鼠标按下左键</span></span><br><span class="line">    LeftUp = <span class="number">0x0004</span>,             <span class="comment">//鼠标松开左键</span></span><br><span class="line">    RightDown = <span class="number">0x0008</span>,          <span class="comment">//鼠标按下右键</span></span><br><span class="line">    RightUp = <span class="number">0x0010</span>,            <span class="comment">//鼠标松开右键</span></span><br><span class="line">    MiddleDown = <span class="number">0x0020</span>,         <span class="comment">//鼠标按下中键</span></span><br><span class="line">    MiddleUp = <span class="number">0x0040</span>,           <span class="comment">//鼠标松开中键</span></span><br><span class="line">    XDown = <span class="number">0x0080</span>,</span><br><span class="line">    XUp = <span class="number">0x0100</span>,</span><br><span class="line">    Wheel = <span class="number">0x0800</span>,              <span class="comment">//鼠标轮被移动</span></span><br><span class="line">    VirtualDesk = <span class="number">0x4000</span>,        <span class="comment">//虚拟桌面</span></span><br><span class="line">    Absolute = <span class="number">0x8000</span></span><br><span class="line">&#125;</span><br><span class="line">[<span class="meta">DllImport(<span class="string">&quot;user32.dll&quot;</span>)</span>]</span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">extern</span> <span class="keyword">void</span> <span class="title">mouse_event</span>(<span class="params">MouseEventFlag flags, <span class="built_in">int</span> dx, <span class="built_in">int</span> dy, <span class="built_in">uint</span> data, UIntPtr extraInfo</span>)</span>; <span class="comment">//UIntPtr指针多句柄类型</span></span><br><span class="line">[<span class="meta">StructLayout(LayoutKind.Sequential)</span>]</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">struct</span> POINT</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">int</span> X;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">int</span> Y;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">POINT</span>(<span class="params"><span class="built_in">int</span> x, <span class="built_in">int</span> y</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">this</span>.X = x;</span><br><span class="line">        <span class="keyword">this</span>.Y = y;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="built_in">string</span> <span class="title">ToString</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> (<span class="string">&quot;X:&quot;</span> + X + <span class="string">&quot;, Y:&quot;</span> + Y);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">[<span class="meta">DllImport(<span class="string">&quot;user32.dll&quot;</span>)</span>]</span><br><span class="line">[<span class="meta">return: MarshalAs(UnmanagedType.Bool)</span>]</span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">extern</span> <span class="built_in">bool</span> <span class="title">GetWindowRect</span>(<span class="params">IntPtr hWnd, <span class="keyword">ref</span> RECT lpRect</span>)</span>;</span><br><span class="line">[<span class="meta">StructLayout(LayoutKind.Sequential)</span>]</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">struct</span> RECT</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">int</span> Left;                             <span class="comment">//最左坐标</span></span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">int</span> Top;                             <span class="comment">//最上坐标</span></span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">int</span> Right;                           <span class="comment">//最右坐标</span></span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">int</span> Bottom;                        <span class="comment">//最下坐标</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">[<span class="meta">DllImport(<span class="string">&quot;User32.dll&quot;</span>, EntryPoint = <span class="string">&quot;FindWindow&quot;</span>)</span>]</span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">extern</span> IntPtr <span class="title">FindWindow</span>(<span class="params"><span class="built_in">string</span> lpClassName, <span class="built_in">string</span> lpWindowName</span>)</span>;</span><br><span class="line">[<span class="meta">DllImport(<span class="string">&quot;User32.dll&quot;</span>, EntryPoint = <span class="string">&quot;FindWindowEx&quot;</span>)</span>]</span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">extern</span> IntPtr <span class="title">FindWindowEx</span>(<span class="params">IntPtr hwndParent, IntPtr hwndChildAfter, <span class="built_in">string</span> lpClassName, <span class="built_in">string</span> lpWindowName</span>)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//鼠标钩子相关</span></span><br><span class="line">[<span class="meta">StructLayout(LayoutKind.Sequential)</span>]</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">MouseHookStruct</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> POINT pt;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">int</span> hwnd;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">int</span> wHitTestCode;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">int</span> dwExtraInfo;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="built_in">delegate</span> <span class="built_in">int</span> <span class="title">HookProc</span>(<span class="params"><span class="built_in">int</span> nCode, IntPtr wParam, IntPtr lParam</span>)</span>;</span><br><span class="line"><span class="comment">//安装钩子</span></span><br><span class="line">[<span class="meta">DllImport(<span class="string">&quot;user32.dll&quot;</span>, CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)</span>]</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">extern</span> <span class="built_in">int</span> <span class="title">SetWindowsHookEx</span>(<span class="params"><span class="built_in">int</span> idHook, HookProc lpfn, IntPtr hInstance, <span class="built_in">int</span> threadId</span>)</span>;</span><br><span class="line"><span class="comment">//卸载钩子</span></span><br><span class="line">[<span class="meta">DllImport(<span class="string">&quot;user32.dll&quot;</span>, CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)</span>]</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">extern</span> <span class="built_in">bool</span> <span class="title">UnhookWindowsHookEx</span>(<span class="params"><span class="built_in">int</span> idHook</span>)</span>;</span><br><span class="line"><span class="comment">//调用下一个钩子</span></span><br><span class="line">[<span class="meta">DllImport(<span class="string">&quot;user32.dll&quot;</span>, CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)</span>]</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">extern</span> <span class="built_in">int</span> <span class="title">CallNextHookEx</span>(<span class="params"><span class="built_in">int</span> idHook, <span class="built_in">int</span> nCode, IntPtr wParam, IntPtr lParam</span>)</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">endregion</span></span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="csharp">    #region user32
+    //句柄窗体相关
+    [DllImport(&quot;user32.dll&quot;)]
+    public static extern int GetWindowText(IntPtr hWnd, StringBuilder lpString, int nMaxCount);
+    [DllImport(&quot;user32.dll&quot;)]
+    public static extern int GetClassName(IntPtr hWnd, StringBuilder lpString, int nMaxCount);
+    [DllImport(&quot;user32.dll&quot;)]
+    public static extern IntPtr WindowFromPoint(POINT point);
+    [DllImport(&quot;user32.dll&quot;, CharSet = CharSet.Auto)]
+    public static extern bool GetCursorPos(out POINT point);
+    [DllImport(&quot;user32.dll&quot;)]
+    public static extern int SetCursorPos(int x, int y);
+    [DllImport(&quot;user32.dll&quot;, EntryPoint = &quot;GetParent&quot;, SetLastError = true)]
+    public static extern IntPtr GetParent(IntPtr hWnd);
+    [DllImport(&quot;user32.dll&quot;, EntryPoint = &quot;GetWindowThreadProcessId&quot;)]
+    public static extern uint GetWindowThreadProcessId(IntPtr hWnd, ref uint lpdwProcessId);
+    //设置鼠标按键和动作
+    [Flags]
+    enum MouseEventFlag : uint //设置鼠标动作的键值
+    &#123;
+        Move = 0x0001,               //发生移动
+        LeftDown = 0x0002,           //鼠标按下左键
+        LeftUp = 0x0004,             //鼠标松开左键
+        RightDown = 0x0008,          //鼠标按下右键
+        RightUp = 0x0010,            //鼠标松开右键
+        MiddleDown = 0x0020,         //鼠标按下中键
+        MiddleUp = 0x0040,           //鼠标松开中键
+        XDown = 0x0080,
+        XUp = 0x0100,
+        Wheel = 0x0800,              //鼠标轮被移动
+        VirtualDesk = 0x4000,        //虚拟桌面
+        Absolute = 0x8000
+    &#125;
+    [DllImport(&quot;user32.dll&quot;)]
+    static extern void mouse_event(MouseEventFlag flags, int dx, int dy, uint data, UIntPtr extraInfo); //UIntPtr指针多句柄类型
+    [StructLayout(LayoutKind.Sequential)]
+    public struct POINT
+    &#123;
+        public int X;
+        public int Y;
+    
+        public POINT(int x, int y)
+        &#123;
+            this.X = x;
+            this.Y = y;
+        &#125;
+    
+        public override string ToString()
+        &#123;
+            return (&quot;X:&quot; + X + &quot;, Y:&quot; + Y);
+        &#125;
+    &#125;
+    [DllImport(&quot;user32.dll&quot;)]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    static extern bool GetWindowRect(IntPtr hWnd, ref RECT lpRect);
+    [StructLayout(LayoutKind.Sequential)]
+    public struct RECT
+    &#123;
+        public int Left;                             //最左坐标
+        public int Top;                             //最上坐标
+        public int Right;                           //最右坐标
+        public int Bottom;                        //最下坐标
+    &#125;
+    
+    [DllImport(&quot;User32.dll&quot;, EntryPoint = &quot;FindWindow&quot;)]
+    private static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+    [DllImport(&quot;User32.dll&quot;, EntryPoint = &quot;FindWindowEx&quot;)]
+    private static extern IntPtr FindWindowEx(IntPtr hwndParent, IntPtr hwndChildAfter, string lpClassName, string lpWindowName);
+    
+    //鼠标钩子相关
+    [StructLayout(LayoutKind.Sequential)]
+    public class MouseHookStruct
+    &#123;
+        public POINT pt;
+        public int hwnd;
+        public int wHitTestCode;
+        public int dwExtraInfo;
+    &#125;
+    public delegate int HookProc(int nCode, IntPtr wParam, IntPtr lParam);
+    //安装钩子
+    [DllImport(&quot;user32.dll&quot;, CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
+    public static extern int SetWindowsHookEx(int idHook, HookProc lpfn, IntPtr hInstance, int threadId);
+    //卸载钩子
+    [DllImport(&quot;user32.dll&quot;, CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
+    public static extern bool UnhookWindowsHookEx(int idHook);
+    //调用下一个钩子
+    [DllImport(&quot;user32.dll&quot;, CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
+    public static extern int CallNextHookEx(int idHook, int nCode, IntPtr wParam, IntPtr lParam);
+    
+    
+    #endregion
+</code></pre>
 <h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><ol>
 <li>效果图每次右键一次会记两次日志是因为我之前点了两次go按钮，导致每次右键回调了2次 <img src="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/QQ%E5%9B%BE%E7%89%8720180223153808.gif" alt="这可真蠢"></li>
 <li>跳一跳后台估计会根据连续perfect次数判断是否用作弊，如果它判断你作弊就不记录成绩了，而且我怀疑只要你超过一定分数他都直接判你作弊，然后骗一波个人照去申诉，因为作不作弊没那么容易区分</li>
