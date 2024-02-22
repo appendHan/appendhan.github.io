@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>浅谈匿名函数及Lambda | 橙风沐雨&#39;s</title>
+  <meta name="keywords" content=" 学习笔记 , 匿名函数 , Lambda ">
+  <meta name="description" content="浅谈匿名函数及Lambda | 橙风沐雨&#39;s">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="前言之前在网上找到的一个逻辑游戏NandGame 它官方介绍是这样的  The Nand Game takes you though building a working computer, starting from the most basic components. It does not require any prerequisites, in particular it does no">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NandGame">
+<meta property="og:url" content="http://example.com/2018/11/20/NandGame/index.html">
+<meta property="og:site_name" content="橙风沐雨&#39;s">
+<meta property="og:description" content="前言之前在网上找到的一个逻辑游戏NandGame 它官方介绍是这样的  The Nand Game takes you though building a working computer, starting from the most basic components. It does not require any prerequisites, in particular it does no">
+<meta property="og:locale">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-1.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-2.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-3.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-4.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-5.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-6.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-7.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-8.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-9.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-10.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-11.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-12.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-13.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-14.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-15.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-16.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-17.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-18.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-19.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-20.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-21.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-22.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-23.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-24.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-25.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-26.png">
+<meta property="article:published_time" content="2018-11-20T01:40:51.000Z">
+<meta property="article:modified_time" content="2024-02-21T09:17:03.465Z">
+<meta property="article:author" content="cfmy">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-1.png">
+
+
+<link rel="icon" href="/img/avatar.jpeg">
+
+<link href="/css/style.css?v=1.1.0" rel="stylesheet">
+
+<link href="/css/hl_theme/sublime.css?v=1.1.0" rel="stylesheet">
+
+<link href="//cdn.jsdelivr.net/npm/animate.css@4.1.0/animate.min.css" rel="stylesheet">
+
+<script src="//cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="/js/titleTip.js?v=1.1.0" ></script>
+
+<script src="//cdn.jsdelivr.net/npm/highlightjs@9.16.2/highlight.pack.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/jquery.cookie@1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.1.0" ></script>
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="">
+  <input class="theme_blog_path" value="">
+  <input id="theme_shortcut" value="true" />
+  <input id="theme_highlight_on" value="true" />
+  <input id="theme_code_copy" value="true" />
+</div>
+
+
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/"
+   class="avatar_target">
+    <img class="avatar"
+         src="/img/avatar.jpeg"/>
+</a>
+<div class="author">
+    <span>cfmy</span>
+</div>
+
+<div class="icon">
+    
+        
+            <a title="rss"
+               href="/atom.xml"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-rss"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="github"
+               href="https://github.com/appendHan"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-github"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <a title="email"
+               href="mailto:appendHan@gmail.com"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-email"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+    
+        
+    
+        
+    
+</div>
+
+
+
+
+
+<ul>
+    <li>
+        <div class="all active" data-rel="All">All
+            
+                <small>(13)</small>
+            
+        </div>
+    </li>
+    
+        
+            
+                
+    <li>
+        <div data-rel="学习笔记">
+            
+            学习笔记
+            <small>(7)</small>
+        </div>
+        
+    </li>
+
+            
+        
+    
+        
+            
+                
+    <li>
+        <div data-rel="随笔">
+            
+            随笔
+            <small>(6)</small>
+        </div>
+        
+    </li>
+
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+        
+            
+            
+            
+    </div>
+    <div>
+        
+        
+    </div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="13">
+<input type="hidden" id="yelog_site_word_count" value="23.5k">
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        Links
+        <i class="iconfont icon-left"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="http://yelog.org/">叶落阁</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <div class="right-top">
+        <div id="default-panel">
+            <i class="iconfont icon-search" data-title="搜索 快捷键 i"></i>
+            <div class="right-title">All</div>
+            <i class="iconfont icon-file-tree" data-title="切换到大纲视图 快捷键 w"></i>
+        </div>
+        <div id="search-panel">
+            <i class="iconfont icon-left" data-title="返回"></i>
+            <input id="local-search-input" autocomplete="off"/>
+            <label class="border-line" for="input"></label>
+            <i class="iconfont icon-case-sensitive" data-title="大小写敏感"></i>
+            <i class="iconfont icon-tag" data-title="标签"></i>
+        </div>
+        <div id="outline-panel" style="display: none">
+            <div class="right-title">大纲</div>
+            <i class="iconfont icon-list" data-title="切换到文章列表"></i>
+        </div>
+    </div>
+
+    <div class="tags-list">
+    <input id="tag-search" />
+    <div class="tag-wrapper">
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>闭包</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>观点</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>键盘驱动</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>匿名函数</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>设计模式</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>鼠标钩子</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>图像识别</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>吐槽</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>微信跳一跳</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>学习笔记</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>正则表达式</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>ActiveX</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Base64</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>HTTP协议</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>JavaScript</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Lambda</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Markdown</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>windows</a>
+            </li>
+        
+    </div>
+
+</div>
+
+    
+    <div id="local-search-result">
+
+    </div>
+    
+    <nav id="title-list-nav">
+        
+        
+        <a  class="All 随笔 "
+           href="/2018/11/20/NandGame/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="NandGame">NandGame</span>
+            <span class="post-date" title="2018-11-20 09:40:51">2018/11/20</span>
+        </a>
+        
+        
+        <a  class="All 随笔 "
+           href="/2018/04/11/%E9%9A%8F%E7%AC%94-%E9%94%AE%E7%9B%98%E9%A9%B1%E5%8A%A8%E7%BA%A7%E5%88%AB%E6%A8%A1%E6%8B%9F/"
+           data-tag="键盘驱动,ActiveX"
+           data-author="" >
+            <span class="post-title" title="随笔-键盘驱动级别模拟">随笔-键盘驱动级别模拟</span>
+            <span class="post-date" title="2018-04-11 16:57:24">2018/04/11</span>
+        </a>
+        
+        
+        <a  class="All 学习笔记 "
+           href="/2018/02/26/%E6%B5%85%E8%B0%88JS%E9%97%AD%E5%8C%85/"
+           data-tag="JavaScript,闭包"
+           data-author="" >
+            <span class="post-title" title="浅谈JS闭包">浅谈JS闭包</span>
+            <span class="post-date" title="2018-02-26 10:36:24">2018/02/26</span>
+        </a>
+        
+        
+        <a  class="All 随笔 "
+           href="/2018/02/23/C-%E5%AE%9E%E7%8E%B0%E8%B7%B3%E4%B8%80%E8%B7%B3%E8%BE%85%E5%8A%A9/"
+           data-tag="鼠标钩子,图像识别"
+           data-author="" >
+            <span class="post-title" title="C#实现跳一跳辅助">C#实现跳一跳辅助</span>
+            <span class="post-date" title="2018-02-23 09:29:03">2018/02/23</span>
+        </a>
+        
+        
+        <a  class="All 随笔 "
+           href="/2018/01/27/%E5%85%B3%E4%BA%8E%E5%8A%AA%E5%8A%9B/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="关于努力">关于努力</span>
+            <span class="post-date" title="2018-01-27 19:30:33">2018/01/27</span>
+        </a>
+        
+        
+        <a  class="All 学习笔记 "
+           href="/2016/07/11/%E6%B5%85%E8%B0%88%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0%E5%8F%8ALambda/"
+           data-tag="学习笔记,匿名函数,Lambda"
+           data-author="" >
+            <span class="post-title" title="浅谈匿名函数及Lambda">浅谈匿名函数及Lambda</span>
+            <span class="post-date" title="2016-07-11 22:22:03">2016/07/11</span>
+        </a>
+        
+        
+        <a  class="All 学习笔记 "
+           href="/2016/04/24/%E6%B5%85%E8%B0%88%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/"
+           data-tag="设计模式"
+           data-author="" >
+            <span class="post-title" title="浅谈工厂模式">浅谈工厂模式</span>
+            <span class="post-date" title="2016-04-24 17:58:48">2016/04/24</span>
+        </a>
+        
+        
+        <a  class="All 学习笔记 "
+           href="/2016/04/08/%E6%B5%85%E8%B0%88%E6%AD%A3%E5%88%99/"
+           data-tag="正则表达式"
+           data-author="" >
+            <span class="post-title" title="浅谈正则">浅谈正则</span>
+            <span class="post-date" title="2016-04-08 20:14:56">2016/04/08</span>
+        </a>
+        
+        
+        <a  class="All 随笔 "
+           href="/2016/03/27/%E5%85%B3%E4%BA%8Ewindows%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E6%9C%BA%E5%88%B6%E7%9A%84%E8%87%86%E6%83%B3/"
+           data-tag="观点,windows"
+           data-author="" >
+            <span class="post-title" title="关于windows消息队列机制的臆想">关于windows消息队列机制的臆想</span>
+            <span class="post-date" title="2016-03-27 13:15:29">2016/03/27</span>
+        </a>
+        
+        
+        <a  class="All 随笔 "
+           href="/2016/03/19/Windows%E4%BF%AE%E5%A4%8D%E8%A1%A5%E4%B8%811.2/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Windows修复补丁1.2">Windows修复补丁1.2</span>
+            <span class="post-date" title="2016-03-19 16:25:11">2016/03/19</span>
+        </a>
+        
+        
+        <a  class="All 学习笔记 "
+           href="/2016/03/14/%E6%B5%85%E8%B0%88Base64%E8%BD%AC%E7%A0%81/"
+           data-tag="Base64"
+           data-author="" >
+            <span class="post-title" title="浅谈Base64转码">浅谈Base64转码</span>
+            <span class="post-date" title="2016-03-14 16:40:40">2016/03/14</span>
+        </a>
+        
+        
+        <a  class="All 学习笔记 "
+           href="/2016/03/12/%E6%B5%85%E8%B0%88HTTP%E5%8D%8F%E8%AE%AE%E4%B8%AD%E7%9A%84Content-Type/"
+           data-tag="HTTP协议"
+           data-author="" >
+            <span class="post-title" title="浅谈HTTP协议中的Content-Type">浅谈HTTP协议中的Content-Type</span>
+            <span class="post-date" title="2016-03-12 21:45:54">2016/03/12</span>
+        </a>
+        
+        
+        <a  class="All 学习笔记 "
+           href="/2016/02/28/Markdown%20%E8%AF%AD%E6%B3%95%E5%AE%9E%E4%BE%8B/"
+           data-tag="Markdown"
+           data-author="" >
+            <span class="post-title" title="Markdown 语法实例">Markdown 语法实例</span>
+            <span class="post-date" title="2016-02-28 16:20:05">2016/02/28</span>
+        </a>
+        
+        <div id="no-item-tips">
+
+        </div>
+    </nav>
+    <div id="outline-list">
+    </div>
+</div>
+
+    </div>
+    <div class="hide-list">
+        <div class="semicircle" data-title="切换全屏 快捷键 s">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div id="post">
+    <div class="pjax">
+        <article id="post-浅谈匿名函数及Lambda" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">浅谈匿名函数及Lambda</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="学习笔记">学习笔记</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            <i class="iconfont icon-tag"></i>
+            
+            <a class="color5">学习笔记</a>
+            
+            <a class="color5">匿名函数</a>
+            
+            <a class="color2">Lambda</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+            Created At : <time class="date" title='Updated At: 2024-02-21 17:22:44'>2016-07-11 22:22</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        <span>Count:1.8k</span>
+        
+        
+        <span id="busuanzi_container_page_pv">
+            Views 👀 :<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8C%BF%E5%90%8D%E5%AF%B9%E8%B1%A1"><span class="toc-text">匿名对象</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E6%96%B9%E6%B3%95"><span class="toc-text">初始化方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%B9%E6%80%A7"><span class="toc-text">特性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-text">适用场景</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0%E5%92%8CLambda%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-text">匿名函数和Lambda表达式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A7%94%E6%89%98"><span class="toc-text">委托</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8C%BF%E5%90%8D%E5%A7%94%E6%89%98"><span class="toc-text">匿名委托</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0"><span class="toc-text">匿名函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0%E6%A8%A1%E5%9E%8B"><span class="toc-text">匿名函数模型</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-text">Lambda表达式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B4%E4%B8%AA%E4%BE%8B%E5%AD%90%E6%B5%81%E7%A8%8B"><span class="toc-text">整个例子流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF-1"><span class="toc-text">适用场景</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="匿名对象"><a href="#匿名对象" class="headerlink" title="匿名对象"></a>匿名对象</h2><h3 id="初始化方法"><a href="#初始化方法" class="headerlink" title="初始化方法"></a>初始化方法</h3><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = <span class="keyword">new</span> &#123; Name = <span class="string">&quot;cfmy&quot;</span>,Sex = <span class="string">&quot;M&quot;</span>&#125; ;<span class="comment">//单个匿名对象  </span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> objs = <span class="keyword">new</span>[]</span><br><span class="line">   &#123;</span><br><span class="line">       <span class="keyword">new</span> &#123; Name = <span class="string">&quot;cfmy1&quot;</span>, Sex = <span class="string">&quot;M&quot;</span> &#125;,</span><br><span class="line">       <span class="keyword">new</span> &#123; Name = <span class="string">&quot;cfmy2&quot;</span>, Sex = <span class="string">&quot;M&quot;</span> &#125;,</span><br><span class="line">       <span class="keyword">new</span> &#123; Name = <span class="string">&quot;cfmy3&quot;</span>, Sex = <span class="string">&quot;M&quot;</span> &#125;,</span><br><span class="line">       <span class="keyword">new</span> &#123; Name = <span class="string">&quot;cfmy4&quot;</span>, Sex = <span class="string">&quot;M&quot;</span> &#125;,</span><br><span class="line">       <span class="keyword">new</span> &#123; Name = <span class="string">&quot;cfmy5&quot;</span>, Sex = <span class="string">&quot;M&quot;</span> &#125;</span><br><span class="line">   &#125;;<span class="comment">//匿名对象数组；注意 属性顺序，数量，类型都必须一致，否则提示找不到隐式数组的最佳类型</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> objCobj = <span class="keyword">new</span> &#123; Name = <span class="string">&quot;cfmy&quot;</span>, self = <span class="keyword">new</span> &#123; Name = <span class="string">&quot;cfmy&quot;</span> &#125; &#125;; <span class="comment">//嵌套匿名对象</span></span><br></pre></td></tr></table></figure>
+<p>初始化一个匿名对象之后，编译器会生成一个运行时类型(System.RunTimeType)，它是受保护的，它会根据初始化时的属性顺序，数量，类型构造出一个看不到的类型，它的所有属性都是只读的，只能在实例化时赋值</p>
+<span id="more"></span>
+<h3 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h3><ol>
+<li>匿名对象只有属性，没有方法</li>
+<li>同一个程序集中，如果匿名对象的属性名称、顺序、数量完全相同，那么他们的类型(Type)也是相同的<br><img src="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/6-1.png"></li>
+</ol>
+<h3 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h3><ol>
+<li>当你想创建一个只用一次的对象，只想用的属性，而不用其方法</li>
+<li>上一点的具体化：你的数据源A、B、C三个字段，如果现在你在和另一方进行数据对接，他们需要要A、D两个字段，D是由B和C进行拼接或者某种逻辑处理而成，你现在需要快速创建出新的类型，但是这个类型在你们这个系统是无意义的，不想为其创建Class，那么匿名对象是你的不二选择<br><img src="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/6-2.png"></li>
+</ol>
+<h2 id="匿名函数和Lambda表达式"><a href="#匿名函数和Lambda表达式" class="headerlink" title="匿名函数和Lambda表达式"></a>匿名函数和Lambda表达式</h2><p>了解匿名函数和Lambda表达式前首先需要按顺序了解如下概念</p>
+<p>方法&#x3D;》委托&#x3D;》匿名委托&#x3D;》匿名函数&#x3D;》Lambda表达式</p>
+<h3 id="委托"><a href="#委托" class="headerlink" title="委托"></a>委托</h3><p>根据匿名对象例子简单改进成利用委托ConvertList，具体代码如下</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">Person</span></span><br><span class="line">   &#123;</span><br><span class="line">       <span class="keyword">public</span> <span class="built_in">int</span> Age &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">       <span class="keyword">public</span> <span class="built_in">string</span> Name &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">   &#125;</span><br><span class="line">       </span><br><span class="line">   <span class="keyword">class</span> <span class="title">PersonConverted</span></span><br><span class="line">   &#123;</span><br><span class="line">       <span class="keyword">public</span> <span class="built_in">string</span> Name &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">       <span class="keyword">public</span> <span class="built_in">bool</span> IsAdult &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">class</span> <span class="title">Test</span></span><br><span class="line">   &#123;</span><br><span class="line">       <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">DoSomething</span>()</span></span><br><span class="line">       &#123;</span><br><span class="line">           <span class="keyword">var</span> person = <span class="keyword">new</span> Person &#123; Name = <span class="string">&quot;cfmy&quot;</span>, Age = <span class="number">10</span> &#125;;</span><br><span class="line">           <span class="keyword">var</span> list = <span class="keyword">new</span> List&lt;Person&gt;() &#123; person &#125;;</span><br><span class="line"></span><br><span class="line">           <span class="keyword">var</span> convertedList1 = list.ConvertAll(Converter);<span class="comment">//直接传递方法</span></span><br><span class="line"></span><br><span class="line">           Converter&lt;Person, PersonConverted&gt; converter = Converter;<span class="comment">//Converter是System自带委托类型</span></span><br><span class="line">           <span class="keyword">var</span> convertedList2 = list.ConvertAll(converter);<span class="comment">//传递委托实例</span></span><br><span class="line">       &#125;</span><br><span class="line">       <span class="function">PersonConverted <span class="title">Converter</span>(<span class="params">Person person</span>)</span></span><br><span class="line">       &#123;</span><br><span class="line">           <span class="keyword">return</span> <span class="keyword">new</span> PersonConverted &#123; Name = person.Name, IsAdult = person.Age &gt; <span class="number">18</span> &#125;;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>其中ConvertAll反编译代码如下</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">List</span>&lt;<span class="title">TOutput</span>&gt; <span class="title">ConvertAll</span>&lt;<span class="title">TOutput</span>&gt;(<span class="params">Converter&lt;T,TOutput&gt; converter</span>)</span> &#123;</span><br><span class="line">       <span class="keyword">if</span>( converter == <span class="literal">null</span>) &#123;</span><br><span class="line">           ThrowHelper.ThrowArgumentNullException(ExceptionArgument.converter);</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="comment">// @</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">       Contract.EndContractBlock();</span><br><span class="line"></span><br><span class="line">       List&lt;TOutput&gt; list = <span class="keyword">new</span> List&lt;TOutput&gt;(_size);</span><br><span class="line">       <span class="keyword">for</span>( <span class="built_in">int</span> i = <span class="number">0</span>; i&lt; _size; i++) &#123;</span><br><span class="line">           list._items[i] = converter(_items[i]);</span><br><span class="line">       &#125;</span><br><span class="line">       list._size = _size;</span><br><span class="line">       <span class="keyword">return</span> list;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="匿名委托"><a href="#匿名委托" class="headerlink" title="匿名委托"></a>匿名委托</h3><p>可以看出ConvertAll接收一个委托类型Converter&lt;T,TOutput&gt;。这意味着你可以传递该委托类型的函数或函数组，如果在传递委托函数的基础上简化一步代码，可以使用匿名委托，代码如下：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> convertedList3 = list.ConvertAll(<span class="keyword">new</span> Converter&lt;Person, PersonConverted&gt;(Converter));<span class="comment">//匿名委托 + 显式函数</span></span><br></pre></td></tr></table></figure>
+<p>如果用了匿名委托，就只能接收一个函数作为参数，这点需要注意，如果你想使用函数组，好像只能自己实例化一个委托，然后添加多个函数进去(笔者自己还无法确定这点)</p>
+<h3 id="匿名函数"><a href="#匿名函数" class="headerlink" title="匿名函数"></a>匿名函数</h3><p>上个例子是匿名委托 + 显式函数，意味着我们还是要实现一个函数，使用匿名函数的话代码可以进一步精简代码如下：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> convertedList4 = list.ConvertAll(<span class="keyword">new</span> Converter&lt;Person, PersonConverted&gt;(<span class="built_in">delegate</span> (Person p) &#123; <span class="keyword">return</span> <span class="keyword">new</span> PersonConverted &#123; Name = p.Name, IsAdult = p.Age &gt; <span class="number">18</span> &#125;; &#125;));<span class="comment">//匿名委托 + 匿名函数</span></span><br></pre></td></tr></table></figure>
+<h4 id="匿名函数模型"><a href="#匿名函数模型" class="headerlink" title="匿名函数模型"></a>匿名函数模型</h4><p><em>匿名函数</em>大致模型如下</p>
+<pre><code>delegate ([入参类型] [入参形参])//可以没有入参
+&#123;
+    //方法体
+    return [返回值];//可以没有返回
+&#125;
+</code></pre>
+<p>了解模型后还是可以比较容易理解，但是我们了解到，传递委托的地方往往可以直接传递满足委托类型的函数，匿名也是同理，所以在需要传递委托的地方直接传递匿名函数的代码如下：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> convertedList5 = list.ConvertAll(<span class="built_in">delegate</span> (Person p) &#123; <span class="keyword">return</span> <span class="keyword">new</span> PersonConverted &#123; Name = p.Name, IsAdult = p.Age &gt; <span class="number">18</span> &#125;; &#125;);<span class="comment">//匿名函数</span></span><br></pre></td></tr></table></figure>
+
+<p>但是在上个例子中还是用到了PersonConverted对象，如果再利用之前的匿名对象进行优化，可以得到如下代码：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> convertedList6 = list.ConvertAll(<span class="built_in">delegate</span> (Person p) &#123; <span class="keyword">return</span> <span class="keyword">new</span>  &#123; Name = p.Name, IsAdult = p.Age &gt; <span class="number">18</span> &#125;; &#125;);<span class="comment">//匿名函数 + 匿名对象</span></span><br></pre></td></tr></table></figure>
+<h3 id="Lambda表达式"><a href="#Lambda表达式" class="headerlink" title="Lambda表达式"></a>Lambda表达式</h3><p>如果仅仅利用匿名的话，这已经是代码精进的极限了，这里我们既不需要建立委托类型，也不要建立返回类型Class，<strong>但是</strong>，Lambda表达式竟然还可以精简一步，先看下最终代码如下：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> convertedList7 = list.ConvertAll(p =&gt; <span class="keyword">new</span> &#123;Name = p.Name, IsAdult = p.Age &gt; <span class="number">18</span>&#125;);<span class="comment">//Lambda表达式</span></span><br></pre></td></tr></table></figure>
+<p>Lambda表达式实质是匿名函数的一个语法糖，它的完整模型如下</p>
+<pre><code>([入参a],[入参b])=&gt; 
+&#123;
+    //方法体
+    return [返回值];//可以没有返回值(比较少见)
+&#125;
+</code></pre>
+<p>其中没有入参的时候不能省略圆括号，只有一个入参的情况可以省略左侧圆括号；如果没有方法体的有返回值的时候右侧可以简化为<em>表达式</em>或<em>具体值</em>，具体如下</p>
+<pre><code>(x)=&gt; x*x;
+ x =&gt; x*x;
+() =&gt; 1;
+</code></pre>
+<h3 id="整个例子流程"><a href="#整个例子流程" class="headerlink" title="整个例子流程"></a>整个例子流程</h3><p>代码如下：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">Person</span></span><br><span class="line">   &#123;</span><br><span class="line">       <span class="keyword">public</span> <span class="built_in">int</span> Age &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">       <span class="keyword">public</span> <span class="built_in">string</span> Name &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">class</span> <span class="title">PersonConverted</span></span><br><span class="line">   &#123;</span><br><span class="line">       <span class="keyword">public</span> <span class="built_in">string</span> Name &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">       <span class="keyword">public</span> <span class="built_in">bool</span> IsAdult &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">class</span> <span class="title">Test</span></span><br><span class="line">   &#123;</span><br><span class="line">       <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">DoSomething</span>()</span></span><br><span class="line">       &#123;</span><br><span class="line">           <span class="keyword">var</span> person = <span class="keyword">new</span> Person &#123; Name = <span class="string">&quot;cfmy&quot;</span>, Age = <span class="number">10</span> &#125;;</span><br><span class="line">           <span class="keyword">var</span> list = <span class="keyword">new</span> List&lt;Person&gt;() &#123; person &#125;;</span><br><span class="line"></span><br><span class="line">           <span class="keyword">var</span> convertedList1 = list.ConvertAll(Converter); <span class="comment">//直接传递函数</span></span><br><span class="line"></span><br><span class="line">           Converter&lt;Person, PersonConverted&gt; converter = Converter; <span class="comment">//Converter是System自带委托类型</span></span><br><span class="line">           <span class="keyword">var</span> convertedList2 = list.ConvertAll(converter); <span class="comment">//传递委托实例</span></span><br><span class="line"></span><br><span class="line">           <span class="keyword">var</span> convertedList3 = list.ConvertAll(<span class="keyword">new</span> Converter&lt;Person, PersonConverted&gt;(Converter)); <span class="comment">//匿名委托 + 显式函数</span></span><br><span class="line"></span><br><span class="line">           <span class="keyword">var</span> convertedList4 =</span><br><span class="line">               list.ConvertAll(</span><br><span class="line">                   <span class="keyword">new</span> Converter&lt;Person, PersonConverted&gt;(</span><br><span class="line">                       <span class="built_in">delegate</span> (Person p) &#123; <span class="keyword">return</span> <span class="keyword">new</span> PersonConverted &#123; Name = p.Name, IsAdult = p.Age &gt; <span class="number">18</span> &#125;; &#125;));</span><br><span class="line">           <span class="comment">//匿名委托 + 匿名函数</span></span><br><span class="line"></span><br><span class="line">           <span class="keyword">var</span> convertedList5 =</span><br><span class="line">               list.ConvertAll(</span><br><span class="line">                   <span class="built_in">delegate</span> (Person p) &#123; <span class="keyword">return</span> <span class="keyword">new</span> PersonConverted &#123; Name = p.Name, IsAdult = p.Age &gt; <span class="number">18</span> &#125;; &#125;);</span><br><span class="line">           <span class="comment">//匿名函数</span></span><br><span class="line"></span><br><span class="line">           <span class="keyword">var</span> convertedList6 =</span><br><span class="line">               list.ConvertAll(<span class="built_in">delegate</span> (Person p) &#123; <span class="keyword">return</span> <span class="keyword">new</span> &#123; Name = p.Name, IsAdult = p.Age &gt; <span class="number">18</span> &#125;; &#125;);</span><br><span class="line">           <span class="comment">//匿名函数 + 匿名对象</span></span><br><span class="line"></span><br><span class="line">           <span class="keyword">var</span> convertedList7 = list.ConvertAll(p =&gt; <span class="keyword">new</span> &#123; Name = p.Name, IsAdult = p.Age &gt; <span class="number">18</span> &#125;); <span class="comment">//Lambda表达式</span></span><br><span class="line"></span><br><span class="line">       &#125;</span><br><span class="line">       <span class="function">PersonConverted <span class="title">Converter</span>(<span class="params">Person person</span>)</span></span><br><span class="line">       &#123;</span><br><span class="line">           <span class="keyword">return</span> <span class="keyword">new</span> PersonConverted &#123; Name = person.Name, IsAdult = person.Age &gt; <span class="number">18</span> &#125;;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="适用场景-1"><a href="#适用场景-1" class="headerlink" title="适用场景"></a>适用场景</h3><ol>
+<li>匿名方法 &#x3D;&gt; 所有需要传递委托的地方</li>
+<li>Lambda表达式&#x3D;&gt;从某个集合中过滤符合特定条件的集合</li>
+</ol>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Lambda表达式虽然大家可能都听说过，但是其实就是一个匿名方法的语法糖，如果你理解匿名方法的话，稍微看一下几种简化形式就可以完全掌握；相反，如果你连委托都不熟悉的话，那么就是任重而道远了</p>
+<p>关于Lambda表达式使用场景的话写的不是很好，因为自己也用的不多，以后还会继续补充，另外，如果只是从集合中过滤元素的话，还是LINQ的from in where select 语法组更加优美！
+    </p>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 appendHan@gmail.com </span>
+    </div>
+</article>
+
+
+
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">
+    ©2017 cfmy
+</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full" data-title="切换全屏 快捷键 s"><span class="min "></span></button>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.1.0" ></script>
+
+<script src="/js/script.js?v=1.1.0" ></script>
+<script>
+    var img_resize = 'default';
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $("#post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().trim().split('\n').length, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 35px;
+    }
+    .pre-numbering{
+        margin: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 18px 3px 15px 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: ;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>

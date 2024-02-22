@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>关于windows消息队列机制的臆想 | 橙风沐雨&#39;s</title>
+  <meta name="keywords" content=" 观点 , windows ">
+  <meta name="description" content="关于windows消息队列机制的臆想 | 橙风沐雨&#39;s">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="前言之前在网上找到的一个逻辑游戏NandGame 它官方介绍是这样的  The Nand Game takes you though building a working computer, starting from the most basic components. It does not require any prerequisites, in particular it does no">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NandGame">
+<meta property="og:url" content="http://example.com/2018/11/20/NandGame/index.html">
+<meta property="og:site_name" content="橙风沐雨&#39;s">
+<meta property="og:description" content="前言之前在网上找到的一个逻辑游戏NandGame 它官方介绍是这样的  The Nand Game takes you though building a working computer, starting from the most basic components. It does not require any prerequisites, in particular it does no">
+<meta property="og:locale">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-1.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-2.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-3.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-4.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-5.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-6.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-7.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-8.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-9.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-10.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-11.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-12.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-13.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-14.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-15.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-16.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-17.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-18.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-19.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-20.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-21.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-22.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-23.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-24.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-25.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-26.png">
+<meta property="article:published_time" content="2018-11-20T01:40:51.000Z">
+<meta property="article:modified_time" content="2024-02-21T09:17:03.465Z">
+<meta property="article:author" content="cfmy">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-1.png">
+
+
+<link rel="icon" href="/img/avatar.jpeg">
+
+<link href="/css/style.css?v=1.1.0" rel="stylesheet">
+
+<link href="/css/hl_theme/sublime.css?v=1.1.0" rel="stylesheet">
+
+<link href="//cdn.jsdelivr.net/npm/animate.css@4.1.0/animate.min.css" rel="stylesheet">
+
+<script src="//cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="/js/titleTip.js?v=1.1.0" ></script>
+
+<script src="//cdn.jsdelivr.net/npm/highlightjs@9.16.2/highlight.pack.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/jquery.cookie@1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.1.0" ></script>
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="">
+  <input class="theme_blog_path" value="">
+  <input id="theme_shortcut" value="true" />
+  <input id="theme_highlight_on" value="true" />
+  <input id="theme_code_copy" value="true" />
+</div>
+
+
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/"
+   class="avatar_target">
+    <img class="avatar"
+         src="/img/avatar.jpeg"/>
+</a>
+<div class="author">
+    <span>cfmy</span>
+</div>
+
+<div class="icon">
+    
+        
+            <a title="rss"
+               href="/atom.xml"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-rss"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="github"
+               href="https://github.com/appendHan"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-github"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <a title="email"
+               href="mailto:appendHan@gmail.com"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-email"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+    
+        
+    
+        
+    
+</div>
+
+
+
+
+
+<ul>
+    <li>
+        <div class="all active" data-rel="All">All
+            
+                <small>(13)</small>
+            
+        </div>
+    </li>
+    
+        
+            
+                
+    <li>
+        <div data-rel="学习笔记">
+            
+            学习笔记
+            <small>(7)</small>
+        </div>
+        
+    </li>
+
+            
+        
+    
+        
+            
+                
+    <li>
+        <div data-rel="随笔">
+            
+            随笔
+            <small>(6)</small>
+        </div>
+        
+    </li>
+
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+        
+            
+            
+            
+    </div>
+    <div>
+        
+        
+    </div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="13">
+<input type="hidden" id="yelog_site_word_count" value="23.5k">
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        Links
+        <i class="iconfont icon-left"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="http://yelog.org/">叶落阁</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <div class="right-top">
+        <div id="default-panel">
+            <i class="iconfont icon-search" data-title="搜索 快捷键 i"></i>
+            <div class="right-title">All</div>
+            <i class="iconfont icon-file-tree" data-title="切换到大纲视图 快捷键 w"></i>
+        </div>
+        <div id="search-panel">
+            <i class="iconfont icon-left" data-title="返回"></i>
+            <input id="local-search-input" autocomplete="off"/>
+            <label class="border-line" for="input"></label>
+            <i class="iconfont icon-case-sensitive" data-title="大小写敏感"></i>
+            <i class="iconfont icon-tag" data-title="标签"></i>
+        </div>
+        <div id="outline-panel" style="display: none">
+            <div class="right-title">大纲</div>
+            <i class="iconfont icon-list" data-title="切换到文章列表"></i>
+        </div>
+    </div>
+
+    <div class="tags-list">
+    <input id="tag-search" />
+    <div class="tag-wrapper">
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>闭包</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>观点</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>键盘驱动</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>匿名函数</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>设计模式</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>鼠标钩子</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>图像识别</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>吐槽</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>微信跳一跳</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>学习笔记</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>正则表达式</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>ActiveX</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Base64</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>HTTP协议</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>JavaScript</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Lambda</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Markdown</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>windows</a>
+            </li>
+        
+    </div>
+
+</div>
+
+    
+    <div id="local-search-result">
+
+    </div>
+    
+    <nav id="title-list-nav">
+        
+        
+        <a  class="All 随笔 "
+           href="/2018/11/20/NandGame/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="NandGame">NandGame</span>
+            <span class="post-date" title="2018-11-20 09:40:51">2018/11/20</span>
+        </a>
+        
+        
+        <a  class="All 随笔 "
+           href="/2018/04/11/%E9%9A%8F%E7%AC%94-%E9%94%AE%E7%9B%98%E9%A9%B1%E5%8A%A8%E7%BA%A7%E5%88%AB%E6%A8%A1%E6%8B%9F/"
+           data-tag="键盘驱动,ActiveX"
+           data-author="" >
+            <span class="post-title" title="随笔-键盘驱动级别模拟">随笔-键盘驱动级别模拟</span>
+            <span class="post-date" title="2018-04-11 16:57:24">2018/04/11</span>
+        </a>
+        
+        
+        <a  class="All 学习笔记 "
+           href="/2018/02/26/%E6%B5%85%E8%B0%88JS%E9%97%AD%E5%8C%85/"
+           data-tag="JavaScript,闭包"
+           data-author="" >
+            <span class="post-title" title="浅谈JS闭包">浅谈JS闭包</span>
+            <span class="post-date" title="2018-02-26 10:36:24">2018/02/26</span>
+        </a>
+        
+        
+        <a  class="All 随笔 "
+           href="/2018/02/23/C-%E5%AE%9E%E7%8E%B0%E8%B7%B3%E4%B8%80%E8%B7%B3%E8%BE%85%E5%8A%A9/"
+           data-tag="鼠标钩子,图像识别"
+           data-author="" >
+            <span class="post-title" title="C#实现跳一跳辅助">C#实现跳一跳辅助</span>
+            <span class="post-date" title="2018-02-23 09:29:03">2018/02/23</span>
+        </a>
+        
+        
+        <a  class="All 随笔 "
+           href="/2018/01/27/%E5%85%B3%E4%BA%8E%E5%8A%AA%E5%8A%9B/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="关于努力">关于努力</span>
+            <span class="post-date" title="2018-01-27 19:30:33">2018/01/27</span>
+        </a>
+        
+        
+        <a  class="All 学习笔记 "
+           href="/2016/07/11/%E6%B5%85%E8%B0%88%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0%E5%8F%8ALambda/"
+           data-tag="学习笔记,匿名函数,Lambda"
+           data-author="" >
+            <span class="post-title" title="浅谈匿名函数及Lambda">浅谈匿名函数及Lambda</span>
+            <span class="post-date" title="2016-07-11 22:22:03">2016/07/11</span>
+        </a>
+        
+        
+        <a  class="All 学习笔记 "
+           href="/2016/04/24/%E6%B5%85%E8%B0%88%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/"
+           data-tag="设计模式"
+           data-author="" >
+            <span class="post-title" title="浅谈工厂模式">浅谈工厂模式</span>
+            <span class="post-date" title="2016-04-24 17:58:48">2016/04/24</span>
+        </a>
+        
+        
+        <a  class="All 学习笔记 "
+           href="/2016/04/08/%E6%B5%85%E8%B0%88%E6%AD%A3%E5%88%99/"
+           data-tag="正则表达式"
+           data-author="" >
+            <span class="post-title" title="浅谈正则">浅谈正则</span>
+            <span class="post-date" title="2016-04-08 20:14:56">2016/04/08</span>
+        </a>
+        
+        
+        <a  class="All 随笔 "
+           href="/2016/03/27/%E5%85%B3%E4%BA%8Ewindows%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E6%9C%BA%E5%88%B6%E7%9A%84%E8%87%86%E6%83%B3/"
+           data-tag="观点,windows"
+           data-author="" >
+            <span class="post-title" title="关于windows消息队列机制的臆想">关于windows消息队列机制的臆想</span>
+            <span class="post-date" title="2016-03-27 13:15:29">2016/03/27</span>
+        </a>
+        
+        
+        <a  class="All 随笔 "
+           href="/2016/03/19/Windows%E4%BF%AE%E5%A4%8D%E8%A1%A5%E4%B8%811.2/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Windows修复补丁1.2">Windows修复补丁1.2</span>
+            <span class="post-date" title="2016-03-19 16:25:11">2016/03/19</span>
+        </a>
+        
+        
+        <a  class="All 学习笔记 "
+           href="/2016/03/14/%E6%B5%85%E8%B0%88Base64%E8%BD%AC%E7%A0%81/"
+           data-tag="Base64"
+           data-author="" >
+            <span class="post-title" title="浅谈Base64转码">浅谈Base64转码</span>
+            <span class="post-date" title="2016-03-14 16:40:40">2016/03/14</span>
+        </a>
+        
+        
+        <a  class="All 学习笔记 "
+           href="/2016/03/12/%E6%B5%85%E8%B0%88HTTP%E5%8D%8F%E8%AE%AE%E4%B8%AD%E7%9A%84Content-Type/"
+           data-tag="HTTP协议"
+           data-author="" >
+            <span class="post-title" title="浅谈HTTP协议中的Content-Type">浅谈HTTP协议中的Content-Type</span>
+            <span class="post-date" title="2016-03-12 21:45:54">2016/03/12</span>
+        </a>
+        
+        
+        <a  class="All 学习笔记 "
+           href="/2016/02/28/Markdown%20%E8%AF%AD%E6%B3%95%E5%AE%9E%E4%BE%8B/"
+           data-tag="Markdown"
+           data-author="" >
+            <span class="post-title" title="Markdown 语法实例">Markdown 语法实例</span>
+            <span class="post-date" title="2016-02-28 16:20:05">2016/02/28</span>
+        </a>
+        
+        <div id="no-item-tips">
+
+        </div>
+    </nav>
+    <div id="outline-list">
+    </div>
+</div>
+
+    </div>
+    <div class="hide-list">
+        <div class="semicircle" data-title="切换全屏 快捷键 s">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div id="post">
+    <div class="pjax">
+        <article id="post-关于windows消息队列机制的臆想" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">关于windows消息队列机制的臆想</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="随笔">随笔</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            <i class="iconfont icon-tag"></i>
+            
+            <a class="color3">观点</a>
+            
+            <a class="color3">windows</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+            Created At : <time class="date" title='Updated At: 2024-02-21 17:14:12'>2016-03-27 13:15</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        <span>Count:2.4k</span>
+        
+        
+        <span id="busuanzi_container_page_pv">
+            Views 👀 :<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E6%96%87"><span class="toc-text">正文</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8E%E8%AE%B0"><span class="toc-text">后记</span></a></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/5-1.gif" alt="&quot;图片来源网络&quot;"></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>此文写于2016年，虽然目前为止微软已经有些下埔路的趋势，但不可否认过去几十年的微软是无敌的，PC用户依然被微软垄断，随着越来越多的移动终端出现，应用越来越复杂，微软也无法逆转长江后浪推前浪的趋势，只能紧跟时代步伐，推出winPhone，免费升级win10，.Net开源，推广XBOX视频游戏机。</p>
+<span id="more"></span>
+<p>帝国终将毁灭，错并不在微软的运营之类的因素，因为微软无法阻止人类的善变和好奇，无法阻止新技术的出现。从编程角度考虑，我设计了一种框架可以很好处理未来10年的所有能想到需求，但可能五年后需求已经衍生至我没有考虑到的地方了，怎么办，难道放弃掉实现好的东西，迁到更好的框架中去吗？不可能，我只能眼睁睁看着别人在新的框架中很便利的处理问题（甚至别人框架很多地方都借鉴了我的）。</p>
+<p>说了那么多没用的，还是说说windows吧，由于微软的地位，大部分PC应用和服务都是基于windows的，windows操作系统最大的特点就是商业化，当电脑都没有普及的时候，他靠着图形界面为主的操作系统以及丰富的软件应用向企业用户和个人用户推广，最终走向成功。从很早前（其实也就一年前）我就在考虑，这样一个图形界面是如何设计实现的，最近终于有了大致思路。</p>
+<p>由于只是臆想，肯定有些不成熟的思路和不准确的概念，所以此文只是自己的一些理解，就不去引用太多权威论证了。</p>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>从按下机箱的开机键开始到载入操作系统这部分我就不说了（基础不行），好了，现在进入桌面了，windows的图形界面映入眼帘，我靠，酷，仅仅通过鼠标和键盘就能实现与操作系统的交互。为什么我鼠标移动之后，显示器上的东西也可以跟着动呢？我以前在学了半个月编程后其实大致就有个思路，操作系统中有个东西在检视着鼠标的动作，按下键，松开键，移动。</p>
+<p>但随之而来的疑问有两个：  </p>
+<ol>
+<li>如果我点的是不同的应用程序，比如我在浏览器的网页中右键，系统是如何知道我想要操作浏览器还是其他应用程序的   </li>
+<li>如果真的有一个东西在监视我的操作的话，那它应该是很蠢的轮询操作，就是<code>while(ture)</code>这种应该是很损耗性能的才对吧？</li>
+</ol>
+<p>后来过了大概一年吧，我换了一份工作，那时候我对windows的理解已经更深了一层，对进城，线程，窗体，句柄都有些感悟了，于是以第一个疑问迎刃而解，操作确实会产生一个消息，比如鼠标点击会产生一个点击事件，这个消息中包含着事件的触发者，句柄等信息，可以理解为这个消息的发出者，以及发出地点，这样就可以区分出对不同应用程序的操作。但是第二个疑问还是没有解决，我也没在意就想别的事情去了</p>
+<p>直到前不久我接触到nodejs时候，了解到nodejs用的事件驱动模型，才发现这个模型跟windows图形界面的消息队列机制是类似的，只不过windows使用在界面操作消息分发上，而nodejs用在网络I&#x2F;O请求分发上，简单来看他们都时为了处理异步消息的非阻塞模型，除了用途不同外，还有个很大的区别就是nodejs是单线程处理（如果你是开发者，肯定会有疑问单线程如何实现异步，详细可以<a target="_blank" rel="noopener" href="http://www.cnblogs.com/dolphinX/p/3475090.html">戳这里</a>），而windows是多线程处理，那么，谈谈我现在对windows消息机制的理解吧</p>
+<p>首先Windows肯定有一个全局的消息队列，用来监听操作者的操作，比如键盘输入或者鼠标点击，如上图的SystemQueue；每个应用程序也拥有自己的队列，当我点击鼠标后，会在消息全局消息队列中插入一条点击的消息（也可能直接插入到应用程序队列中，这里不考虑这种情况），系统会先看消息产生的句柄，来判断是我来处理，还是给别人处理，假设我是在网页上点击 的，那就把这个消息推给浏览器消息队列中，浏览器发现了消息，决定自己要做什么样的处理。如果这样的话，岂不是每个应用程序都要轮询监视着自己的消息队列来判断是否有新的信息需要处理 ？</p>
+<p>其实不是的，这涉及到编程中的委托和事件，有编程经验的肯定见过 <code>事件+=委托</code>这种写法，一个事件可以绑定多个委托，其实就是一种订阅模式，windows中的消息队列中也是用了同样的原理</p>
+<p>其实浏览器一开始就定义好了所有的事件和委托，比如一个关闭按钮，他的事件是鼠标的click动作，委托是关闭窗口的实现，浏览器会先把他们注册到消息队列中去，他会告诉消息队列，如果发生了这样的事件，你就用这个委托关闭窗体。浏览器消息队列心里哪受得了这个，不干了，你让我一辈子就监视你们这点破事吗？于是他跑去系统的全局消息队列注册，他跟全局消息队列说，如果有浏览器相关的事件发生，你叫我一下，我好处理，ok？好，我去睡觉了（线程阻塞）。这样所有的事件和委托全部关联上了，傻乎乎的全局消息队列监视着用户的一举一动，并把消息事件按照注册好的委托一个个执行。</p>
+<p>看上去整个流程似乎是没什么问题，其实只是后面没问题了，系统全局消息队列真的会傻乎乎的轮询自己的消息队列吗？我觉得肯定不是，他大概也用到 一样的机制，把自己所有的事情通过手段直接注册到鼠标键盘等输入设备上。于是最终的结果就是，他们都不傻！！都不是靠傻乎乎的轮询操作，通过订阅注册机制建立起各种各样的链接，用户的一举一动通过一条条线条最后落到每个应用程序的具体实现！！</p>
+<p>以上过程忽视了完成委托后的回调过程，实际上最底层完成委托后还要一层层回调的上层（不是所有地方都需要回调），有了回调就以为了异步，假如某个应用程序消息队列有数个消息等待处理，那么他会会为每个消息开一个子线程处理委托，再通过回调函数向上传递结果，所以我们实际使用中经常遇到一个应用程序未响应，但是其他的都好好的，因为他们肯定是在不同的线程中。但有的时候很多程序一起未响应，那可能是虽然线程不同，但是他们用到了同一个资源未响应，导致他们全部卡主无法回调上层。但是问题肯定不止这么简单，还有很多细节需要思考，这只是现阶段我的理解而已</p>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>本来感冒了准备吃好药就去睡觉的，但还是写到了很晚才结束，独自一人来外地工作还是做技术，相信这种感受一般人很难理解，尽在不言中。</p>
+<p>每当我读到那些优秀的技术博文时，都会看下发布时间，很多都是五六年前的，甚至更早，我不禁思考，技术究竟是什么，他并非凭空产生，而是从人类社会中抽象而来，不断的积累沉淀衍生，想要在某个层次做好，就必须要了解底层的实现，就像消息机制一样，层层调用。对于我等开发来说就是四个字，学无止境。就像此文，作为一个.Net开发者，不得不了解自己底层的操作系统某些原理，你想真正在某个领域做到极致是不可能的，因为领域间并不存在完全的界限，所以我对此的态度就是八个字尽力而为，问心无愧。</p>
+<p>这次离职后下一份工作可能会做一份java相关的，因为java现在的资源情况比.Net好太多了，之后我将不拘泥代码细节，更多精力花在设计、部署和其它开源技术方向。</p>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 appendHan@gmail.com </span>
+    </div>
+</article>
+
+
+
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">
+    ©2017 cfmy
+</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full" data-title="切换全屏 快捷键 s"><span class="min "></span></button>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.1.0" ></script>
+
+<script src="/js/script.js?v=1.1.0" ></script>
+<script>
+    var img_resize = 'default';
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $("#post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().trim().split('\n').length, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 35px;
+    }
+    .pre-numbering{
+        margin: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 18px 3px 15px 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: ;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>

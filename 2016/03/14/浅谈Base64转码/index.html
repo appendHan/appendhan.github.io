@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>浅谈Base64转码 | 橙风沐雨&#39;s</title>
+  <meta name="keywords" content=" Base64 ">
+  <meta name="description" content="浅谈Base64转码 | 橙风沐雨&#39;s">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="前言之前在网上找到的一个逻辑游戏NandGame 它官方介绍是这样的  The Nand Game takes you though building a working computer, starting from the most basic components. It does not require any prerequisites, in particular it does no">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NandGame">
+<meta property="og:url" content="http://example.com/2018/11/20/NandGame/index.html">
+<meta property="og:site_name" content="橙风沐雨&#39;s">
+<meta property="og:description" content="前言之前在网上找到的一个逻辑游戏NandGame 它官方介绍是这样的  The Nand Game takes you though building a working computer, starting from the most basic components. It does not require any prerequisites, in particular it does no">
+<meta property="og:locale">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-1.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-2.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-3.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-4.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-5.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-6.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-7.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-8.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-9.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-10.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-11.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-12.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-13.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-14.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-15.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-16.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-17.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-18.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-19.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-20.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-21.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-22.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-23.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-24.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-25.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-26.png">
+<meta property="article:published_time" content="2018-11-20T01:40:51.000Z">
+<meta property="article:modified_time" content="2024-02-21T09:17:03.465Z">
+<meta property="article:author" content="cfmy">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-1.png">
+
+
+<link rel="icon" href="/img/avatar.jpeg">
+
+<link href="/css/style.css?v=1.1.0" rel="stylesheet">
+
+<link href="/css/hl_theme/sublime.css?v=1.1.0" rel="stylesheet">
+
+<link href="//cdn.jsdelivr.net/npm/animate.css@4.1.0/animate.min.css" rel="stylesheet">
+
+<script src="//cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="/js/titleTip.js?v=1.1.0" ></script>
+
+<script src="//cdn.jsdelivr.net/npm/highlightjs@9.16.2/highlight.pack.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/jquery.cookie@1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.1.0" ></script>
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="">
+  <input class="theme_blog_path" value="">
+  <input id="theme_shortcut" value="true" />
+  <input id="theme_highlight_on" value="true" />
+  <input id="theme_code_copy" value="true" />
+</div>
+
+
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/"
+   class="avatar_target">
+    <img class="avatar"
+         src="/img/avatar.jpeg"/>
+</a>
+<div class="author">
+    <span>cfmy</span>
+</div>
+
+<div class="icon">
+    
+        
+            <a title="rss"
+               href="/atom.xml"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-rss"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="github"
+               href="https://github.com/appendHan"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-github"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <a title="email"
+               href="mailto:appendHan@gmail.com"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-email"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+    
+        
+    
+        
+    
+</div>
+
+
+
+
+
+<ul>
+    <li>
+        <div class="all active" data-rel="All">All
+            
+                <small>(13)</small>
+            
+        </div>
+    </li>
+    
+        
+            
+                
+    <li>
+        <div data-rel="学习笔记">
+            
+            学习笔记
+            <small>(7)</small>
+        </div>
+        
+    </li>
+
+            
+        
+    
+        
+            
+                
+    <li>
+        <div data-rel="随笔">
+            
+            随笔
+            <small>(6)</small>
+        </div>
+        
+    </li>
+
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+        
+            
+            
+            
+    </div>
+    <div>
+        
+        
+    </div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="13">
+<input type="hidden" id="yelog_site_word_count" value="23.5k">
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        Links
+        <i class="iconfont icon-left"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="http://yelog.org/">叶落阁</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <div class="right-top">
+        <div id="default-panel">
+            <i class="iconfont icon-search" data-title="搜索 快捷键 i"></i>
+            <div class="right-title">All</div>
+            <i class="iconfont icon-file-tree" data-title="切换到大纲视图 快捷键 w"></i>
+        </div>
+        <div id="search-panel">
+            <i class="iconfont icon-left" data-title="返回"></i>
+            <input id="local-search-input" autocomplete="off"/>
+            <label class="border-line" for="input"></label>
+            <i class="iconfont icon-case-sensitive" data-title="大小写敏感"></i>
+            <i class="iconfont icon-tag" data-title="标签"></i>
+        </div>
+        <div id="outline-panel" style="display: none">
+            <div class="right-title">大纲</div>
+            <i class="iconfont icon-list" data-title="切换到文章列表"></i>
+        </div>
+    </div>
+
+    <div class="tags-list">
+    <input id="tag-search" />
+    <div class="tag-wrapper">
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>闭包</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>观点</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>键盘驱动</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>匿名函数</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>设计模式</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>鼠标钩子</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>图像识别</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>吐槽</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>微信跳一跳</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>学习笔记</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>正则表达式</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>ActiveX</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Base64</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>HTTP协议</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>JavaScript</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Lambda</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Markdown</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>windows</a>
+            </li>
+        
+    </div>
+
+</div>
+
+    
+    <div id="local-search-result">
+
+    </div>
+    
+    <nav id="title-list-nav">
+        
+        
+        <a  class="All 随笔 "
+           href="/2018/11/20/NandGame/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="NandGame">NandGame</span>
+            <span class="post-date" title="2018-11-20 09:40:51">2018/11/20</span>
+        </a>
+        
+        
+        <a  class="All 随笔 "
+           href="/2018/04/11/%E9%9A%8F%E7%AC%94-%E9%94%AE%E7%9B%98%E9%A9%B1%E5%8A%A8%E7%BA%A7%E5%88%AB%E6%A8%A1%E6%8B%9F/"
+           data-tag="键盘驱动,ActiveX"
+           data-author="" >
+            <span class="post-title" title="随笔-键盘驱动级别模拟">随笔-键盘驱动级别模拟</span>
+            <span class="post-date" title="2018-04-11 16:57:24">2018/04/11</span>
+        </a>
+        
+        
+        <a  class="All 学习笔记 "
+           href="/2018/02/26/%E6%B5%85%E8%B0%88JS%E9%97%AD%E5%8C%85/"
+           data-tag="JavaScript,闭包"
+           data-author="" >
+            <span class="post-title" title="浅谈JS闭包">浅谈JS闭包</span>
+            <span class="post-date" title="2018-02-26 10:36:24">2018/02/26</span>
+        </a>
+        
+        
+        <a  class="All 随笔 "
+           href="/2018/02/23/C-%E5%AE%9E%E7%8E%B0%E8%B7%B3%E4%B8%80%E8%B7%B3%E8%BE%85%E5%8A%A9/"
+           data-tag="鼠标钩子,图像识别"
+           data-author="" >
+            <span class="post-title" title="C#实现跳一跳辅助">C#实现跳一跳辅助</span>
+            <span class="post-date" title="2018-02-23 09:29:03">2018/02/23</span>
+        </a>
+        
+        
+        <a  class="All 随笔 "
+           href="/2018/01/27/%E5%85%B3%E4%BA%8E%E5%8A%AA%E5%8A%9B/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="关于努力">关于努力</span>
+            <span class="post-date" title="2018-01-27 19:30:33">2018/01/27</span>
+        </a>
+        
+        
+        <a  class="All 学习笔记 "
+           href="/2016/07/11/%E6%B5%85%E8%B0%88%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0%E5%8F%8ALambda/"
+           data-tag="学习笔记,匿名函数,Lambda"
+           data-author="" >
+            <span class="post-title" title="浅谈匿名函数及Lambda">浅谈匿名函数及Lambda</span>
+            <span class="post-date" title="2016-07-11 22:22:03">2016/07/11</span>
+        </a>
+        
+        
+        <a  class="All 学习笔记 "
+           href="/2016/04/24/%E6%B5%85%E8%B0%88%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/"
+           data-tag="设计模式"
+           data-author="" >
+            <span class="post-title" title="浅谈工厂模式">浅谈工厂模式</span>
+            <span class="post-date" title="2016-04-24 17:58:48">2016/04/24</span>
+        </a>
+        
+        
+        <a  class="All 学习笔记 "
+           href="/2016/04/08/%E6%B5%85%E8%B0%88%E6%AD%A3%E5%88%99/"
+           data-tag="正则表达式"
+           data-author="" >
+            <span class="post-title" title="浅谈正则">浅谈正则</span>
+            <span class="post-date" title="2016-04-08 20:14:56">2016/04/08</span>
+        </a>
+        
+        
+        <a  class="All 随笔 "
+           href="/2016/03/27/%E5%85%B3%E4%BA%8Ewindows%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E6%9C%BA%E5%88%B6%E7%9A%84%E8%87%86%E6%83%B3/"
+           data-tag="观点,windows"
+           data-author="" >
+            <span class="post-title" title="关于windows消息队列机制的臆想">关于windows消息队列机制的臆想</span>
+            <span class="post-date" title="2016-03-27 13:15:29">2016/03/27</span>
+        </a>
+        
+        
+        <a  class="All 随笔 "
+           href="/2016/03/19/Windows%E4%BF%AE%E5%A4%8D%E8%A1%A5%E4%B8%811.2/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Windows修复补丁1.2">Windows修复补丁1.2</span>
+            <span class="post-date" title="2016-03-19 16:25:11">2016/03/19</span>
+        </a>
+        
+        
+        <a  class="All 学习笔记 "
+           href="/2016/03/14/%E6%B5%85%E8%B0%88Base64%E8%BD%AC%E7%A0%81/"
+           data-tag="Base64"
+           data-author="" >
+            <span class="post-title" title="浅谈Base64转码">浅谈Base64转码</span>
+            <span class="post-date" title="2016-03-14 16:40:40">2016/03/14</span>
+        </a>
+        
+        
+        <a  class="All 学习笔记 "
+           href="/2016/03/12/%E6%B5%85%E8%B0%88HTTP%E5%8D%8F%E8%AE%AE%E4%B8%AD%E7%9A%84Content-Type/"
+           data-tag="HTTP协议"
+           data-author="" >
+            <span class="post-title" title="浅谈HTTP协议中的Content-Type">浅谈HTTP协议中的Content-Type</span>
+            <span class="post-date" title="2016-03-12 21:45:54">2016/03/12</span>
+        </a>
+        
+        
+        <a  class="All 学习笔记 "
+           href="/2016/02/28/Markdown%20%E8%AF%AD%E6%B3%95%E5%AE%9E%E4%BE%8B/"
+           data-tag="Markdown"
+           data-author="" >
+            <span class="post-title" title="Markdown 语法实例">Markdown 语法实例</span>
+            <span class="post-date" title="2016-02-28 16:20:05">2016/02/28</span>
+        </a>
+        
+        <div id="no-item-tips">
+
+        </div>
+    </nav>
+    <div id="outline-list">
+    </div>
+</div>
+
+    </div>
+    <div class="hide-list">
+        <div class="semicircle" data-title="切换全屏 快捷键 s">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div id="post">
+    <div class="pjax">
+        <article id="post-浅谈Base64转码" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">浅谈Base64转码</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="学习笔记">学习笔记</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            <i class="iconfont icon-tag"></i>
+            
+            <a class="color2">Base64</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+            Created At : <time class="date" title='Updated At: 2024-02-21 17:23:55'>2016-03-14 16:40</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        <span>Count:1.1k</span>
+        
+        
+        <span id="busuanzi_container_page_pv">
+            Views 👀 :<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E8%BF%B0"><span class="toc-text">概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BD%AC%E6%8D%A2%E5%8E%9F%E7%90%86"><span class="toc-text">转换原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NET%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E8%BD%AC%E7%A0%81%E9%97%AE%E9%A2%98"><span class="toc-text">.NET环境下的转码问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E7%85%A7"><span class="toc-text">参照</span></a></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>首先要理解Base64是一种二进制数据的表示方法，它只是一种表达形式，并不是加密，也不是压缩字符长度。惯例引用wiki概述：</p>
+<blockquote>
+<p>Base64是一种基于64个可打印字符来表示二进制数据的表示方法。由于2的6次方等于64，所以每6个比特为一个单元，对应某个可打印字符。三个字节有24个比特，对应于4个Base64单元，即3个字节需要用4个可打印字符来表示。它可用来作为电子邮件的传输编码。在Base64中的可打印字符包括字母A-Z、a-z、数字0-9，这样共有62个字符，此外两个可打印符号在不同的系统中而不同。一些如uuencode的其他编码方法，和之后binhex的版本使用不同的64字符集来代表6个二进制数字，但是它们不叫Base64。</p>
+<p>Base64常用于在通常处理文本数据的场合，表示、传输、存储一些二进制数据。包括MIME的email、在XML中存储复杂数据。</p>
+</blockquote>
+<span id="more"></span>
+<h2 id="转换原理"><a href="#转换原理" class="headerlink" title="转换原理"></a>转换原理</h2><p>由于Base64是针对字节进行转码的，对于一般的文本，需要先按照其编码格式转换为字节数组，然后在将字节数组转为Base64串。其实现过程wiki有一个非常直观的表格，如下图</p>
+<p><img src="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/QQ%E6%88%AA%E5%9B%BE20160314135213.png" title="Base64转换过程"></p>
+<p>这里注意一点就是字母<code>M</code>在ASCII编码中占一个字节，但是如果在其他编码中不一定是一个字节，所以在转码过程中一定要注意到文本编码的问题，不同编码格式的文本转换出的Base64串也很可能不同</p>
+<p>另外，无论是单字节编码还是双字节编码的文本，都会面临一个问题，即一个字节占8比特，8的倍数不能全被6整除，假设上面wiki的例子中只转换字母<code>M</code>（ASCII编码下），<em>M</em>的八位比特位分别是<em>01001101</em>，如果转换Base64的话，前面的<em>010011</em>可以转换为<em>T</em>，但是后面剩下<em>01</em>不足6位，这时候规定是不足6位比特时在后面补<em>0</em>，01后面补4个0就变成<em>010000</em>，对应Base64编码中的<code>Q</code>，但是因为你是补位后的转换，为了和正常的转换进行区分，需要在最后加入一个或两个<code>=</code></p>
+<p><strong>即：</strong><br>补了4个0的情况，末尾加2个<code>=</code><br>补了2个0的情况，末尾加1个<code>=</code><br>所以刚才的字母<code>M</code>（ASCII编码下）转为Base64时会变为<code>TQ==</code> </p>
+<p>顺便引用一下wiki对于补位的解释和示例</p>
+<p><img src="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/QQ%E6%88%AA%E5%9B%BE20160314143830.png"></p>
+<h2 id="NET环境下的转码问题"><a href="#NET环境下的转码问题" class="headerlink" title=".NET环境下的转码问题"></a>.NET环境下的转码问题</h2><p>.NET中的Convert类已经封装好了Base64与字节数组的转换方法，分别是<br>Convert.ToBase64String(byte[] inArray)和Convert.FromBase64String(string s)</p>
+<p>.NET中还有一个将字符串转为字节数组的方法叫做Encoding.[编码集].GetBytes(string s)。我之前不理解Base64，不清楚这两个转换方法有什么区别。从.NET的注释来看GetBytes是<code>在派生类中重写时，将指定字符串中的所有字符编码为一个字节序列</code>,而FromBase64String是<code> 将指定的字符串（它将二进制数据编码为 Base64 数字）转换为等效的 8 位无符号整数数组</code>，为了明确二者联系，我做了一个实验如下：</p>
+<p><img src="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/QQ%E6%88%AA%E5%9B%BE20160314105920.png"></p>
+<p>我先讲字符串按照UTF-8和Unicode编码转为字节数组，然后转为Base64，可以看出二者是不同的，然后在按照Base64格式、UTF-8格式和Unicode格式解析为字节数组，最后再把4个字节数组按照UTF-8和Unicode转为字符串，最后生成了8组字符串。</p>
+<p>最终成功还原的是rst1和rst4，可以看出这两个其实走的同一个路线，即</p>
+<p>Encoding.[编码集].GetBytes() -&gt; Convert.ToBase64String -&gt; Convert.FromBase64String -&gt; Encoding.[相同编码集].GetString</p>
+<p>通过这个实验我也理解了GetBytes和FromBase64String虽然入参和出参想同，但其实是两个概念。FromBase64String是先把字符串按照Base64规则(6比特&#x3D;1字符)转为比特位，然后在按照8比特为一单位进行分割，而GetBytes方法只不过是按照字符的编码格式转成8比特为一单位的数组而已。比如字母<code>M</code>的Base64流为<code>TQ==</code>，用FromBase64String会变为<code>[01001101](十进制为[77])</code>,用GetBytes把每一个字符都转为一个字节，假设是UTF8.GetBytes结果会是<code>[01010100,01010001,00111101,00111101](十进制为[84,81,61,61])</code></p>
+<h2 id="参照"><a href="#参照" class="headerlink" title="参照"></a>参照</h2><p>维基百科-Base64：<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/Base64">https://zh.wikipedia.org/wiki/Base64</a></p>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 appendHan@gmail.com </span>
+    </div>
+</article>
+
+
+
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">
+    ©2017 cfmy
+</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full" data-title="切换全屏 快捷键 s"><span class="min "></span></button>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.1.0" ></script>
+
+<script src="/js/script.js?v=1.1.0" ></script>
+<script>
+    var img_resize = 'default';
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $("#post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().trim().split('\n').length, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 35px;
+    }
+    .pre-numbering{
+        margin: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 18px 3px 15px 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: ;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>

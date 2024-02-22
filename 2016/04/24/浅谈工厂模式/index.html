@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>浅谈工厂模式 | 橙风沐雨&#39;s</title>
+  <meta name="keywords" content=" 设计模式 ">
+  <meta name="description" content="浅谈工厂模式 | 橙风沐雨&#39;s">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="前言之前在网上找到的一个逻辑游戏NandGame 它官方介绍是这样的  The Nand Game takes you though building a working computer, starting from the most basic components. It does not require any prerequisites, in particular it does no">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NandGame">
+<meta property="og:url" content="http://example.com/2018/11/20/NandGame/index.html">
+<meta property="og:site_name" content="橙风沐雨&#39;s">
+<meta property="og:description" content="前言之前在网上找到的一个逻辑游戏NandGame 它官方介绍是这样的  The Nand Game takes you though building a working computer, starting from the most basic components. It does not require any prerequisites, in particular it does no">
+<meta property="og:locale">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-1.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-2.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-3.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-4.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-5.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-6.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-7.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-8.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-9.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-10.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-11.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-12.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-13.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-14.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-15.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-16.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-17.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-18.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-19.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-20.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-21.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-22.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-23.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-24.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-25.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-26.png">
+<meta property="article:published_time" content="2018-11-20T01:40:51.000Z">
+<meta property="article:modified_time" content="2024-02-21T09:17:03.465Z">
+<meta property="article:author" content="cfmy">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-1.png">
+
+
+<link rel="icon" href="/img/avatar.jpeg">
+
+<link href="/css/style.css?v=1.1.0" rel="stylesheet">
+
+<link href="/css/hl_theme/sublime.css?v=1.1.0" rel="stylesheet">
+
+<link href="//cdn.jsdelivr.net/npm/animate.css@4.1.0/animate.min.css" rel="stylesheet">
+
+<script src="//cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="/js/titleTip.js?v=1.1.0" ></script>
+
+<script src="//cdn.jsdelivr.net/npm/highlightjs@9.16.2/highlight.pack.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/jquery.cookie@1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.1.0" ></script>
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="">
+  <input class="theme_blog_path" value="">
+  <input id="theme_shortcut" value="true" />
+  <input id="theme_highlight_on" value="true" />
+  <input id="theme_code_copy" value="true" />
+</div>
+
+
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/"
+   class="avatar_target">
+    <img class="avatar"
+         src="/img/avatar.jpeg"/>
+</a>
+<div class="author">
+    <span>cfmy</span>
+</div>
+
+<div class="icon">
+    
+        
+            <a title="rss"
+               href="/atom.xml"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-rss"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="github"
+               href="https://github.com/appendHan"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-github"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <a title="email"
+               href="mailto:appendHan@gmail.com"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-email"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+    
+        
+    
+        
+    
+</div>
+
+
+
+
+
+<ul>
+    <li>
+        <div class="all active" data-rel="All">All
+            
+                <small>(13)</small>
+            
+        </div>
+    </li>
+    
+        
+            
+                
+    <li>
+        <div data-rel="学习笔记">
+            
+            学习笔记
+            <small>(7)</small>
+        </div>
+        
+    </li>
+
+            
+        
+    
+        
+            
+                
+    <li>
+        <div data-rel="随笔">
+            
+            随笔
+            <small>(6)</small>
+        </div>
+        
+    </li>
+
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+        
+            
+            
+            
+    </div>
+    <div>
+        
+        
+    </div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="13">
+<input type="hidden" id="yelog_site_word_count" value="23.5k">
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        Links
+        <i class="iconfont icon-left"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="http://yelog.org/">叶落阁</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <div class="right-top">
+        <div id="default-panel">
+            <i class="iconfont icon-search" data-title="搜索 快捷键 i"></i>
+            <div class="right-title">All</div>
+            <i class="iconfont icon-file-tree" data-title="切换到大纲视图 快捷键 w"></i>
+        </div>
+        <div id="search-panel">
+            <i class="iconfont icon-left" data-title="返回"></i>
+            <input id="local-search-input" autocomplete="off"/>
+            <label class="border-line" for="input"></label>
+            <i class="iconfont icon-case-sensitive" data-title="大小写敏感"></i>
+            <i class="iconfont icon-tag" data-title="标签"></i>
+        </div>
+        <div id="outline-panel" style="display: none">
+            <div class="right-title">大纲</div>
+            <i class="iconfont icon-list" data-title="切换到文章列表"></i>
+        </div>
+    </div>
+
+    <div class="tags-list">
+    <input id="tag-search" />
+    <div class="tag-wrapper">
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>闭包</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>观点</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>键盘驱动</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>匿名函数</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>设计模式</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>鼠标钩子</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>图像识别</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>吐槽</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>微信跳一跳</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>学习笔记</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>正则表达式</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>ActiveX</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Base64</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>HTTP协议</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>JavaScript</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Lambda</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Markdown</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>windows</a>
+            </li>
+        
+    </div>
+
+</div>
+
+    
+    <div id="local-search-result">
+
+    </div>
+    
+    <nav id="title-list-nav">
+        
+        
+        <a  class="All 随笔 "
+           href="/2018/11/20/NandGame/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="NandGame">NandGame</span>
+            <span class="post-date" title="2018-11-20 09:40:51">2018/11/20</span>
+        </a>
+        
+        
+        <a  class="All 随笔 "
+           href="/2018/04/11/%E9%9A%8F%E7%AC%94-%E9%94%AE%E7%9B%98%E9%A9%B1%E5%8A%A8%E7%BA%A7%E5%88%AB%E6%A8%A1%E6%8B%9F/"
+           data-tag="键盘驱动,ActiveX"
+           data-author="" >
+            <span class="post-title" title="随笔-键盘驱动级别模拟">随笔-键盘驱动级别模拟</span>
+            <span class="post-date" title="2018-04-11 16:57:24">2018/04/11</span>
+        </a>
+        
+        
+        <a  class="All 学习笔记 "
+           href="/2018/02/26/%E6%B5%85%E8%B0%88JS%E9%97%AD%E5%8C%85/"
+           data-tag="JavaScript,闭包"
+           data-author="" >
+            <span class="post-title" title="浅谈JS闭包">浅谈JS闭包</span>
+            <span class="post-date" title="2018-02-26 10:36:24">2018/02/26</span>
+        </a>
+        
+        
+        <a  class="All 随笔 "
+           href="/2018/02/23/C-%E5%AE%9E%E7%8E%B0%E8%B7%B3%E4%B8%80%E8%B7%B3%E8%BE%85%E5%8A%A9/"
+           data-tag="鼠标钩子,图像识别"
+           data-author="" >
+            <span class="post-title" title="C#实现跳一跳辅助">C#实现跳一跳辅助</span>
+            <span class="post-date" title="2018-02-23 09:29:03">2018/02/23</span>
+        </a>
+        
+        
+        <a  class="All 随笔 "
+           href="/2018/01/27/%E5%85%B3%E4%BA%8E%E5%8A%AA%E5%8A%9B/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="关于努力">关于努力</span>
+            <span class="post-date" title="2018-01-27 19:30:33">2018/01/27</span>
+        </a>
+        
+        
+        <a  class="All 学习笔记 "
+           href="/2016/07/11/%E6%B5%85%E8%B0%88%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0%E5%8F%8ALambda/"
+           data-tag="学习笔记,匿名函数,Lambda"
+           data-author="" >
+            <span class="post-title" title="浅谈匿名函数及Lambda">浅谈匿名函数及Lambda</span>
+            <span class="post-date" title="2016-07-11 22:22:03">2016/07/11</span>
+        </a>
+        
+        
+        <a  class="All 学习笔记 "
+           href="/2016/04/24/%E6%B5%85%E8%B0%88%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/"
+           data-tag="设计模式"
+           data-author="" >
+            <span class="post-title" title="浅谈工厂模式">浅谈工厂模式</span>
+            <span class="post-date" title="2016-04-24 17:58:48">2016/04/24</span>
+        </a>
+        
+        
+        <a  class="All 学习笔记 "
+           href="/2016/04/08/%E6%B5%85%E8%B0%88%E6%AD%A3%E5%88%99/"
+           data-tag="正则表达式"
+           data-author="" >
+            <span class="post-title" title="浅谈正则">浅谈正则</span>
+            <span class="post-date" title="2016-04-08 20:14:56">2016/04/08</span>
+        </a>
+        
+        
+        <a  class="All 随笔 "
+           href="/2016/03/27/%E5%85%B3%E4%BA%8Ewindows%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E6%9C%BA%E5%88%B6%E7%9A%84%E8%87%86%E6%83%B3/"
+           data-tag="观点,windows"
+           data-author="" >
+            <span class="post-title" title="关于windows消息队列机制的臆想">关于windows消息队列机制的臆想</span>
+            <span class="post-date" title="2016-03-27 13:15:29">2016/03/27</span>
+        </a>
+        
+        
+        <a  class="All 随笔 "
+           href="/2016/03/19/Windows%E4%BF%AE%E5%A4%8D%E8%A1%A5%E4%B8%811.2/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Windows修复补丁1.2">Windows修复补丁1.2</span>
+            <span class="post-date" title="2016-03-19 16:25:11">2016/03/19</span>
+        </a>
+        
+        
+        <a  class="All 学习笔记 "
+           href="/2016/03/14/%E6%B5%85%E8%B0%88Base64%E8%BD%AC%E7%A0%81/"
+           data-tag="Base64"
+           data-author="" >
+            <span class="post-title" title="浅谈Base64转码">浅谈Base64转码</span>
+            <span class="post-date" title="2016-03-14 16:40:40">2016/03/14</span>
+        </a>
+        
+        
+        <a  class="All 学习笔记 "
+           href="/2016/03/12/%E6%B5%85%E8%B0%88HTTP%E5%8D%8F%E8%AE%AE%E4%B8%AD%E7%9A%84Content-Type/"
+           data-tag="HTTP协议"
+           data-author="" >
+            <span class="post-title" title="浅谈HTTP协议中的Content-Type">浅谈HTTP协议中的Content-Type</span>
+            <span class="post-date" title="2016-03-12 21:45:54">2016/03/12</span>
+        </a>
+        
+        
+        <a  class="All 学习笔记 "
+           href="/2016/02/28/Markdown%20%E8%AF%AD%E6%B3%95%E5%AE%9E%E4%BE%8B/"
+           data-tag="Markdown"
+           data-author="" >
+            <span class="post-title" title="Markdown 语法实例">Markdown 语法实例</span>
+            <span class="post-date" title="2016-02-28 16:20:05">2016/02/28</span>
+        </a>
+        
+        <div id="no-item-tips">
+
+        </div>
+    </nav>
+    <div id="outline-list">
+    </div>
+</div>
+
+    </div>
+    <div class="hide-list">
+        <div class="semicircle" data-title="切换全屏 快捷键 s">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div id="post">
+    <div class="pjax">
+        <article id="post-浅谈工厂模式" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">浅谈工厂模式</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="学习笔记">学习笔记</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            <i class="iconfont icon-tag"></i>
+            
+            <a class="color5">设计模式</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+            Created At : <time class="date" title='Updated At: 2024-02-21 17:21:55'>2016-04-24 17:58</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        <span>Count:2.3k</span>
+        
+        
+        <span id="busuanzi_container_page_pv">
+            Views 👀 :<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%9E%8B%E6%A8%A1%E5%9E%8B"><span class="toc-text">创建型模型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82"><span class="toc-text">简单工厂</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="toc-text">简单工厂的优缺点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%A5%E5%8E%82%E7%B1%BB%E4%B8%AD%E5%8F%8D%E5%B0%84"><span class="toc-text">工厂类中反射</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95"><span class="toc-text">工厂方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82"><span class="toc-text">抽象工厂</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%82%E7%94%A8%E6%80%A7"><span class="toc-text">适用性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%88%E6%9E%9C"><span class="toc-text">效果</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%82%E7%85%A7"><span class="toc-text">参照</span></a></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="创建型模型"><a href="#创建型模型" class="headerlink" title="创建型模型"></a>创建型模型</h1><blockquote>
+<p>创建型模型抽象了实例化过程，它们帮助一个系统独立于如何创建、组合和表示它的那些对象。<em>类创建型模型</em>使用继承改变实例化的类，而<em>对象创建模型</em>将实例化委托给另一个对象</p>
+<p>在这些模式中有两个不断出现的主旋律。第一，他们都将关于该系统使用哪些具体的类的信息封装起来。第二，他们隐藏了这些类的示例是如何被创建和放在一起的。整个系统关于这些对象所知道的是有抽象类所定义的接口。因为，创建型模式在什么地方被创建，又谁创建，它是怎么被创建的，以及何时被创建这几个方面给予很大的灵活性。它们允许你用结构和功能差别很大的“产品”对象配置一个系统。配置可以是静态的（即编译时制定）。也可以是动态的（在运行时）</p>
+</blockquote>
+<p>目前创建型模型主要有  </p>
+<ol>
+<li>抽象工厂(ABSTRACT FACTORY)  </li>
+<li>生成器(BUILDER)  </li>
+<li>工厂方法(FACTORY METHOD)  </li>
+<li>原型(PROTOTYPE)  </li>
+<li>单件(SINGLETON)</li>
+</ol>
+<span id="more"></span>
+
+<p>本篇主要介绍工厂方法和抽象工厂，以下通过demo演示从<br>没有模式-&gt;简单工厂-&gt;工厂方法-&gt;抽象工厂 的过程</p>
+<h2 id="简单工厂"><a href="#简单工厂" class="headerlink" title="简单工厂"></a>简单工厂</h2><p>假设你是一个农夫，你开垦了一块土地并准备大展身手，你打算先随便种点东西试一试土地合不合格，于是播撒下不知名野种，不久后长出了各式各样野果，这个过程中没有用到任何模式，落实到代码中就是</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">YG yeguo = <span class="keyword">new</span> YG();<span class="comment">//野果</span></span><br><span class="line">yeguo.bozhong();<span class="comment">//播种</span></span><br><span class="line">yeguo.jiaoshui();<span class="comment">//浇水</span></span><br><span class="line">yeguo.shouhuo();<span class="comment">//收获</span></span><br></pre></td></tr></table></figure>
+
+<p>检验过土地之后，你准备开始正式种地了，目前的情况是你只有这一小块地，他一次只能种一类种子；种子可以买，但是并不是所有种子都是一个季度种植的。所以你打算根据季度来种下不同的种子，获得不同的产物（这里不考虑收获周期）。我们假设你打算春季种植大葱，秋季种植油菜，UML图如下</p>
+<p><img src="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F.png"></p>
+<p>这时候种植代码大致如下所示</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Product product ;<span class="comment">//农作物</span></span><br><span class="line"><span class="keyword">switch</span>(Season)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">case</span> Spring:</span><br><span class="line">		product = Shallot();<span class="comment">//大葱</span></span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	<span class="keyword">case</span> Fall:</span><br><span class="line">		product = Rape();<span class="comment">//油菜</span></span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	<span class="literal">default</span>:</span><br><span class="line">		<span class="keyword">throw</span> <span class="keyword">new</span> Exception();</span><br><span class="line">&#125;</span><br><span class="line">product.bozhong();<span class="comment">//播种</span></span><br><span class="line">product.jiaoshui();<span class="comment">//浇水</span></span><br><span class="line">product.shouhuo();<span class="comment">//收获</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>我们假设把实例化农作物那部分代码封装到一个类<code>Factory</code>里面，这个类返回一个<code>Product</code>实例，那么即是<strong>简单工厂</strong></p>
+<p>这时候Client代码如下所示</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Pruduct product = (<span class="keyword">new</span> Factory()).CreatePruduct();</span><br><span class="line">product.bozhong();<span class="comment">//播种</span></span><br><span class="line">product.jiaoshui();<span class="comment">//浇水</span></span><br><span class="line">product.shouhuo();<span class="comment">//收获</span></span><br></pre></td></tr></table></figure>
+
+<p>在简单工厂中，我们将大葱和油菜抽象为农作物，它们共同继承了农作物，实现了农作物的三个接口，它们共同组成了产品部分；然后将实例化部分代码封装进工厂类中，这样你就不无需关注产品是如何实例化的，也不知道实例化对象具体是哪个产品，反正你只需要操作他的接口方法就可以了</p>
+<p>在简单工厂中，假设你需要新增一个农产品–萝卜，你需要新增一个萝卜类，并让它实现农产品接口的几个接口方法，这看起来没什么难的。但是！你还要修改工厂方法中的实例化过程（示例中的<code>switch case</code>那段代码），不然它永远不会帮你实例化一个萝卜出来，这样的话工厂方法中就违反了一个设计模式中的基本原则–<strong>开放封闭原则</strong>，即对修改封闭，对扩展开放，我们可以新增类，但不能轻易修改已经存在的类。这个问题也有一些取巧的方法处理，利用反射来实例化不同产品。综上，简单工厂严格意义上来说并不算一个合格的设计模式，它只不过利用产品接口来统一产品类别，再将实例化方法封装到一个单独的类别中，并没有什么扩展性可言，在不修改旧代码的情况下可以说无法扩展</p>
+<h3 id="简单工厂的优缺点"><a href="#简单工厂的优缺点" class="headerlink" title="简单工厂的优缺点"></a>简单工厂的优缺点</h3><ol>
+<li>通过接口调用不同实例的方法，符合面向接口编程的基本思路，减轻了客户端和具体产品类的耦合</li>
+<li>将实例化的过程封装到一个具体工厂类中，客户无需关注自己实例化过程，进一步减轻了客户的负担，但是如果增加新的产品，这个具体工厂类就必须修改自己的实例化过程代码，不符合开放封闭原则</li>
+<li>通过接口调用的缺点：产品接口中的方法一旦确定就无法改变，因为一旦改变就要修改其所有子类</li>
+</ol>
+<h3 id="工厂类中反射"><a href="#工厂类中反射" class="headerlink" title="工厂类中反射"></a>工厂类中反射</h3><p>反射大致思路有几种   </p>
+<ol>
+<li>构造工厂类是传入类名，以此反射   </li>
+<li>工厂类内部根据某个配置项或某个变量值，以此反射</li>
+</ol>
+<h2 id="工厂方法"><a href="#工厂方法" class="headerlink" title="工厂方法"></a>工厂方法</h2><p>在简单工厂模式下，你在一块土地上种植了大葱、油菜、花生、玉米等等农作物，工厂类总是能帮你实例出各种应季农作物，你只要做好自己的工作（播种，浇水，收获），如此就够了。随着时间的流逝，你膨胀了，你觉得自己应该扩张一块地，用来种植一些经济作物，比如水果、烟草。但是简单工厂模式下无法满足这个扩展，因为工厂类只有一个，那么我们尝试把工厂类抽象化，再把农作物和经济作物抽象为作物，UML图如下</p>
+<p><img src="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F3%20%282%29.png"></p>
+<p>图中的土地和工厂统一为一个类，不做区分。这时候Client不单单是简单的调用工厂的<code>CreatePruduct</code>获取实例了，因为首先需要先选择一个工厂子类（土地A或土地B），这种情况下如果在新增一个作物类型，也只需要新增一个工厂类和对应的作物类就可以，这个时候你的注意力比以前高了一个维度，之前你关注土地种出的具体作物是萝卜还是油菜，现在只需要关注它是农作物还是经济作物就可以，至于具体农作物种植什么，可以在农作物中通过简单工厂方法实现</p>
+<h2 id="抽象工厂"><a href="#抽象工厂" class="headerlink" title="抽象工厂"></a>抽象工厂</h2><p>随着时光的流逝，你的工厂和土地已经扩充到了960万平方公里，地球上能中的东西都被你种了一个遍，收获的作物可以到地球三十圈，这时候你突然发现了转基因这个概念，你将继续扩充土地，支持转基因作物</p>
+<p>这时UML图变成下图</p>
+<p><img src="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F3%20%283%29.png"></p>
+<p>这时你可以在转基因和非转基因这个增面进行扩张，而作物类别已经无法进行扩张了，因为你个抽象工厂已经确定了只能生产农作物和经济作物</p>
+<h2 id="适用性"><a href="#适用性" class="headerlink" title="适用性"></a>适用性</h2><ul>
+<li>一个系统要独立于它的产品的创建、组合和表示时</li>
+<li>一个系统要由多个产品系列中的一个来配置时</li>
+<li>当你要强调一系列相关的产品对象的设计以便进行联合使用时</li>
+<li>当你提供你个产品类库，而只想显示它们的接口而不是实现时</li>
+</ul>
+<h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><ol>
+<li><em>他分离了具体的类</em> 因为一个工厂封装创建产品对象的责任和过程，它将客户和类的实现分离。客户通过它们的抽象接口操纵实例。产品的类名也在具体工厂的实现中被分离；它们不出现在客户代码中</li>
+<li><em>它使得易于交换产品系列</em> 一个具体工厂类在一个应用仅出现以此–即在它初始化的时候。这使得改变一个应用的具体工厂变得容易。它只需改变具体的工厂既可以使用不同的产品配置，这是因为一个抽象工厂创建了一个完整的产品系列，所以整个产品系列会立刻改变</li>
+<li><em>他有利于产品的一致性</em> 当一个系列中的产品对象被设计成一起工作时，一个应用一次只能使用同一个系列中的对象</li>
+<li><em>难以支持新品种的产品</em> 难以扩展抽象工厂以生产新种类的产品。这是因为抽象工厂接口确定了可以被创建的产品集合。支持心种类的产品就需要扩展该工厂接口，这将涉及所有子类的改变</li>
+</ol>
+<h1 id="参照"><a href="#参照" class="headerlink" title="参照"></a>参照</h1><ul>
+<li>《设计模式-可复用面向对象软件的基础》</li>
+</ul>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 appendHan@gmail.com </span>
+    </div>
+</article>
+
+
+
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">
+    ©2017 cfmy
+</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full" data-title="切换全屏 快捷键 s"><span class="min "></span></button>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.1.0" ></script>
+
+<script src="/js/script.js?v=1.1.0" ></script>
+<script>
+    var img_resize = 'default';
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $("#post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().trim().split('\n').length, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 35px;
+    }
+    .pre-numbering{
+        margin: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 18px 3px 15px 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: ;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>

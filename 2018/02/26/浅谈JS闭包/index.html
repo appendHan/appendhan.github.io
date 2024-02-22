@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>浅谈JS闭包 | 橙风沐雨&#39;s</title>
+  <meta name="keywords" content=" JavaScript , 闭包 ">
+  <meta name="description" content="浅谈JS闭包 | 橙风沐雨&#39;s">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="前言之前在网上找到的一个逻辑游戏NandGame 它官方介绍是这样的  The Nand Game takes you though building a working computer, starting from the most basic components. It does not require any prerequisites, in particular it does no">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NandGame">
+<meta property="og:url" content="http://example.com/2018/11/20/NandGame/index.html">
+<meta property="og:site_name" content="橙风沐雨&#39;s">
+<meta property="og:description" content="前言之前在网上找到的一个逻辑游戏NandGame 它官方介绍是这样的  The Nand Game takes you though building a working computer, starting from the most basic components. It does not require any prerequisites, in particular it does no">
+<meta property="og:locale">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-1.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-2.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-3.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-4.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-5.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-6.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-7.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-8.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-9.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-10.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-11.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-12.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-13.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-14.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-15.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-16.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-17.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-18.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-19.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-20.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-21.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-22.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-23.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-24.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-25.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-26.png">
+<meta property="article:published_time" content="2018-11-20T01:40:51.000Z">
+<meta property="article:modified_time" content="2024-02-21T09:17:03.465Z">
+<meta property="article:author" content="cfmy">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-1.png">
+
+
+<link rel="icon" href="/img/avatar.jpeg">
+
+<link href="/css/style.css?v=1.1.0" rel="stylesheet">
+
+<link href="/css/hl_theme/sublime.css?v=1.1.0" rel="stylesheet">
+
+<link href="//cdn.jsdelivr.net/npm/animate.css@4.1.0/animate.min.css" rel="stylesheet">
+
+<script src="//cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="/js/titleTip.js?v=1.1.0" ></script>
+
+<script src="//cdn.jsdelivr.net/npm/highlightjs@9.16.2/highlight.pack.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/jquery.cookie@1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.1.0" ></script>
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="">
+  <input class="theme_blog_path" value="">
+  <input id="theme_shortcut" value="true" />
+  <input id="theme_highlight_on" value="true" />
+  <input id="theme_code_copy" value="true" />
+</div>
+
+
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/"
+   class="avatar_target">
+    <img class="avatar"
+         src="/img/avatar.jpeg"/>
+</a>
+<div class="author">
+    <span>cfmy</span>
+</div>
+
+<div class="icon">
+    
+        
+            <a title="rss"
+               href="/atom.xml"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-rss"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="github"
+               href="https://github.com/appendHan"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-github"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <a title="email"
+               href="mailto:appendHan@gmail.com"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-email"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+    
+        
+    
+        
+    
+</div>
+
+
+
+
+
+<ul>
+    <li>
+        <div class="all active" data-rel="All">All
+            
+                <small>(13)</small>
+            
+        </div>
+    </li>
+    
+        
+            
+                
+    <li>
+        <div data-rel="学习笔记">
+            
+            学习笔记
+            <small>(7)</small>
+        </div>
+        
+    </li>
+
+            
+        
+    
+        
+            
+                
+    <li>
+        <div data-rel="随笔">
+            
+            随笔
+            <small>(6)</small>
+        </div>
+        
+    </li>
+
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+        
+            
+            
+            
+    </div>
+    <div>
+        
+        
+    </div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="13">
+<input type="hidden" id="yelog_site_word_count" value="23.5k">
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        Links
+        <i class="iconfont icon-left"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="http://yelog.org/">叶落阁</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <div class="right-top">
+        <div id="default-panel">
+            <i class="iconfont icon-search" data-title="搜索 快捷键 i"></i>
+            <div class="right-title">All</div>
+            <i class="iconfont icon-file-tree" data-title="切换到大纲视图 快捷键 w"></i>
+        </div>
+        <div id="search-panel">
+            <i class="iconfont icon-left" data-title="返回"></i>
+            <input id="local-search-input" autocomplete="off"/>
+            <label class="border-line" for="input"></label>
+            <i class="iconfont icon-case-sensitive" data-title="大小写敏感"></i>
+            <i class="iconfont icon-tag" data-title="标签"></i>
+        </div>
+        <div id="outline-panel" style="display: none">
+            <div class="right-title">大纲</div>
+            <i class="iconfont icon-list" data-title="切换到文章列表"></i>
+        </div>
+    </div>
+
+    <div class="tags-list">
+    <input id="tag-search" />
+    <div class="tag-wrapper">
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>闭包</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>观点</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>键盘驱动</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>匿名函数</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>设计模式</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>鼠标钩子</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>图像识别</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>吐槽</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>微信跳一跳</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>学习笔记</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>正则表达式</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>ActiveX</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Base64</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>HTTP协议</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>JavaScript</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Lambda</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Markdown</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>windows</a>
+            </li>
+        
+    </div>
+
+</div>
+
+    
+    <div id="local-search-result">
+
+    </div>
+    
+    <nav id="title-list-nav">
+        
+        
+        <a  class="All 随笔 "
+           href="/2018/11/20/NandGame/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="NandGame">NandGame</span>
+            <span class="post-date" title="2018-11-20 09:40:51">2018/11/20</span>
+        </a>
+        
+        
+        <a  class="All 随笔 "
+           href="/2018/04/11/%E9%9A%8F%E7%AC%94-%E9%94%AE%E7%9B%98%E9%A9%B1%E5%8A%A8%E7%BA%A7%E5%88%AB%E6%A8%A1%E6%8B%9F/"
+           data-tag="键盘驱动,ActiveX"
+           data-author="" >
+            <span class="post-title" title="随笔-键盘驱动级别模拟">随笔-键盘驱动级别模拟</span>
+            <span class="post-date" title="2018-04-11 16:57:24">2018/04/11</span>
+        </a>
+        
+        
+        <a  class="All 学习笔记 "
+           href="/2018/02/26/%E6%B5%85%E8%B0%88JS%E9%97%AD%E5%8C%85/"
+           data-tag="JavaScript,闭包"
+           data-author="" >
+            <span class="post-title" title="浅谈JS闭包">浅谈JS闭包</span>
+            <span class="post-date" title="2018-02-26 10:36:24">2018/02/26</span>
+        </a>
+        
+        
+        <a  class="All 随笔 "
+           href="/2018/02/23/C-%E5%AE%9E%E7%8E%B0%E8%B7%B3%E4%B8%80%E8%B7%B3%E8%BE%85%E5%8A%A9/"
+           data-tag="鼠标钩子,图像识别"
+           data-author="" >
+            <span class="post-title" title="C#实现跳一跳辅助">C#实现跳一跳辅助</span>
+            <span class="post-date" title="2018-02-23 09:29:03">2018/02/23</span>
+        </a>
+        
+        
+        <a  class="All 随笔 "
+           href="/2018/01/27/%E5%85%B3%E4%BA%8E%E5%8A%AA%E5%8A%9B/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="关于努力">关于努力</span>
+            <span class="post-date" title="2018-01-27 19:30:33">2018/01/27</span>
+        </a>
+        
+        
+        <a  class="All 学习笔记 "
+           href="/2016/07/11/%E6%B5%85%E8%B0%88%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0%E5%8F%8ALambda/"
+           data-tag="学习笔记,匿名函数,Lambda"
+           data-author="" >
+            <span class="post-title" title="浅谈匿名函数及Lambda">浅谈匿名函数及Lambda</span>
+            <span class="post-date" title="2016-07-11 22:22:03">2016/07/11</span>
+        </a>
+        
+        
+        <a  class="All 学习笔记 "
+           href="/2016/04/24/%E6%B5%85%E8%B0%88%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/"
+           data-tag="设计模式"
+           data-author="" >
+            <span class="post-title" title="浅谈工厂模式">浅谈工厂模式</span>
+            <span class="post-date" title="2016-04-24 17:58:48">2016/04/24</span>
+        </a>
+        
+        
+        <a  class="All 学习笔记 "
+           href="/2016/04/08/%E6%B5%85%E8%B0%88%E6%AD%A3%E5%88%99/"
+           data-tag="正则表达式"
+           data-author="" >
+            <span class="post-title" title="浅谈正则">浅谈正则</span>
+            <span class="post-date" title="2016-04-08 20:14:56">2016/04/08</span>
+        </a>
+        
+        
+        <a  class="All 随笔 "
+           href="/2016/03/27/%E5%85%B3%E4%BA%8Ewindows%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E6%9C%BA%E5%88%B6%E7%9A%84%E8%87%86%E6%83%B3/"
+           data-tag="观点,windows"
+           data-author="" >
+            <span class="post-title" title="关于windows消息队列机制的臆想">关于windows消息队列机制的臆想</span>
+            <span class="post-date" title="2016-03-27 13:15:29">2016/03/27</span>
+        </a>
+        
+        
+        <a  class="All 随笔 "
+           href="/2016/03/19/Windows%E4%BF%AE%E5%A4%8D%E8%A1%A5%E4%B8%811.2/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Windows修复补丁1.2">Windows修复补丁1.2</span>
+            <span class="post-date" title="2016-03-19 16:25:11">2016/03/19</span>
+        </a>
+        
+        
+        <a  class="All 学习笔记 "
+           href="/2016/03/14/%E6%B5%85%E8%B0%88Base64%E8%BD%AC%E7%A0%81/"
+           data-tag="Base64"
+           data-author="" >
+            <span class="post-title" title="浅谈Base64转码">浅谈Base64转码</span>
+            <span class="post-date" title="2016-03-14 16:40:40">2016/03/14</span>
+        </a>
+        
+        
+        <a  class="All 学习笔记 "
+           href="/2016/03/12/%E6%B5%85%E8%B0%88HTTP%E5%8D%8F%E8%AE%AE%E4%B8%AD%E7%9A%84Content-Type/"
+           data-tag="HTTP协议"
+           data-author="" >
+            <span class="post-title" title="浅谈HTTP协议中的Content-Type">浅谈HTTP协议中的Content-Type</span>
+            <span class="post-date" title="2016-03-12 21:45:54">2016/03/12</span>
+        </a>
+        
+        
+        <a  class="All 学习笔记 "
+           href="/2016/02/28/Markdown%20%E8%AF%AD%E6%B3%95%E5%AE%9E%E4%BE%8B/"
+           data-tag="Markdown"
+           data-author="" >
+            <span class="post-title" title="Markdown 语法实例">Markdown 语法实例</span>
+            <span class="post-date" title="2016-02-28 16:20:05">2016/02/28</span>
+        </a>
+        
+        <div id="no-item-tips">
+
+        </div>
+    </nav>
+    <div id="outline-list">
+    </div>
+</div>
+
+    </div>
+    <div class="hide-list">
+        <div class="semicircle" data-title="切换全屏 快捷键 s">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div id="post">
+    <div class="pjax">
+        <article id="post-浅谈JS闭包" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">浅谈JS闭包</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="学习笔记">学习笔记</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            <i class="iconfont icon-tag"></i>
+            
+            <a class="color1">JavaScript</a>
+            
+            <a class="color3">闭包</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+            Created At : <time class="date" title='Updated At: 2024-02-22 10:45:00'>2018-02-26 10:36</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        <span>Count:1.1k</span>
+        
+        
+        <span id="busuanzi_container_page_pv">
+            Views 👀 :<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%95"><span class="toc-text">引</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AD%E5%8C%85"><span class="toc-text">闭包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8E%E8%AE%B0"><span class="toc-text">后记</span></a></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>JavaScript 闭包笔记，闭包在我看来只是一个噱头，实际用处肯定不大。因为在我看来，语法容易理解的东西拼接成复杂也好简单也好的逻辑才是程序该有的样子，而闭包只有有点绕，但是自己推敲下，发现不过也就是这么回事的东西</p>
+<p>此文结合<a target="_blank" rel="noopener" href="http://www.runoob.com/js/js-function-closures.html">菜鸟驿站</a>的计数器问题做个笔记</p>
+<span id="more"></span>
+
+<h2 id="引"><a href="#引" class="headerlink" title="引"></a>引</h2><p>如果想在JS中设计一个全局计数器，可以写如下方法</p>
+<pre><code class="JavaScript">    var counter = 0;
+    
+    function add() &#123;
+        return counter += 1;
+    &#125;
+    
+    add();
+    add();
+    add();
+     
+    // 计数器现在为 3
+</code></pre>
+<p>这个写法很简单，但是缺点也很明显，counter作为全局变量暴漏在外，不是一个<strong>优秀</strong>的设计习惯，那如果在函数内部声明counter呢？不用想就知道不行，那样每次调用函数都会初始化一次，遍无法计数</p>
+<pre><code class="JavaScript">    function add() &#123;
+        var counter = 0;
+        return counter += 1;
+    &#125;
+    
+    add();
+    add();
+    add();
+    
+    // 本意是想输出 3, 但事与愿违，输出的都是 1 !
+</code></pre>
+<blockquote>
+<p>所有函数都能访问全局变量。  </p>
+</blockquote>
+<blockquote>
+<p>实际上，在 JavaScript 中，所有函数都能访问它们上一层的作用域。</p>
+</blockquote>
+<blockquote>
+<p>JavaScript 支持嵌套函数。嵌套函数可以访问上一层的函数变量。</p>
+</blockquote>
+<p>那么如果设计一个嵌套函数，外层初始化counter，内层累加，问题就解决了，提前是外部可以直接调用嵌套函数</p>
+<pre><code class="JavaScript">    function add() &#123;
+        var counter = 0;
+        function plus() &#123;counter += 1;&#125;
+        plus();    
+        return counter; 
+    &#125;
+</code></pre>
+<blockquote>
+<p>如果我们能在外部访问 plus() 函数，这样就能解决计数器的困境。</p>
+</blockquote>
+<blockquote>
+<p>我们同样需要确保 counter &#x3D; 0 只执行一次。</p>
+</blockquote>
+<blockquote>
+<p>我们需要闭包。</p>
+</blockquote>
+<h2 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h2><p>菜鸟驿站直接给出了实现了闭包代码如下</p>
+<pre><code class="JavaScript">    var add = (function () &#123;
+        var counter = 0;
+        return function () &#123;return counter += 1;&#125;
+    &#125;)();
+     
+    add();
+    add();
+    add();
+     
+    // 计数器为 3
+</code></pre>
+<blockquote>
+<p>变量 add 指定了函数自我调用的返回字值。</p>
+</blockquote>
+<blockquote>
+<p>自我调用函数只执行一次。设置计数器为 0。并返回函数表达式。</p>
+</blockquote>
+<blockquote>
+<p>add变量可以作为一个函数使用。非常棒的部分是它可以访问函数上一层作用域的计数器。</p>
+</blockquote>
+<blockquote>
+<p>这个叫作 JavaScript 闭包。它使得函数拥有私有变量变成可能。</p>
+</blockquote>
+<blockquote>
+<p>计数器受匿名函数的作用域保护，只能通过 add 方法修改。</p>
+</blockquote>
+<p>我觉得这段代码有点太故弄玄虚了，让人一眼看上去觉得很难理解，我按照自己的思路分析一下从嵌套到闭包的过程</p>
+<pre><code class="JavaScript">    function add() &#123;
+        var counter = 0;
+        function plus() &#123;counter += 1;&#125;
+        plus();    
+        return counter; 
+    &#125;
+</code></pre>
+<p>这是之前的嵌套函数，他的问题在于外部无法调用*plus()<em>方法，我将其改成返回</em>plus()*方法</p>
+<pre><code class="JavaScript">    function add() &#123;
+        var counter = 0;
+        function plus() &#123;counter += 1;&#125;
+        return plus; 
+    &#125;
+</code></pre>
+<p>就变成这鸟样了，但是plus方法没有返回值，我想要的counter，所以再改一下，让plus方法返回counter+1</p>
+<pre><code class="JavaScript">    function add() &#123;
+        var counter = 0;
+        function plus() &#123;return counter += 1;&#125;
+        return plus; 
+    &#125;
+</code></pre>
+<p>注意，这个时候闭包已经实现了，为什么这么说呢？</p>
+<ol>
+<li>add()方法中初始化了counter，返回了plus()方法，这样外部可以直接调用plus()方法</li>
+<li>plus()可以直接实现累加，他不会再去初始化一遍counter了</li>
+</ol>
+<p>这段代码调用如下：</p>
+<pre><code class="JavaScript">    function add() &#123;
+        var counter = 0;
+        function plus() &#123;return counter += 1;&#125;
+        return plus; 
+    &#125;
+    
+    var plus = add();//初始化一次counter
+    plus();//1
+    plus();//2
+    plus();//3
+</code></pre>
+<p>简化一下代码，不要plus名字了，返回匿名方法</p>
+<pre><code class="JavaScript">    function add() &#123;
+        var counter = 0;
+        return function() &#123;return counter += 1;&#125;
+    &#125;
+    
+    var plus = add();//初始化一次counter
+    plus();//1
+    plus();//2
+    plus();//3
+</code></pre>
+<p>每次手动初始化一遍太麻烦，利用函数的<strong>自我调用</strong>再次修改一下代码就变成了最终版</p>
+<pre><code class="JavaScript">    var add = (function() &#123;
+        var counter = 0;
+        return function() &#123;return counter += 1;&#125;
+    &#125;)();//这里执行一遍自己，并返回计数方法给add
+    
+    add();//1
+    add();//2
+    add();//3
+</code></pre>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><ol>
+<li>闭包就是利用嵌套函数，外层初始化变量，内层处理变量，然后外层返回内层方法</li>
+<li>JS特性就是这种情况下，虽然是函数内的变量，但是函数结束不会被回收，因为返回的嵌套函数仍然会用到它，从而巧妙的隐藏了变量在函数内</li>
+<li>论私有的重要性</li>
+</ol>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 appendHan@gmail.com </span>
+    </div>
+</article>
+
+
+
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">
+    ©2017 cfmy
+</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full" data-title="切换全屏 快捷键 s"><span class="min "></span></button>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.1.0" ></script>
+
+<script src="/js/script.js?v=1.1.0" ></script>
+<script>
+    var img_resize = 'default';
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $("#post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().trim().split('\n').length, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 35px;
+    }
+    .pre-numbering{
+        margin: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 18px 3px 15px 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: ;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>

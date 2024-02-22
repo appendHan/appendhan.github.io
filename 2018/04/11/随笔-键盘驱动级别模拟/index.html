@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>随笔-键盘驱动级别模拟 | 橙风沐雨&#39;s</title>
+  <meta name="keywords" content=" 键盘驱动 , ActiveX ">
+  <meta name="description" content="随笔-键盘驱动级别模拟 | 橙风沐雨&#39;s">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="前言之前在网上找到的一个逻辑游戏NandGame 它官方介绍是这样的  The Nand Game takes you though building a working computer, starting from the most basic components. It does not require any prerequisites, in particular it does no">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NandGame">
+<meta property="og:url" content="http://example.com/2018/11/20/NandGame/index.html">
+<meta property="og:site_name" content="橙风沐雨&#39;s">
+<meta property="og:description" content="前言之前在网上找到的一个逻辑游戏NandGame 它官方介绍是这样的  The Nand Game takes you though building a working computer, starting from the most basic components. It does not require any prerequisites, in particular it does no">
+<meta property="og:locale">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-1.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-2.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-3.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-4.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-5.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-6.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-7.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-8.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-9.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-10.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-11.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-12.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-13.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-14.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-15.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-16.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-17.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-18.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-19.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-20.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-21.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-22.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-23.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-24.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-25.png">
+<meta property="og:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-26.png">
+<meta property="article:published_time" content="2018-11-20T01:40:51.000Z">
+<meta property="article:modified_time" content="2024-02-21T09:17:03.465Z">
+<meta property="article:author" content="cfmy">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cfmyhome-1256032936.cos.ap-shanghai.myqcloud.com/nandgame-1.png">
+
+
+<link rel="icon" href="/img/avatar.jpeg">
+
+<link href="/css/style.css?v=1.1.0" rel="stylesheet">
+
+<link href="/css/hl_theme/sublime.css?v=1.1.0" rel="stylesheet">
+
+<link href="//cdn.jsdelivr.net/npm/animate.css@4.1.0/animate.min.css" rel="stylesheet">
+
+<script src="//cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="/js/titleTip.js?v=1.1.0" ></script>
+
+<script src="//cdn.jsdelivr.net/npm/highlightjs@9.16.2/highlight.pack.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/jquery.cookie@1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.1.0" ></script>
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="">
+  <input class="theme_blog_path" value="">
+  <input id="theme_shortcut" value="true" />
+  <input id="theme_highlight_on" value="true" />
+  <input id="theme_code_copy" value="true" />
+</div>
+
+
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/"
+   class="avatar_target">
+    <img class="avatar"
+         src="/img/avatar.jpeg"/>
+</a>
+<div class="author">
+    <span>cfmy</span>
+</div>
+
+<div class="icon">
+    
+        
+            <a title="rss"
+               href="/atom.xml"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-rss"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="github"
+               href="https://github.com/appendHan"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-github"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <a title="email"
+               href="mailto:appendHan@gmail.com"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-email"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+    
+        
+    
+        
+    
+</div>
+
+
+
+
+
+<ul>
+    <li>
+        <div class="all active" data-rel="All">All
+            
+                <small>(13)</small>
+            
+        </div>
+    </li>
+    
+        
+            
+                
+    <li>
+        <div data-rel="学习笔记">
+            
+            学习笔记
+            <small>(7)</small>
+        </div>
+        
+    </li>
+
+            
+        
+    
+        
+            
+                
+    <li>
+        <div data-rel="随笔">
+            
+            随笔
+            <small>(6)</small>
+        </div>
+        
+    </li>
+
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+        
+            
+            
+            
+    </div>
+    <div>
+        
+        
+    </div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="13">
+<input type="hidden" id="yelog_site_word_count" value="23.5k">
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        Links
+        <i class="iconfont icon-left"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="http://yelog.org/">叶落阁</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <div class="right-top">
+        <div id="default-panel">
+            <i class="iconfont icon-search" data-title="搜索 快捷键 i"></i>
+            <div class="right-title">All</div>
+            <i class="iconfont icon-file-tree" data-title="切换到大纲视图 快捷键 w"></i>
+        </div>
+        <div id="search-panel">
+            <i class="iconfont icon-left" data-title="返回"></i>
+            <input id="local-search-input" autocomplete="off"/>
+            <label class="border-line" for="input"></label>
+            <i class="iconfont icon-case-sensitive" data-title="大小写敏感"></i>
+            <i class="iconfont icon-tag" data-title="标签"></i>
+        </div>
+        <div id="outline-panel" style="display: none">
+            <div class="right-title">大纲</div>
+            <i class="iconfont icon-list" data-title="切换到文章列表"></i>
+        </div>
+    </div>
+
+    <div class="tags-list">
+    <input id="tag-search" />
+    <div class="tag-wrapper">
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>闭包</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>观点</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>键盘驱动</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>匿名函数</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>设计模式</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>鼠标钩子</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>图像识别</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>吐槽</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>微信跳一跳</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>学习笔记</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>正则表达式</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>ActiveX</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Base64</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>HTTP协议</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>JavaScript</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Lambda</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Markdown</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>windows</a>
+            </li>
+        
+    </div>
+
+</div>
+
+    
+    <div id="local-search-result">
+
+    </div>
+    
+    <nav id="title-list-nav">
+        
+        
+        <a  class="All 随笔 "
+           href="/2018/11/20/NandGame/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="NandGame">NandGame</span>
+            <span class="post-date" title="2018-11-20 09:40:51">2018/11/20</span>
+        </a>
+        
+        
+        <a  class="All 随笔 "
+           href="/2018/04/11/%E9%9A%8F%E7%AC%94-%E9%94%AE%E7%9B%98%E9%A9%B1%E5%8A%A8%E7%BA%A7%E5%88%AB%E6%A8%A1%E6%8B%9F/"
+           data-tag="键盘驱动,ActiveX"
+           data-author="" >
+            <span class="post-title" title="随笔-键盘驱动级别模拟">随笔-键盘驱动级别模拟</span>
+            <span class="post-date" title="2018-04-11 16:57:24">2018/04/11</span>
+        </a>
+        
+        
+        <a  class="All 学习笔记 "
+           href="/2018/02/26/%E6%B5%85%E8%B0%88JS%E9%97%AD%E5%8C%85/"
+           data-tag="JavaScript,闭包"
+           data-author="" >
+            <span class="post-title" title="浅谈JS闭包">浅谈JS闭包</span>
+            <span class="post-date" title="2018-02-26 10:36:24">2018/02/26</span>
+        </a>
+        
+        
+        <a  class="All 随笔 "
+           href="/2018/02/23/C-%E5%AE%9E%E7%8E%B0%E8%B7%B3%E4%B8%80%E8%B7%B3%E8%BE%85%E5%8A%A9/"
+           data-tag="鼠标钩子,图像识别"
+           data-author="" >
+            <span class="post-title" title="C#实现跳一跳辅助">C#实现跳一跳辅助</span>
+            <span class="post-date" title="2018-02-23 09:29:03">2018/02/23</span>
+        </a>
+        
+        
+        <a  class="All 随笔 "
+           href="/2018/01/27/%E5%85%B3%E4%BA%8E%E5%8A%AA%E5%8A%9B/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="关于努力">关于努力</span>
+            <span class="post-date" title="2018-01-27 19:30:33">2018/01/27</span>
+        </a>
+        
+        
+        <a  class="All 学习笔记 "
+           href="/2016/07/11/%E6%B5%85%E8%B0%88%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0%E5%8F%8ALambda/"
+           data-tag="学习笔记,匿名函数,Lambda"
+           data-author="" >
+            <span class="post-title" title="浅谈匿名函数及Lambda">浅谈匿名函数及Lambda</span>
+            <span class="post-date" title="2016-07-11 22:22:03">2016/07/11</span>
+        </a>
+        
+        
+        <a  class="All 学习笔记 "
+           href="/2016/04/24/%E6%B5%85%E8%B0%88%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/"
+           data-tag="设计模式"
+           data-author="" >
+            <span class="post-title" title="浅谈工厂模式">浅谈工厂模式</span>
+            <span class="post-date" title="2016-04-24 17:58:48">2016/04/24</span>
+        </a>
+        
+        
+        <a  class="All 学习笔记 "
+           href="/2016/04/08/%E6%B5%85%E8%B0%88%E6%AD%A3%E5%88%99/"
+           data-tag="正则表达式"
+           data-author="" >
+            <span class="post-title" title="浅谈正则">浅谈正则</span>
+            <span class="post-date" title="2016-04-08 20:14:56">2016/04/08</span>
+        </a>
+        
+        
+        <a  class="All 随笔 "
+           href="/2016/03/27/%E5%85%B3%E4%BA%8Ewindows%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E6%9C%BA%E5%88%B6%E7%9A%84%E8%87%86%E6%83%B3/"
+           data-tag="观点,windows"
+           data-author="" >
+            <span class="post-title" title="关于windows消息队列机制的臆想">关于windows消息队列机制的臆想</span>
+            <span class="post-date" title="2016-03-27 13:15:29">2016/03/27</span>
+        </a>
+        
+        
+        <a  class="All 随笔 "
+           href="/2016/03/19/Windows%E4%BF%AE%E5%A4%8D%E8%A1%A5%E4%B8%811.2/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Windows修复补丁1.2">Windows修复补丁1.2</span>
+            <span class="post-date" title="2016-03-19 16:25:11">2016/03/19</span>
+        </a>
+        
+        
+        <a  class="All 学习笔记 "
+           href="/2016/03/14/%E6%B5%85%E8%B0%88Base64%E8%BD%AC%E7%A0%81/"
+           data-tag="Base64"
+           data-author="" >
+            <span class="post-title" title="浅谈Base64转码">浅谈Base64转码</span>
+            <span class="post-date" title="2016-03-14 16:40:40">2016/03/14</span>
+        </a>
+        
+        
+        <a  class="All 学习笔记 "
+           href="/2016/03/12/%E6%B5%85%E8%B0%88HTTP%E5%8D%8F%E8%AE%AE%E4%B8%AD%E7%9A%84Content-Type/"
+           data-tag="HTTP协议"
+           data-author="" >
+            <span class="post-title" title="浅谈HTTP协议中的Content-Type">浅谈HTTP协议中的Content-Type</span>
+            <span class="post-date" title="2016-03-12 21:45:54">2016/03/12</span>
+        </a>
+        
+        
+        <a  class="All 学习笔记 "
+           href="/2016/02/28/Markdown%20%E8%AF%AD%E6%B3%95%E5%AE%9E%E4%BE%8B/"
+           data-tag="Markdown"
+           data-author="" >
+            <span class="post-title" title="Markdown 语法实例">Markdown 语法实例</span>
+            <span class="post-date" title="2016-02-28 16:20:05">2016/02/28</span>
+        </a>
+        
+        <div id="no-item-tips">
+
+        </div>
+    </nav>
+    <div id="outline-list">
+    </div>
+</div>
+
+    </div>
+    <div class="hide-list">
+        <div class="semicircle" data-title="切换全屏 快捷键 s">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div id="post">
+    <div class="pjax">
+        <article id="post-随笔-键盘驱动级别模拟" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">随笔-键盘驱动级别模拟</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="随笔">随笔</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            <i class="iconfont icon-tag"></i>
+            
+            <a class="color5">键盘驱动</a>
+            
+            <a class="color3">ActiveX</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+            Created At : <time class="date" title='Updated At: 2024-02-21 17:25:22'>2018-04-11 16:57</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        <span>Count:1.8k</span>
+        
+        
+        <span id="busuanzi_container_page_pv">
+            Views 👀 :<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ActiveX%E6%8E%A7%E4%BB%B6"><span class="toc-text">ActiveX控件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JS%E5%88%86%E6%9E%90"><span class="toc-text">JS分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%94%AE%E7%9B%98%E9%A9%B1%E5%8A%A8%E7%BA%A7%E5%88%AB%E6%A8%A1%E6%8B%9F"><span class="toc-text">键盘驱动级别模拟</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8E%E8%AE%B0"><span class="toc-text">后记</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%95%E7%94%A8"><span class="toc-text">引用</span></a></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>上个月央行征信改版导致登陆需要安装密码控件，这一改可把我折腾坏了，还是第一次处理控件登陆的问题，临时学习了很多，踩了很多坑，目前终于稳定能使用了，这里大概记一下经历</p>
+<span id="more"></span>
+
+<h2 id="ActiveX控件"><a href="#ActiveX控件" class="headerlink" title="ActiveX控件"></a>ActiveX控件</h2><p>我等日常最常用都接触过的浏览器控件就是Flash，全名是_Adobe Flash Player_，我记得这个空间的身板还不小，大概二百兆，而且不同浏览器还要下载不同的版本，之前还曝光说他有不少安全漏洞，再加上总是不定期升级，可以说是用户体验极差了，感觉Flash控件之后一定会慢慢被H5取代</p>
+<p>其实ActiveX控件这东西人如其名，就类似windows桌面程序中的各种控件，微软之前把他设计为可以嵌入在浏览器中，并给这个方向的控件起了个名字<strong>OCX</strong> 对象类别扩充组件（Object Linking and Embedding (OLE) Control Extension），后来随着网络越来越发达，逐渐发展为ActiveX，关于这个过程可以参考<a target="_blank" rel="noopener" href="https://www.cnblogs.com/olawonzhu/articles/1683424.html">OLE、OCX和ActiveX控件之间的比较 - OlawonZhu - 博客园</a></p>
+<p>从ActiveX的设计初衷来看，还是很有想法的，把浏览器页面当做载体，然后在页面内部启用控件，相当于浏览器里面嵌入一个自定义的程序，而其他网站也可以引用这个控件，不止实现了复用，更重要的是把丰富浏览器行为这个权利分配给了所有开发者，是一个不错的方向</p>
+<p>然而时代日新月异，面对新的浏览器甚至新的操作系统以及移动端的兴起，更重要的是Web的性质变化-Web必须承载更多的使命。ActiveX控件的弊端慢慢变得越来越尖锐，尖锐的无法接受，我觉得最大的弊端有两点：1无法跨平台<br>2必须安装后才可以使用</p>
+<p>ActiveX技术已经变成了时代的眼泪，现在很多控件也就只有IE浏览器还可以支持使用。央行征信这次改为控件输入密码也是够狠的，意味着以后查征信报告必须要在windows平台使用IE浏览器才可以</p>
+<h2 id="JS分析"><a href="#JS分析" class="headerlink" title="JS分析"></a>JS分析</h2><p>以下是央行登陆页面部分JS代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><br><span class="line">		   	<span class="keyword">var</span> pgeditor = <span class="keyword">new</span> $.<span class="title function_">pge</span>(&#123;</span><br><span class="line">				pgePath : <span class="string">&quot;http://file.zhongdengwang.com/ocx/&quot;</span>,<span class="comment">//控件下载目录，可以指定绝对路径，如&quot;http://www.baidu.com/download/&quot;</span></span><br><span class="line">				pgeId : <span class="string">&quot;pass&quot;</span>,<span class="comment">//控件id</span></span><br><span class="line">				pgeEdittype : <span class="number">0</span>,<span class="comment">//控件显示类型,0(星号),1(明文)</span></span><br><span class="line">				pgeEreg1 : <span class="string">&quot;[\\s\\S]*&quot;</span>,<span class="comment">//输入过程中字符类型限制，如&quot;[0-9]*&quot;表示只能输入数字</span></span><br><span class="line">				pgeEreg2 : <span class="string">&quot;[\\s\\S]&#123;6,12&#125;&quot;</span>,<span class="comment">//输入完毕后字符类型判断条件，与pgeditor.pwdValid()方法对应</span></span><br><span class="line">				pgeMaxlength : <span class="number">20</span>,<span class="comment">//允许最大输入长度</span></span><br><span class="line">				pgeTabindex : <span class="number">2</span>,<span class="comment">//tab键顺序</span></span><br><span class="line">				<span class="comment">//pgeCert : &quot;3081890281810092D9D8D04FB5F8EF9B8374F21690FD46FDBF49B40EECCDF416B4E2AC2044B0CFE3BD67EB4416B26FD18C9D3833770A526FD1AB66A83ED969AF74238D6C900403FC498154EC74EAF420E7338675CAD7F19332B4A56BE4FF946B662A3C2D217EFBE4DC646FB742B8C62BFE8E25FD5DC59E7540695FA8B9CD5BFD9F92DFAD009D230203010001&quot;,</span></span><br><span class="line">				<span class="attr">pgeCert</span>:<span class="string">&quot;3082010A0282010100A5875466E166609505D3BB4C51B03F8722F59FA317A2CDC94D83F85335F01EF986DA43C0FC02FDB056DE0DCD24D70F7755CF4D130D92B0AC347CD3AE69434E74212B57819867BC3AF6CFB5D343544082AA72A4751843305EF83417635D93CDE2B5DF8572FADB1CB56491D41368020AE787B2F6DE1D42193BF57B041198AF54A3878941F68ACE018634663D6E211D587BC373954A8C00425838493CB828E2493DF3DB2653C8E46399F88AB453D217A7FFD628A3F12BD0C4BAB9555C095C1013C60F2ADF1DCEF1845D764EFD2A25084A27B3FEC5B8121B08F8F94F4F14146F43BC2AF93C406EDE8F1DAE717FC512FF4B08E0D05A7223A5F8548FC14A6D9CF6E4030203010001&quot;</span>,</span><br><span class="line">				pgeClass : <span class="string">&quot;ocx_style&quot;</span>,<span class="comment">//控件css样式</span></span><br><span class="line">				pgeInstallClass : <span class="string">&quot;ocx_style&quot;</span>,<span class="comment">//针对安装或升级的css样式</span></span><br><span class="line">				pgeOnkeydown :<span class="string">&quot;FormSubmit()&quot;</span>,<span class="comment">//回车键响应函数，需焦点在控件中才能响应</span></span><br><span class="line">			   <span class="comment">//tabCallback : &quot;input2&quot;,//火狐tab键回调函数,设置要跳转到的对象ID</span></span><br><span class="line">			    <span class="attr">pgeOnfocus</span>:<span class="string">&quot;pgeFocus()&quot;</span>,<span class="comment">//监控光标切入密码控件框</span></span><br><span class="line">			    <span class="attr">pgeOnblur</span>:<span class="string">&quot;pgeBlur()&quot;</span>,<span class="comment">//监控光标切出密码控件框</span></span><br><span class="line">			   	<span class="comment">//windows10 edge&amp;Chrome42+相关</span></span><br><span class="line">			    <span class="attr">pgeWindowID</span>:<span class="string">&quot;password&quot;</span>+<span class="keyword">new</span> <span class="title class_">Date</span>().<span class="title function_">getTime</span>()+<span class="number">1</span>,</span><br><span class="line">			    <span class="attr">pgeRZRandNum</span>:<span class="string">&quot;24116953564831466890207747235682&quot;</span>,</span><br><span class="line">			    <span class="attr">pgeRZDataB</span>:<span class="string">&quot;zQhsRAHO06GuBFEIdZVOZw7Ro3biBdTHnARJruWMYi4=&quot;</span></span><br><span class="line">			&#125;);</span><br><span class="line">			<span class="variable language_">window</span>.<span class="property">pgeCtrl</span> = pgeditor;</span><br><span class="line">			<span class="keyword">var</span> i = <span class="number">0</span>;</span><br><span class="line">			<span class="comment">//密码控件获得焦点时，提示一下</span></span><br><span class="line">			<span class="keyword">function</span> <span class="title function_">pgeFocus</span>(<span class="params"></span>)&#123;</span><br><span class="line">				$(<span class="string">&quot;#tishi&quot;</span>).<span class="title function_">css</span>(<span class="string">&#x27;display&#x27;</span>,<span class="string">&#x27;block&#x27;</span>);</span><br><span class="line">				$(<span class="string">&quot;#passwordInfo&quot;</span>).<span class="title function_">css</span>(<span class="string">&#x27;display&#x27;</span>,<span class="string">&#x27;none&#x27;</span>);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="comment">//密码控件失去焦点时获得密码强度，并展示出来</span></span><br><span class="line">			<span class="keyword">function</span> <span class="title function_">pgeBlur</span>(<span class="params"></span>)&#123;</span><br><span class="line">			$(<span class="string">&quot;#tishi&quot;</span>).<span class="title function_">css</span>(<span class="string">&#x27;display&#x27;</span>,<span class="string">&#x27;none&#x27;</span>);</span><br><span class="line">			$(<span class="string">&quot;#passwordInfo&quot;</span>).<span class="title function_">css</span>(<span class="string">&#x27;display&#x27;</span>,<span class="string">&#x27;block&#x27;</span>);</span><br><span class="line">			<span class="title function_">checkPassword</span>();</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="variable language_">window</span>.<span class="property">onload</span> = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">			   $(<span class="string">&quot;#login&quot;</span>).<span class="title function_">focus</span>();</span><br><span class="line">			   pgeditor.<span class="title function_">pgInitialize</span>();</span><br><span class="line">			   $(<span class="string">&quot;lic&quot;</span>).<span class="title function_">html</span>(pgeditor.<span class="title function_">setLicense</span>());</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">			<span class="comment">//登录集成演示页面提交表单的方法</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">FormSubmit</span>(<span class="params"></span>) &#123;</span><br><span class="line">			$.<span class="title function_">ajax</span>(&#123;</span><br><span class="line">			   		<span class="attr">cache</span>:<span class="literal">false</span>,</span><br><span class="line">			        <span class="attr">type</span>:<span class="string">&quot;post&quot;</span>,</span><br><span class="line">			        <span class="attr">async</span>:<span class="literal">false</span>,</span><br><span class="line">					<span class="attr">url</span>:basepath+<span class="string">&quot;userReg.do?method=getSrandNum&amp;num=&quot;</span>+<span class="title class_">Math</span>.<span class="title function_">random</span>(),</span><br><span class="line">					<span class="attr">dataType</span>:<span class="string">&quot;text&quot;</span>,</span><br><span class="line">					<span class="attr">success</span>:<span class="keyword">function</span>(<span class="params">result</span>)&#123;</span><br><span class="line">						<span class="comment">//alert(&quot;*****&quot;+result);</span></span><br><span class="line">						pgeditor.<span class="title function_">pwdSetSk</span>(result);<span class="comment">//给控件设置随机因子</span></span><br><span class="line">					&#125;</span><br><span class="line">			  	&#125;);</span><br><span class="line">	<span class="keyword">var</span> pwdResult = pgeditor.<span class="title function_">pwdResultRSA</span>();<span class="comment">//获取密码AES+RSA密文</span></span><br><span class="line">	<span class="keyword">var</span> machineNetwork = pgeditor.<span class="title function_">machineNetwork</span>();<span class="comment">//获取网卡信息密文</span></span><br><span class="line">	<span class="keyword">var</span> machineDisk = pgeditor.<span class="title function_">machineDisk</span>();<span class="comment">//获取硬盘信息密文</span></span><br><span class="line">	<span class="keyword">var</span> machineCPU = pgeditor.<span class="title function_">machineCPU</span>();<span class="comment">//获取CPU信息密文</span></span><br><span class="line">	$(<span class="string">&quot;#password&quot;</span>).<span class="title function_">val</span>(pwdResult);<span class="comment">//将密码密文赋值给表单</span></span><br><span class="line">	$(<span class="string">&quot;#pass&quot;</span>).<span class="title function_">val</span>(pwdResult);</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>从它页面JS可以看出来应该是通过先填充几个ID之类的字段获取一个随机因子，给控件初始化用掉随机因子，然后几个字段和密码组合在调用控件的加密方法，赋值给密码input标签，最后提交表单</p>
+<h2 id="键盘驱动级别模拟"><a href="#键盘驱动级别模拟" class="headerlink" title="键盘驱动级别模拟"></a>键盘驱动级别模拟</h2><p>在ActiveX控件中使用C# 的SendInput或者是调win32.dll的 keybd_event 都是无法输入的，因为ActiveX控件本质就是windows小程序，他的权限其实是非常大的，这里推测是他在底层挂了键盘钩子，然后把消息中断了，使按键无法被上层其他程序捕获，猜测依据就是他在web的JS文件中的密码窗体获取焦点和失去焦点事件中操作了一个Interval调用了一个控件的intervlOut方法</p>
+<p>关于windows键盘消息队列相关内容请看引用，这里不在赘述，也不打算继续深入</p>
+<p>目前网络上能找的驱动级别键盘模拟dll有三个，WinIO、WinRang0以及DD</p>
+<ul>
+<li>WinIO及WinRang0是国外很早流传的两个dll，年代大概在2006年左右，网上相关资料已经非常少了，使用条件极其苛刻，需要在windows测试模式下安装一个驱动证书，依赖 i8042prt.sys 驱动-PS&#x2F;2键盘驱动，而且这个驱动还是即插即启动的那种，意味着要想使用必须连着PS&#x2F;2键盘</li>
+<li><a target="_blank" rel="noopener" href="http://www.ddxoft.com/">DD</a>是国人开发的一个dll，下载包内甚至包含了C#，Java，Python等语言使用Demo，内部实现了自己的驱动数字签名，可以直接加载使用，但是缺点是免费版会篡改IE主页，加载使用时必须要联网初始化，安全性不一定多可靠</li>
+</ul>
+<p>因为要在服务器发布，可以只能使用后者了，但是键盘驱动模拟有个很有意思的坑，就是远程连接上去发布退出时无效的-键盘模拟输入无效，但是通过服务器控制台登陆再退出就可以正常使用，这点我推测和连接原理有关系，可能不同的连接后再退出后是服务器保持了不同的状态，这点确实很坑</p>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><ul>
+<li>当程序实现后发现也没有多少代码，主要是寻找可靠地解决方案，不停地查资料比较费时间和脑力，这种问题没有相关经验真的是不到最后一刻稳定运行都不能确定能否成功解决</li>
+<li>感觉自己解决问题的途径太少，以后还需要积累</li>
+</ul>
+<h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/chengchen/archive/2010/03/24/1694260.html">驱动级键盘模拟（C#）（高手请飘过） - 程晨 - 博客园</a><br><a target="_blank" rel="noopener" href="https://www.douban.com/note/318793892/">Windows键盘驱动结构与消息机制</a>  </p>
+</blockquote>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 appendHan@gmail.com </span>
+    </div>
+</article>
+
+
+
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">
+    ©2017 cfmy
+</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full" data-title="切换全屏 快捷键 s"><span class="min "></span></button>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.1.0" ></script>
+
+<script src="/js/script.js?v=1.1.0" ></script>
+<script>
+    var img_resize = 'default';
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $("#post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().trim().split('\n').length, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 35px;
+    }
+    .pre-numbering{
+        margin: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 18px 3px 15px 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: ;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>
